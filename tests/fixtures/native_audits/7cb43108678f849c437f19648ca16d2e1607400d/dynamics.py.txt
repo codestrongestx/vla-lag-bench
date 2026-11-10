@@ -1,0 +1,661 @@
+"""Planar MuJoCo actors driven at the physics-substep frequency."""
+
+from __future__ import annotations
+
+import bisect
+import functools
+import math
+import xml.etree.ElementTree as ET
+from dataclasses import dataclass
+from typing import Any, Mapping, Sequence
+
+import numpy as np
+
+from dynabench.config import ReflectedTrajectorySample
+from dynabench.trajectory import reflected_kinematics
+
+
+_MotionPath = tuple[np.ndarray, np.ndarray, np.ndarray]
+
+
+def _yaw_quaternion(yaw: float) -> np.ndarray:
+    return np.asarray([math.cos(yaw / 2), 0.0, 0.0, math.sin(yaw / 2)])
+
+
+def offset_and_velocity(
+    actor: Any,
+    time_steps: float,
+    control_hz: float,
+    motion_path: _MotionPath | None = None,
+) -> tuple[np.ndarray, np.ndarray]:
+    """Evaluate one dynamic actor's relative position and world velocity."""
+
+    zero = np.zeros(3, dtype=np.float64)
+    if time_steps < actor.start_step:
+        return zero, zero
+    if isinstance(actor, ReflectedTrajectorySample):
+        return reflected_kinematics(actor, time_steps, control_hz)
+    local = time_steps - actor.start_step
+    if actor.end_step is not None and time_steps >= actor.end_step:
+        offset, _ = offset_and_velocity(
+            actor.model_copy(update={"end_step": None}), actor.end_step, control_hz, motion_path
+        )
+        return offset, zero
+
+    if actor.motion is not None:
+        return _constant_speed_offset_and_velocity(actor, local, control_hz, motion_path)
+
+    steps = [keyframe.step for keyframe in actor.keyframes]
+    if actor.loop:
+        local %= steps[-1]
+    elif local >= steps[-1]:
+        return np.asarray(actor.keyframes[-1].position_offset_m, dtype=np.float64), zero
+
+    left_index = max(0, bisect.bisect_right(steps, local) - 1)
+    step_span = steps[left_index + 1] - steps[left_index]
+    fraction = (local - steps[left_index]) / step_span
+    positions = [np.asarray(keyframe.position_offset_m, dtype=np.float64) for keyframe in actor.keyframes]
+    position, derivative = _path_state(positions, left_index + fraction, actor.interpolation, actor.loop)
+    return position, derivative * control_hz / step_span
+
+
+_ARC_LENGTH_RELATIVE_TOLERANCE = 1e-3
+_ARC_LENGTH_MAX_REFINEMENTS = 20
+_ARC_LENGTH_MAX_CELLS_PER_SEGMENT = 2048
+
+
+def _constant_speed_offset_and_velocity(
+    actor: Any,
+    local_steps: float,
+    control_hz: float,
+    path: _MotionPath | None,
+) -> tuple[np.ndarray, np.ndarray]:
+    positions, parameters, distances = path or _motion_path(actor)
+    distance = (
+        actor.motion.initial_phase * distances[-1]
+        + actor.motion.initial_direction
+        * local_steps
+        * actor.motion.speed_mps
+        / control_hz
+    )
+    if actor.loop:
+        distance %= distances[-1]
+    elif distance <= 0.0:
+        return positions[0].copy(), np.zeros(3)
+    elif distance >= distances[-1]:
+        return positions[-1].copy(), np.zeros(3)
+
+    right = np.searchsorted(distances, distance, side="right")
+    ds = distances[right] - distances[right - 1]
+    du_ds = (parameters[right] - parameters[right - 1]) / ds
+    parameter = parameters[right - 1] + (distance - distances[right - 1]) * du_ds
+    position, tangent = _path_state(positions, parameter, actor.interpolation, actor.loop)
+    return (
+        position,
+        tangent * du_ds * actor.motion.speed_mps * actor.motion.initial_direction,
+    )
+
+
+def _motion_path(actor: Any) -> _MotionPath:
+    positions_key = tuple(
+        tuple(float(value) for value in keyframe.position_offset_m)
+        for keyframe in actor.keyframes
+    )
+    return _arc_length_table(positions_key, actor.interpolation, actor.loop)
+
+
+def motion_path_length(actor: Any) -> float:
+    """Return the arc length of a distance-timed actor's path."""
+
+    return float(_motion_path(actor)[2][-1])
+
+
+@functools.lru_cache(maxsize=256)
+def _arc_length_table(
+    positions_key: tuple[tuple[float, ...], ...],
+    interpolation: str,
+    loop: bool,
+) -> tuple[np.ndarray, np.ndarray, np.ndarray]:
+    """Cache one path and its parameter-to-distance lookup table."""
+
+    positions = np.asarray(positions_key)
+    parameters = np.arange(len(positions), dtype=np.float64)
+    if interpolation == "cubic":
+        pieces = [
+            _segment_parameters(positions, segment, loop)[:-1]
+            for segment in range(len(positions) - 1)
+        ]
+        parameters = np.concatenate([*pieces, np.asarray([len(positions) - 1])])
+
+    samples = np.asarray([_path_state(positions, parameter, interpolation, loop)[0] for parameter in parameters])
+    chord_lengths = np.linalg.norm(np.diff(samples, axis=0), axis=1)
+    distances = np.concatenate(([0.0], np.cumsum(chord_lengths)))
+    if not math.isfinite(float(distances[-1])) or distances[-1] <= 0.0:
+        raise ValueError("motion.speed_mps path must have positive finite arc length")
+    keep = np.concatenate(([True], np.diff(distances) > 0.0))
+    parameters, distances = parameters[keep], distances[keep]
+    for array in (positions, parameters, distances):
+        array.setflags(write=False)
+    return positions, parameters, distances
+
+
+def _segment_parameters(positions: np.ndarray, segment: int, loop: bool) -> np.ndarray:
+    """Refine one cubic segment until linear arc-length inversion is accurate."""
+
+    error = "cubic motion path has a stationary tangent or is ill-conditioned"
+    critical = _tangent_extrema(positions, segment, loop)
+    candidates = [float(segment), *critical, float(segment + 1)]
+    tangent_norms = [
+        np.linalg.norm(_path_state(positions, value, "cubic", loop)[1])
+        for value in candidates
+    ]
+    if min(tangent_norms) <= max(tangent_norms) * _ARC_LENGTH_RELATIVE_TOLERANCE:
+        raise ValueError(error)
+
+    parameters = np.asarray([segment, segment + 1], dtype=np.float64)
+    for _ in range(_ARC_LENGTH_MAX_REFINEMENTS):
+        refined = [parameters[0]]
+        for left, right in zip(parameters, parameters[1:]):
+            endpoints = [_path_state(positions, value, "cubic", loop) for value in (left, right)]
+            chord = np.linalg.norm(endpoints[1][0] - endpoints[0][0])
+            extrema = [left, *(value for value in critical if left < value < right), right]
+            ratios = [
+                np.linalg.norm(_path_state(positions, value, "cubic", loop)[1])
+                * (right - left) / chord
+                for value in extrema
+            ] if chord else [math.inf]
+            if max(abs(ratio - 1.0) for ratio in ratios) > _ARC_LENGTH_RELATIVE_TOLERANCE:
+                refined.append((left + right) / 2.0)
+            refined.append(right)
+        if len(refined) - 1 > _ARC_LENGTH_MAX_CELLS_PER_SEGMENT:
+            raise ValueError(error)
+        if len(refined) == len(parameters):
+            return parameters
+        parameters = np.asarray(refined)
+    raise ValueError(error)
+
+
+def _tangent_extrema(positions: np.ndarray, segment: int, loop: bool) -> list[float]:
+    """Return interior extrema of tangent magnitude for one cubic segment."""
+
+    a, midpoint, endpoint = (
+        _path_state(positions, segment + fraction, "cubic", loop)[1]
+        for fraction in (0.0, 0.5, 1.0)
+    )
+    c = 2.0 * (endpoint + a - 2.0 * midpoint)
+    b = endpoint - a - c
+    coefficients = np.stack((a, b, c), axis=1)
+    squared = sum((np.convolve(axis, axis) for axis in coefficients), np.zeros(5))
+    derivative = np.arange(1, 5) * squared[1:]
+    roots = np.polynomial.polynomial.polyroots(derivative) if np.any(derivative) else []
+    return [
+        segment + root.real
+        for root in roots
+        if abs(root.imag) < 1e-9 and 0.0 < root.real < 1.0
+    ]
+
+
+def _path_state(
+    positions: Sequence[np.ndarray], parameter: float, interpolation: str, loop: bool
+) -> tuple[np.ndarray, np.ndarray]:
+    segment = min(int(parameter), len(positions) - 2)
+    fraction = parameter - segment
+    if interpolation == "linear":
+        left = positions[segment]
+        derivative = positions[segment + 1] - left
+        return left + fraction * derivative, derivative
+    if interpolation == "cubic":
+        return _catmull_rom(positions, segment, fraction, loop=loop)
+    raise ValueError(f"unsupported interpolation {interpolation!r}")
+
+
+def _catmull_rom(
+    positions: Sequence[np.ndarray],
+    left_index: int,
+    fraction: float,
+    *,
+    loop: bool,
+) -> tuple[np.ndarray, np.ndarray]:
+    """Evaluate a uniform Catmull-Rom segment and its derivative."""
+
+    if loop:
+        points = positions[:-1]
+        count = len(points)
+        p0 = points[(left_index - 1) % count]
+        p1 = points[left_index % count]
+        p2 = points[(left_index + 1) % count]
+        p3 = points[(left_index + 2) % count]
+    else:
+        last = len(positions) - 1
+        p0 = positions[max(0, left_index - 1)]
+        p1 = positions[left_index]
+        p2 = positions[min(last, left_index + 1)]
+        p3 = positions[min(last, left_index + 2)]
+
+    t = fraction
+    t2 = t * t
+    t3 = t2 * t
+    position = 0.5 * (
+        2.0 * p1
+        + (-p0 + p2) * t
+        + (2.0 * p0 - 5.0 * p1 + 4.0 * p2 - p3) * t2
+        + (-p0 + 3.0 * p1 - 3.0 * p2 + p3) * t3
+    )
+    derivative = 0.5 * (
+        (-p0 + p2)
+        + 2.0 * (2.0 * p0 - 5.0 * p1 + 4.0 * p2 - p3) * t
+        + 3.0 * (-p0 + 3.0 * p1 - 3.0 * p2 + p3) * t2
+    )
+    return position, derivative
+
+
+@dataclass
+class _Driver:
+    actor: Any
+    body_id: int
+    joint: str | None
+    initial_position: np.ndarray
+    initial_quaternion: np.ndarray | None
+    motion_path: _MotionPath | None
+    grasp_object: Any | None = None
+    grasp_steps_required: int | None = None
+    grasp_steps: int = 0
+    released: bool = False
+
+
+class _SubstepSim:
+    def __init__(
+        self,
+        sim: Any,
+        drivers: Sequence[_Driver],
+        *,
+        control_hz: float,
+        substeps_per_control: int,
+    ) -> None:
+        object.__setattr__(self, "_sim", sim)
+        object.__setattr__(self, "_drivers", tuple(drivers))
+        object.__setattr__(self, "_control_hz", control_hz)
+        object.__setattr__(self, "_substeps_per_control", substeps_per_control)
+        object.__setattr__(self, "_control_step", None)
+        object.__setattr__(self, "_substep", 0)
+        object.__setattr__(self, "_prepared_step_zero", False)
+        object.__setattr__(self, "_hold_time", None)
+
+    def __getattr__(self, name: str) -> Any:
+        return getattr(self._sim, name)
+
+    def __setattr__(self, name: str, value: Any) -> None:
+        if name.startswith("_"):
+            object.__setattr__(self, name, value)
+        else:
+            setattr(self._sim, name, value)
+
+    def set_control_step(self, step: int | None) -> None:
+        if step == 0:
+            for driver in self._drivers:
+                if driver.joint is None:
+                    position = self._sim.model.body_pos[driver.body_id]
+                else:
+                    pose = np.asarray(
+                        self._sim.data.get_joint_qpos(driver.joint),
+                        dtype=np.float64,
+                    )
+                    position = pose[:3]
+                    driver.initial_quaternion = pose[3:].copy()
+                driver.initial_position = np.asarray(position, dtype=np.float64).copy()
+                if self._prepared_step_zero:
+                    offset, _ = offset_and_velocity(
+                        driver.actor, 0.0, self._control_hz, driver.motion_path
+                    )
+                    driver.initial_position[:2] -= offset[:2]
+            self._prepared_step_zero = True
+        self._control_step = step
+        self._substep = 0
+        self._hold_time = None
+
+    def set_hold_time(self, time_steps: float) -> None:
+        self._control_step = None
+        self._hold_time = time_steps
+        self._substep = 0
+        self._apply(time_steps, free_joints=True, zero_planar_velocity=True)
+        self._sim.forward()
+
+    def step(self) -> None:
+        if self._hold_time is not None:
+            self._apply(
+                self._hold_time, free_joints=True, zero_planar_velocity=True
+            )
+            self._sim.step()
+            self._apply(
+                self._hold_time, free_joints=True, zero_planar_velocity=True
+            )
+            self._sim.forward()
+            return
+        if self._control_step is None:
+            self._sim.step()
+            return
+        before = self._control_step + self._substep / self._substeps_per_control
+        self._apply(before)
+        self._sim.step()
+        after = self._control_step + (self._substep + 1) / self._substeps_per_control
+        self._apply(after)
+        self._sim.forward()
+        self._substep += 1
+
+    def _apply(
+        self,
+        time_steps: float,
+        *,
+        free_joints: bool = True,
+        zero_planar_velocity: bool = False,
+    ) -> None:
+        for driver in self._drivers:
+            if driver.joint is not None and not free_joints:
+                continue
+            offset, linear_velocity = offset_and_velocity(
+                driver.actor, time_steps, self._control_hz, driver.motion_path
+            )
+            if driver.joint is None:
+                self._sim.model.body_pos[driver.body_id, :2] = (
+                    driver.initial_position[:2] + offset[:2]
+                )
+                continue
+
+            if driver.released:
+                continue
+            pose = np.asarray(
+                self._sim.data.get_joint_qpos(driver.joint), dtype=np.float64
+            ).copy()
+            pose[:2] = driver.initial_position[:2] + offset[:2]
+            velocity = np.asarray(
+                self._sim.data.get_joint_qvel(driver.joint), dtype=np.float64
+            ).copy()
+            velocity[:2] = 0.0 if zero_planar_velocity else linear_velocity[:2]
+            # Warmup holds XY at the selected phase while vertical physics and
+            # orientation settle. Step zero then captures that settled pose for
+            # the grasp-release actor's driven portion of the episode.
+            if driver.grasp_steps_required is not None and not zero_planar_velocity:
+                pose[2] = driver.initial_position[2]
+                pose[3:] = driver.initial_quaternion
+                velocity[2:] = 0.0
+            self._sim.data.set_joint_qpos(driver.joint, pose)
+            self._sim.data.set_joint_qvel(driver.joint, velocity)
+
+    def apply_time(self, time_steps: float, *, free_joints: bool = False) -> None:
+        """Apply an exact dynamic time without advancing physics."""
+
+        self._apply(time_steps, free_joints=free_joints)
+        self._sim.forward()
+
+
+class DynamicEnv:
+    """Apply configured free-joint motion while preserving the wrapped env API."""
+
+    def __init__(self, env: Any, actors: Sequence[Any]):
+        self.env = env
+        self.actors = tuple(actors)
+        self.initial_object_positions_m: dict[str, tuple[float, float, float]] = {}
+        self.initial_object_yaws_rad: dict[str, float] = {}
+        self._host: Any | None = None
+        self._sim: _SubstepSim | None = None
+        self._original_sim: Any | None = None
+
+    def __getattr__(self, name: str) -> Any:
+        return getattr(self.env, name)
+
+    def reset(self, *args: Any, **kwargs: Any) -> Any:
+        self._detach()
+        return self.env.reset(*args, **kwargs)
+
+    def set_dynamic_actors(self, actors: Sequence[Any]) -> None:
+        """Replace actors before initializing the next episode."""
+
+        self._detach()
+        self.actors = tuple(actors)
+
+    def set_initial_object_positions(
+        self, positions_m: Mapping[str, Sequence[float]]
+    ) -> None:
+        """Set per-object world positions for the next initialized episode."""
+
+        self.initial_object_positions_m = {
+            target: tuple(float(value) for value in position)
+            for target, position in positions_m.items()
+        }
+
+    def set_initial_object_yaws(self, yaws_rad: Mapping[str, float]) -> None:
+        """Set per-object world yaw angles for the next initialized episode."""
+
+        self.initial_object_yaws_rad = {
+            target: float(yaw) for target, yaw in yaws_rad.items()
+        }
+
+    def set_init_state(self, *args: Any, **kwargs: Any) -> Any:
+        result = self.env.set_init_state(*args, **kwargs)
+        if self.initial_object_positions_m or self.initial_object_yaws_rad:
+            self._apply_initial_object_poses()
+            result = self.env.regenerate_obs_from_state(self.env.get_sim_state())
+        self._attach()
+        return result
+
+    def step(self, *args: Any, **kwargs: Any) -> Any:
+        result = self.env.step(*args, **kwargs)
+        if self._sim is not None and self._sim._control_step is not None:
+            gripper = self._host.robots[0].gripper
+            for driver in self._sim._drivers:
+                required = driver.grasp_steps_required
+                if required is None or driver.released:
+                    continue
+                if self._host._check_grasp(gripper, driver.grasp_object):
+                    driver.grasp_steps += 1
+                    driver.released = driver.grasp_steps >= required
+                else:
+                    driver.grasp_steps = 0
+        return result
+
+    def set_dynamic_step(self, step: int | None) -> None:
+        if self._sim is None and self.actors:
+            raise RuntimeError("set_init_state must be called before dynamic stepping")
+        if step is not None and step < 0:
+            raise ValueError("dynamic step must be nonnegative")
+        if self._sim is not None:
+            self._sim.set_control_step(step)
+
+    def prepare_dynamic_step(self, step: int) -> bool:
+        """Move free-joint actors before observing the first control step."""
+
+        if self._sim is None:
+            return False
+        self._sim.set_control_step(step)
+        self._sim.apply_time(step, free_joints=True)
+        return True
+
+    def hold_dynamic_time(self, time_steps: float) -> bool:
+        """Keep actors at one trajectory time while other bodies settle."""
+
+        if self._sim is None:
+            return False
+        self._sim.set_hold_time(time_steps)
+        return True
+
+    def restore_prepared_dynamic_step(self, step: int) -> bool:
+        """Recover origins when the restored state already includes dynamic motion."""
+
+        if self._sim is None:
+            return False
+        self._sim.set_control_step(step)
+        for driver in self._sim._drivers:
+            if driver.joint is not None:
+                offset, _ = offset_and_velocity(
+                    driver.actor, step, self._sim._control_hz, driver.motion_path
+                )
+                driver.initial_position[:2] -= offset[:2]
+        self._sim.apply_time(step)
+        return True
+
+    def restore_actor_origins(self, model_xml: str | None) -> None:
+        """Restore model poses absent from flattened MuJoCo simulator state."""
+
+        if model_xml is None or not self.actors:
+            return
+        if self._sim is not None:
+            raise RuntimeError("restore actor origins before set_init_state attaches dynamics")
+        sim = _simulation_host(self.env).sim
+        root = ET.fromstring(model_xml)
+        for actor in self.actors:
+            body = root.find(f".//body[@name='{actor.target}']")
+            if body is None:
+                raise RuntimeError(
+                    f"dynamic body {actor.target!r} is missing from the recorded model XML"
+                )
+            body_id = sim.model.body_name2id(actor.target)
+            position = np.fromstring(body.attrib.get("pos", ""), sep=" ")
+            quaternion = np.fromstring(body.attrib.get("quat", ""), sep=" ")
+            if position.shape == (3,):
+                sim.model.body_pos[body_id] = position
+            if quaternion.shape == (4,):
+                sim.model.body_quat[body_id] = quaternion
+        sim.forward()
+
+    def apply_dynamic_time(
+        self, time_steps: float, *, free_joints: bool = False
+    ) -> None:
+        """Set moving actors for state-only rendering at an exact control time."""
+
+        if self._sim is None and self.actors:
+            raise RuntimeError("set_init_state must be called before applying dynamic time")
+        if time_steps < 0:
+            raise ValueError("dynamic time must be nonnegative")
+        if self._sim is not None:
+            self._sim.apply_time(time_steps, free_joints=free_joints)
+
+    def close(self) -> None:
+        self._detach()
+        self.env.close()
+
+    def _attach(self) -> None:
+        self._detach()
+        if not self.actors:
+            return
+        host = _simulation_host(self.env)
+        sim = host.sim
+        control_timestep = float(host.control_timestep)
+        model_timestep = float(host.model_timestep)
+        substeps = round(control_timestep / model_timestep)
+        if substeps <= 0 or not math.isclose(
+            substeps * model_timestep,
+            control_timestep,
+            rel_tol=0.0,
+            abs_tol=1e-9,
+        ):
+            raise ValueError("control timestep must be an integer number of physics substeps")
+        drivers = [_driver(host, sim, actor) for actor in self.actors]
+        proxy = _SubstepSim(
+            sim,
+            drivers,
+            control_hz=1.0 / control_timestep,
+            substeps_per_control=substeps,
+        )
+        host.sim = proxy
+        self._host = host
+        self._original_sim = sim
+        self._sim = proxy
+
+    def _apply_initial_object_poses(self) -> None:
+        host = _simulation_host(self.env)
+        sim = host.sim
+        targets = (
+            self.initial_object_positions_m.keys()
+            | self.initial_object_yaws_rad.keys()
+        )
+        for target in targets:
+            position = self.initial_object_positions_m.get(target)
+            yaw = self.initial_object_yaws_rad.get(target)
+            try:
+                body_id = sim.model.body_name2id(target)
+            except Exception as error:
+                raise ValueError(f"unknown initial-state object {target!r}") from error
+            joint_count = int(sim.model.body_jntnum[body_id])
+            if joint_count == 0:
+                if position is not None:
+                    sim.model.body_pos[body_id] = position
+                if yaw is not None:
+                    sim.model.body_quat[body_id] = _yaw_quaternion(yaw)
+                continue
+            if joint_count != 1:
+                raise ValueError(
+                    f"initial-state object {target!r} must be jointless or have one free joint"
+                )
+            joint_id = int(sim.model.body_jntadr[body_id])
+            joint = sim.model.joint_id2name(joint_id)
+            pose = np.asarray(sim.data.get_joint_qpos(joint), dtype=np.float64).copy()
+            if pose.shape != (7,):
+                raise ValueError(f"initial-state object {target!r} must use a free joint")
+            if position is not None:
+                pose[:3] = position
+            if yaw is not None:
+                pose[3:] = _yaw_quaternion(yaw)
+            sim.data.set_joint_qpos(joint, pose)
+        sim.forward()
+
+    def _detach(self) -> None:
+        if self._host is not None and self._original_sim is not None:
+            self._host.sim = self._original_sim
+        self._host = None
+        self._sim = None
+        self._original_sim = None
+
+
+def _simulation_host(env: Any) -> Any:
+    current = env
+    for _ in range(8):
+        if all(hasattr(current, name) for name in ("sim", "control_timestep", "model_timestep")):
+            return current
+        current = current.__dict__.get("env") if hasattr(current, "__dict__") else None
+        if current is None:
+            break
+    raise AttributeError("could not find the robosuite simulation host")
+
+
+def _driver(host: Any, sim: Any, actor: Any) -> _Driver:
+    try:
+        body_id = sim.model.body_name2id(actor.target)
+    except Exception as error:
+        raise ValueError(f"unknown dynamic target body {actor.target!r}") from error
+    joint_count = int(sim.model.body_jntnum[body_id])
+    motion_path = _motion_path(actor) if getattr(actor, "motion", None) is not None else None
+    if joint_count == 0:
+        if getattr(actor, "release_on_grasp_steps", None) is not None:
+            raise ValueError("release_on_grasp_steps requires a free-joint target")
+        return _Driver(
+            actor=actor,
+            body_id=body_id,
+            joint=None,
+            initial_position=np.asarray(sim.model.body_pos[body_id], dtype=np.float64).copy(),
+            initial_quaternion=None,
+            motion_path=motion_path,
+        )
+    if joint_count != 1:
+        raise ValueError(f"dynamic target {actor.target!r} must be jointless or have one free joint")
+    joint_id = int(sim.model.body_jntadr[body_id])
+    joint = sim.model.joint_id2name(joint_id)
+    qpos = np.asarray(sim.data.get_joint_qpos(joint), dtype=np.float64)
+    qvel = np.asarray(sim.data.get_joint_qvel(joint), dtype=np.float64)
+    if qpos.shape != (7,) or qvel.shape != (6,):
+        raise ValueError(f"dynamic target {actor.target!r} must use a free joint")
+    grasp_steps_required = getattr(actor, "release_on_grasp_steps", None)
+    grasp_object = None
+    if grasp_steps_required is not None:
+        grasp_object = next(
+            obj for obj in host.objects_dict.values() if obj.root_body == actor.target
+        )
+    return _Driver(
+        actor=actor,
+        body_id=body_id,
+        joint=joint,
+        initial_position=qpos[:3].copy(),
+        initial_quaternion=qpos[3:].copy(),
+        motion_path=motion_path,
+        grasp_object=grasp_object,
+        grasp_steps_required=grasp_steps_required,
+    )

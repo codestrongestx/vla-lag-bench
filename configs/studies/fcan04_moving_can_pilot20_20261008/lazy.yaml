@@ -1,0 +1,31 @@
+# Ribbed moving can, lazy: LIBERO speed grid, latencies of the food-can study.
+schema_version: 2
+name: fcan04-moving-can-ribbed-random20-750steps-lazy
+base_experiment: configs/studies/fcan04_moving_can_pilot20_20261008/base.yaml
+sweep:
+  trajectory.speed_mps:
+  - 0.001
+  - 0.025
+  - 0.05
+  - 0.075
+  - 0.1
+  - 0.125
+  - 0.15
+  - 0.175
+  - 0.2
+  inference.latency_ms:
+  - 120
+  - 240
+override:
+  inference.mode: lazy
+policy:
+  kind: dynamicvla
+  antialiasing_mode: DLSS
+  dlss_mode: Balanced
+  enable_dl_denoiser: true
+  enable_dlssg: false
+  render_mode: RaytracedLighting
+# Longest points first; order does not enter the study hash.
+order:
+- trajectory.speed_mps: descending
+- inference.latency_ms: descending

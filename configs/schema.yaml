@@ -1,0 +1,336 @@
+# Human-readable schema for every small YAML file in this repository.
+# Angle-bracket values describe a type; actual files contain concrete values.
+
+# configs/experiments/libero/*.yaml -- one file is one concrete condition, never a sweep.
+experiment:
+  schema_version: 5
+  name: <string>
+  model:
+    openpi_config: <string>
+    checkpoint: <path-or-uri>
+    engine: <openpi or flashrt; optional, defaults to openpi>
+    precision: <bf16, fp8 or nvfp4 (flashrt only); optional, defaults to bf16>
+    calibration: <recorded-policy-requests-npz; required for and only used by fp8 and nvfp4>
+    # Alternative model block for GR00T (omit openpi_config):
+    # backend: gr00t
+    # checkpoint: <Hugging-Face-repository-or-local-root>
+    # revision: <40-character-checkpoint-commit>
+    # checkpoint_subdir: <libero_spatial-libero_object-libero_goal-libero_10-or-compatible-subdirectory>
+    # embodiment: LIBERO_PANDA
+  benchmark:
+    kind: <libero; optional, defaults to libero>
+    suite: <string>
+    task_ids: <all-or-list-of-integers>
+    episodes_per_task: <positive-integer>
+    initial_state_indices: <null-or-list-of-official-state-indices>
+    episode_ids: <null-or-subset-of-0-through-episodes_per_task-minus-1>  # keeps each ID's seed and phase
+    control_hz: <positive-integer>
+    warmup_steps: <nonnegative-integer>
+    max_episode_steps: <positive-integer>  # excludes warmup_steps
+  initial_state_overrides:
+    - task_id: <nonnegative-integer>
+      initial_state_index: <official-state-index>
+      object_positions_m:
+        <mocap-body-name>: [<world-x>, <world-y>, <world-z>]
+  dynamics:                         # [] means the stock, static benchmark
+    - target: <mocap-body-name>
+      start_step: <nonnegative-integer>    # step 0 is after warmup
+      end_step: <integer-or-null>          # null means until episode end
+      loop: <boolean>
+      interpolation: <linear-or-cubic>
+      release_on_grasp_steps: <positive-integer-or-null>  # consecutive grasp checks before stopping XY drive; Z/rotation stay physical
+      slide_joints: <boolean>  # jointless body driven through added X/Y slide joints so friction carries objects on it; default false
+      carried_objects: [<free-body-name>]  # slide_joints only: objects resting on the body shift with it to the scheduled start (start pose only)
+      motion:                       # omit for legacy keyframe-step timing
+        speed_mps: <positive-number>
+        initial_phase: <number-0-through-1-or-random>  # optional; defaults to 0
+        initial_direction: <-1-or-1>                   # optional; defaults to 1
+      keyframes:                    # with motion: spatial waypoints; step must be omitted
+        - step: <0-or-omitted>      # legacy step is relative to start_step
+          position_offset_m: [<x>, <y>, <z>]
+        - step: <positive-integer-or-omitted>
+          position_offset_m: [<x>, <y>, <z>]
+  dynamics_by_task:                # listed task IDs override the default dynamics above
+    0: []                          # [] intentionally leaves task 0 static
+  trajectory:                      # null or one paired-phase fixed-speed condition
+    kind: <closed_path; omit for a reflected straight path>
+    target: <mocap-body-name>
+    start_step: <nonnegative-integer>
+    path_start_offset_m: [<x>, <y>, <z>]  # reflected straight path only
+    path_end_offset_m: [<x>, <y>, <z>]    # reflected straight path only
+    interpolation: <linear-or-cubic>      # closed path only
+    keyframes:                            # closed path only; first == last
+      - position_offset_m: [<x>, <y>, <z>]
+    speed_mps: <nonnegative-number>
+    release_on_grasp_steps: <null-or-positive-integer>  # stops XY drive; never locks Z/rotation
+    slide_joints: <boolean>  # closed_path only: drive a jointless fixture through X/Y slide joints; default false
+    carried_objects: [<free-body-name>]  # closed_path with slide_joints: objects shifted with the body to the scheduled start
+    phase_bins: <positive-integer-or-null>  # each bin is sampled in both directions
+    shuffle: <boolean>              # seeded permutation within each balanced replicate
+    episode_schedule:               # alternative to phase_bins; length == episodes_per_task
+      - initial_phase: <number-0-through-less-than-1>
+        initial_direction: <-1-or-1>
+  inference:
+    mode: <synchronous-lazy-or-continuous>
+    action_chunk_steps: <positive-integer>
+    execution_horizon_steps: <positive-integer>  # <= action_chunk_steps
+    latency_ms: <nonnegative-integer>
+    unavailable_action: [<environment-action-values>]
+  seeds:
+    environment: <nonnegative-integer>
+    dynamics: <nonnegative-integer>
+    policy: <nonnegative-integer>
+
+# configs/experiments/dynamicvla/*.yaml -- one exact DOM condition.
+dynamicvla_experiment:
+  schema_version: 5
+  name: <string>
+  model:
+    checkpoint: <local-directory>
+    checkpoint_sha256: <64-lowercase-hex-characters>
+  benchmark:
+    kind: dynamicvla
+    upstream_revision: <40-lowercase-hex-characters>
+    tasks:
+      - name: <globally-unique-string>
+        environments: [<globally-unique-JSON-path-relative-to-assets-root>]
+    episodes_per_environment: <positive-integer>
+    initial_states_per_environment: <positive-integer; optional, defaults to 1>  # replica r uses state r % count; state 0 is the official JSON state
+    start_at_rest: <boolean; optional, defaults to false>  # true zeroes the official DOM launch velocity
+    control_hz: 25
+    max_episode_steps: <positive-integer-or-null; optional, defaults to native active-action deadline>
+    driven_friction: <zero|native; optional, defaults to native>
+  # Robot base frame throughout: x forward, y left, z up (meters, radians).
+  # Authored states become derived environment JSONs; driven friction is explicit.
+  initial_state_overrides:
+    - environment: <configured-environment-path>
+      initial_state_index: <index-below-initial_states_per_environment>
+      object_positions_m:
+        <DOM-rigid-asset-name>: [<x>, <y>, <z>]
+      object_yaws_rad:               # replaces XYZ-Euler yaw; keeps official roll and pitch
+        <DOM-rigid-asset-name>: <yaw>
+  dynamics:                          # same fields as experiment.dynamics; explicit initial_phase; target is a DOM rigid asset name
+    - target: <DOM-rigid-asset-name>
+  trajectory:                        # same fields as experiment.trajectory; requires episode_schedule (length == episodes_per_environment)
+    target: <DOM-rigid-asset-name>
+  inference:
+    mode: <synchronous-lazy-or-continuous>
+    action_chunk_steps: <positive-integer>
+    execution_horizon_steps: <positive-integer>  # required for every mode; async latency steps + horizon must fit in action chunk
+    latency_ms: <nonnegative-multiple-of-40>
+  seeds:
+    policy: <nonnegative-integer>
+
+# configs/runtime/libero.yaml -- supported standalone LIBERO execution.
+# Historical runtime fields remain parseable for provenance, but retired
+# policy/environment protocols are rejected at execution boundaries.
+runtime:
+  schema_version: 3
+  kind: <libero; optional, defaults to libero>
+  name: <string>
+  policy_server:
+    host: <hostname-or-ip>
+    port: <integer-1-through-65535>
+    implementation: <single-or-dynamic_batching>
+    pytorch_compile_mode: <string>
+    max_batch_size: <1; up to N with dynamic_batching>
+    max_wait_ms: <0.0; any wait with dynamic_batching>
+    batch_padding: <none-or-fixed>     # fixed pads every pass to max_batch_size rows
+    deterministic_ops: <boolean>      # XLA deterministic kernels on the server
+  environment:
+    workers: <positive-integer>
+    reuse_task_envs: false
+    initial_state_strategy: cycle_official
+    process_start_method: <spawn-or-fork>
+    render_policy_observations_only: <boolean>  # optional; skip camera renders the policy never reads
+    dynamic_episode_queue: <boolean>            # optional; workers pull episodes one at a time
+
+# configs/runtime/dynamicvla_*.yaml -- host paths and process topology only.
+dynamicvla_runtime:
+  simulator_gpu: null
+  policy_gpu: null
+  schema_version: 3
+  kind: dynamicvla
+  name: <string>
+  dynamicvla_root: <local-directory>
+  assets_root: <local-directory>
+  simulator_python: <python-in-Isaac-environment>
+  policy_python: <python-in-policy-environment>
+  host: <local-hostname-or-loopback-ip>
+  image_port: <integer-1-through-65535>
+  action_port: <different-integer-1-through-65535>
+  startup_timeout_s: <positive-number>
+  reply_timeout_s: <positive-number>
+  suite_timeout_s: <positive-number>
+  replica_batch_size: 1
+  trace_writer_workers: <integer-in-[1,8]>
+  trace_images: <boolean; optional, defaults to false>  # true also stores every policy camera frame in traces
+  save_videos: <boolean>
+  video_episode_limit: <positive-integer-or-null>  # record only the first N completed episodes, without limiting evaluation
+  kit_tasking_threads: <positive-integer-or-null>  # defaults to 4; null restores Kit's uncapped worker pool
+  antialiasing_mode: <Off-TAA-FXAA-DLSS-DLAA-or-null>
+  enable_dl_denoiser: <boolean-or-null>
+  dlss_mode: <Performance-Balanced-Quality-Auto-or-null>
+  enable_dlssg: <boolean-or-null>
+  render_mode: <RaytracedLighting-or-null>
+  disable_fabric: <boolean>
+  simulator_library_paths: [<optional-library-directory>]
+
+# configs/studies/*.yaml -- a sweep and the policy semantics every point runs under.
+# Expands to one concrete experiment per point; anything that can change a
+# trajectory lives here and is hashed into study_hash. order and name are not.
+study:
+  schema_version: 2                          # schema 1 is historical/read-only
+  name: <safe-path-component>
+  base_experiment: <repo-relative-experiment-path>
+  sweep:
+    <dotted.experiment.path>: [<value>, <value>]
+  override:
+    <dotted.experiment.path>: <value>         # cannot overlap sweep keys
+  policy:                                   # optional; all defaults shown
+    implementation: single                  # dynamic_batching (GR00T only) batches concurrent requests;
+    max_batch_size: 1                       #   it changes floating-point results, so it is
+    batch_padding: none                     #   hashed with the study
+    max_wait_ms: 0.0
+    deterministic_ops: false
+    pytorch_compile_mode: max-autotune-no-cudagraphs
+  order:
+    - <sweep-key>: <rank-list-or-ascending-or-descending>
+
+# Compute only. Videos are an independent command over a study directory.
+placement:
+  schema_version: 1
+  host: <string>
+  gpu_budget: <positive-integer>
+  shards:
+    - policy_gpu: <gpu-index>
+      port: <integer-1-through-65535>
+      cpus: <taskset-list-such-as-0-13>
+  render_gpu: <gpu-index>                    # environment camera observations
+  workers_per_shard: <positive-integer>
+  policy_memory_fraction: <null-or-fraction>  # required when sharing a policy GPU
+  render_policy_observations_only: <boolean>  # optional; identical observations, fewer renders
+  dynamic_episode_queue: <boolean>            # optional; no idle workers at a point's tail
+  policy_python: <python-in-the-openpi-environment>
+  output_root: <directory>
+
+# Alternative study.policy for DynamicVLA; all observation settings enter study_hash.
+dynamicvla_study_policy:
+  kind: dynamicvla
+  replica_batch_size: 1
+  antialiasing_mode: <Off-TAA-FXAA-DLSS-DLAA-or-null>
+  enable_dl_denoiser: <boolean-or-null>
+  dlss_mode: <Performance-Balanced-Quality-Auto-or-null>
+  enable_dlssg: <boolean-or-null>
+  render_mode: <RaytracedLighting-or-null>
+  disable_fabric: <boolean>
+
+# DynamicVLA compute placement; observation semantics belong to study.policy.
+dynamicvla_placement:
+  schema_version: 1
+  kind: dynamicvla
+  host: <string>
+  gpu_budget: <positive-integer>
+  allow_gpu_sharing: <boolean; optional, defaults to false>  # requires distinct ports and disjoint CPU sets
+  shards:
+    - policy_gpu: <gpu-index>
+      simulator_gpu: <gpu-index>
+      image_port: <integer-1-through-65535>
+      action_port: <integer-1-through-65535>
+      cpus: <taskset-list-such-as-0-7>
+      shared_endpoint: <tcp://127.0.0.1:PORT; optional>  # shards naming one endpoint share one inference backend on their policy_gpu
+  installation:
+    dynamicvla_root: <clean-upstream-directory>
+    assets_root: <DOM-assets-directory>
+    simulator_python: <python-in-the-Isaac-environment>
+    policy_python: <python-in-the-policy-environment>
+    simulator_library_paths: [<library-directory>]
+    startup_timeout_s: <positive-number>
+    reply_timeout_s: <positive-number>
+    suite_timeout_s: <positive-number>
+    trace_writer_workers: <integer-in-[1,8]>
+    trace_images: <boolean; optional, defaults to false>  # true also stores every policy camera frame in traces
+    save_videos: <boolean; optional, defaults to false>  # encode live RGB separately from small state-only NPZs
+    video_episode_limit: <positive-integer-or-null>
+    kit_tasking_threads: <positive-integer-or-null>  # defaults to 4; null disables the cap
+  output_root: <directory>
+
+videos:
+  dynamicvla_path_tracing_spp: <integer-1-to-128-or-null>
+  clips_per_outcome: <positive-integer>
+  cameras: [<camera-name>]
+  resolution: <positive-integer>
+  per_task: <true-or-null>  # true selects clips_per_outcome per task instead of per point
+
+# runs/<run-id>/result.yaml -- one completed or failed execution.
+run_result:
+  schema_version: 4
+  run_id: <string>
+  status: <completed-or-failed>
+  error: <string-or-null>
+  experiment:
+    source: <repo-relative-path>
+    sha256: <64-lowercase-hex-characters>
+    resolved: experiment.yaml       # copy stored beside result.yaml
+  runtime:
+    source: <repo-relative-path>
+    sha256: <64-lowercase-hex-characters>
+    resolved: runtime.yaml          # copy stored beside result.yaml
+  code:
+    commit: <40-lowercase-hex-characters>
+    dirty: <boolean>
+  hardware:                         # discovered automatically; never authored
+    hostname: <string>
+    cpu_count: <positive-integer>
+    gpus:
+      - type: <string>
+        count: <positive-integer>
+  started_at: <utc-iso-8601>
+  finished_at: <utc-iso-8601>
+  latency:
+    control_hz: <positive-integer>
+    requested_ms: <nonnegative-integer>
+    effective_steps: <nonnegative-integer>
+  episode_data:                     # detailed rows live with traces, outside Git
+    format: jsonl
+    path: <artifact-path>
+    sha256: <64-lowercase-hex-characters>
+    records: <nonnegative-integer>
+  summary:
+    episodes: <nonnegative-integer>
+    successes: <nonnegative-integer>
+    success_rate: <number-0-through-1>
+    episode_errors: <nonnegative-integer>
+    policy_requests: <nonnegative-integer>
+    mean_active_steps: <nonnegative-number>
+    mean_control_steps: <nonnegative-number>
+    mean_wait_steps: <nonnegative-number>
+    tasks:
+      - task_id: <nonnegative-integer>
+        episodes: <positive-integer>
+        successes: <nonnegative-integer>
+        success_rate: <number-0-through-1>
+        mean_active_steps: <nonnegative-number>
+        mean_control_steps: <nonnegative-number>
+        mean_wait_steps: <nonnegative-number>
+  study_name: <string>                 # present only for runs a study made
+  study_hash: <64-lowercase-hex-characters>
+
+# results/libero/*.yaml -- a comparison derived only from immutable run results.
+comparison_result:
+  schema_version: 1
+  name: <string>
+  created_at: <utc-iso-8601>
+  run_ids: [<one-or-more-run-ids>]
+  rows:
+    - label: <string>
+      run_ids: [<one-or-more-run-ids-from-run_ids-above>]
+      metrics:
+        success_rate: <number-0-through-1>
+        mean_episode_steps: <nonnegative-number>
+
+# Executable timing semantics live in src/vlalagbench/timing.py.
+# - Dynamic offsets are relative to each initial pose. Actors either use legacy
+#   keyframe steps or motion.speed_mps with spatial-only waypoints. Linear and
+#   cubic paths are supported. Loops repeat continuously; non-loops hold their
+#   final offset. At end_step the current offset is frozen.

@@ -1,0 +1,21 @@
+schema_version: 5
+name: avocado06-bowl04-sync-0ms
+model:
+  checkpoint: $VLALAGBENCH_CHECKPOINTS/dynamic-vla-DOM
+  checkpoint_sha256: e3da8b1e0326d7a3ee6873f7fa17cdf7015201251901be5107377cb851ce3af8
+benchmark:
+  kind: dynamicvla
+  upstream_revision: a27a06d2ca74d0e987a5e552e01013073e93cfd8
+  tasks:
+    - name: DA
+      environments:
+        - tests/1-2_place_franka_avocado06d_O03_01050247_9766.json
+  episodes_per_environment: 20
+  control_hz: 25
+inference:
+  mode: synchronous
+  action_chunk_steps: 20
+  execution_horizon_steps: 14
+  latency_ms: 0
+seeds:
+  policy: 0

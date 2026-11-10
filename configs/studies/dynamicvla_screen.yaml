@@ -1,0 +1,12 @@
+schema_version: 2
+name: dynamicvla-screen
+base_experiment: configs/experiments/dynamicvla/dom_screen_240ms.yaml
+sweep:
+  inference.latency_ms: [0, 120, 240]
+policy:
+  kind: dynamicvla
+  antialiasing_mode: DLSS
+  dlss_mode: Balanced
+  enable_dl_denoiser: true
+  enable_dlssg: false
+  render_mode: RaytracedLighting

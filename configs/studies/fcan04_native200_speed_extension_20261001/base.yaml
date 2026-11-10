@@ -1,0 +1,838 @@
+# Existing 200 source conditions: 50 can placements across four phase/direction strata.
+# Matches the pooled study condition coverage; episode ordering differs from its 20+180 split.
+schema_version: 5
+name: fcan04-native200-speed-extension-750steps
+model:
+  checkpoint: $VLALAGBENCH_CHECKPOINTS/dynamic-vla-DOM
+  checkpoint_sha256: e3da8b1e0326d7a3ee6873f7fa17cdf7015201251901be5107377cb851ce3af8
+benchmark:
+  kind: dynamicvla
+  upstream_revision: a27a06d2ca74d0e987a5e552e01013073e93cfd8
+  tasks:
+  - name: MG
+    environments:
+    - derived/fcan04-close-box.json
+  episodes_per_environment: 200
+  start_at_rest: true
+  control_hz: 25
+  initial_states_per_environment: 50
+  max_episode_steps: 750
+  driven_friction: native
+inference:
+  mode: synchronous
+  action_chunk_steps: 20
+  execution_horizon_steps: 14
+  latency_ms: 0
+seeds:
+  policy: 0
+initial_state_overrides:
+- environment: derived/fcan04-close-box.json
+  initial_state_index: 0
+  object_positions_m:
+    object:
+    - 0.405851
+    - 0.044041
+    - 0.05000000074505806
+- environment: derived/fcan04-close-box.json
+  initial_state_index: 1
+  object_positions_m:
+    object:
+    - 0.402805
+    - 0.073899
+    - 0.05000000074505806
+- environment: derived/fcan04-close-box.json
+  initial_state_index: 2
+  object_positions_m:
+    object:
+    - 0.444832
+    - 0.046225
+    - 0.05000000074505806
+- environment: derived/fcan04-close-box.json
+  initial_state_index: 3
+  object_positions_m:
+    object:
+    - 0.453105
+    - 0.033849
+    - 0.05000000074505806
+- environment: derived/fcan04-close-box.json
+  initial_state_index: 4
+  object_positions_m:
+    object:
+    - 0.455189
+    - 0.075849
+    - 0.05000000074505806
+- environment: derived/fcan04-close-box.json
+  initial_state_index: 5
+  object_positions_m:
+    object:
+    - 0.444408
+    - 0.059759
+    - 0.05000000074505806
+- environment: derived/fcan04-close-box.json
+  initial_state_index: 6
+  object_positions_m:
+    object:
+    - 0.408455
+    - 0.056225
+    - 0.05000000074505806
+- environment: derived/fcan04-close-box.json
+  initial_state_index: 7
+  object_positions_m:
+    object:
+    - 0.448344
+    - 0.077358
+    - 0.05000000074505806
+- environment: derived/fcan04-close-box.json
+  initial_state_index: 8
+  object_positions_m:
+    object:
+    - 0.435149
+    - 0.036021
+    - 0.05000000074505806
+- environment: derived/fcan04-close-box.json
+  initial_state_index: 9
+  object_positions_m:
+    object:
+    - 0.452815
+    - 0.041684
+    - 0.05000000074505806
+- environment: derived/fcan04-close-box.json
+  initial_state_index: 10
+  object_positions_m:
+    object:
+    - 0.405242
+    - 0.020516
+    - 0.05000000074505806
+- environment: derived/fcan04-close-box.json
+  initial_state_index: 11
+  object_positions_m:
+    object:
+    - 0.424162
+    - 0.04172
+    - 0.05000000074505806
+- environment: derived/fcan04-close-box.json
+  initial_state_index: 12
+  object_positions_m:
+    object:
+    - 0.416474
+    - 0.056183
+    - 0.05000000074505806
+- environment: derived/fcan04-close-box.json
+  initial_state_index: 13
+  object_positions_m:
+    object:
+    - 0.426684
+    - 0.03725
+    - 0.05000000074505806
+- environment: derived/fcan04-close-box.json
+  initial_state_index: 14
+  object_positions_m:
+    object:
+    - 0.440651
+    - 0.07937
+    - 0.05000000074505806
+- environment: derived/fcan04-close-box.json
+  initial_state_index: 15
+  object_positions_m:
+    object:
+    - 0.43235
+    - 0.070799
+    - 0.05000000074505806
+- environment: derived/fcan04-close-box.json
+  initial_state_index: 16
+  object_positions_m:
+    object:
+    - 0.407163
+    - 0.035818
+    - 0.05000000074505806
+- environment: derived/fcan04-close-box.json
+  initial_state_index: 17
+  object_positions_m:
+    object:
+    - 0.436589
+    - 0.056008
+    - 0.05000000074505806
+- environment: derived/fcan04-close-box.json
+  initial_state_index: 18
+  object_positions_m:
+    object:
+    - 0.425577
+    - 0.072048
+    - 0.05000000074505806
+- environment: derived/fcan04-close-box.json
+  initial_state_index: 19
+  object_positions_m:
+    object:
+    - 0.443938
+    - 0.06606
+    - 0.05000000074505806
+- environment: derived/fcan04-close-box.json
+  initial_state_index: 20
+  object_positions_m:
+    object:
+    - 0.438242
+    - 0.041685
+    - 0.05000000074505806
+- environment: derived/fcan04-close-box.json
+  initial_state_index: 21
+  object_positions_m:
+    object:
+    - 0.42296
+    - 0.022969
+    - 0.05000000074505806
+- environment: derived/fcan04-close-box.json
+  initial_state_index: 22
+  object_positions_m:
+    object:
+    - 0.457458
+    - 0.028252
+    - 0.05000000074505806
+- environment: derived/fcan04-close-box.json
+  initial_state_index: 23
+  object_positions_m:
+    object:
+    - 0.431934
+    - 0.021843
+    - 0.05000000074505806
+- environment: derived/fcan04-close-box.json
+  initial_state_index: 24
+  object_positions_m:
+    object:
+    - 0.41665
+    - 0.044269
+    - 0.05000000074505806
+- environment: derived/fcan04-close-box.json
+  initial_state_index: 25
+  object_positions_m:
+    object:
+    - 0.426086
+    - 0.065471
+    - 0.05000000074505806
+- environment: derived/fcan04-close-box.json
+  initial_state_index: 26
+  object_positions_m:
+    object:
+    - 0.438941
+    - 0.0322
+    - 0.05000000074505806
+- environment: derived/fcan04-close-box.json
+  initial_state_index: 27
+  object_positions_m:
+    object:
+    - 0.436113
+    - 0.06332
+    - 0.05000000074505806
+- environment: derived/fcan04-close-box.json
+  initial_state_index: 28
+  object_positions_m:
+    object:
+    - 0.409161
+    - 0.078329
+    - 0.05000000074505806
+- environment: derived/fcan04-close-box.json
+  initial_state_index: 29
+  object_positions_m:
+    object:
+    - 0.430633
+    - 0.043608
+    - 0.05000000074505806
+- environment: derived/fcan04-close-box.json
+  initial_state_index: 30
+  object_positions_m:
+    object:
+    - 0.448975
+    - 0.066739
+    - 0.05000000074505806
+- environment: derived/fcan04-close-box.json
+  initial_state_index: 31
+  object_positions_m:
+    object:
+    - 0.41672
+    - 0.030545
+    - 0.05000000074505806
+- environment: derived/fcan04-close-box.json
+  initial_state_index: 32
+  object_positions_m:
+    object:
+    - 0.419329
+    - 0.077339
+    - 0.05000000074505806
+- environment: derived/fcan04-close-box.json
+  initial_state_index: 33
+  object_positions_m:
+    object:
+    - 0.414981
+    - 0.072293
+    - 0.05000000074505806
+- environment: derived/fcan04-close-box.json
+  initial_state_index: 34
+  object_positions_m:
+    object:
+    - 0.404623
+    - 0.029773
+    - 0.05000000074505806
+- environment: derived/fcan04-close-box.json
+  initial_state_index: 35
+  object_positions_m:
+    object:
+    - 0.425891
+    - 0.031408
+    - 0.05000000074505806
+- environment: derived/fcan04-close-box.json
+  initial_state_index: 36
+  object_positions_m:
+    object:
+    - 0.44396
+    - 0.033361
+    - 0.05000000074505806
+- environment: derived/fcan04-close-box.json
+  initial_state_index: 37
+  object_positions_m:
+    object:
+    - 0.415131
+    - 0.062649
+    - 0.05000000074505806
+- environment: derived/fcan04-close-box.json
+  initial_state_index: 38
+  object_positions_m:
+    object:
+    - 0.432622
+    - 0.031155
+    - 0.05000000074505806
+- environment: derived/fcan04-close-box.json
+  initial_state_index: 39
+  object_positions_m:
+    object:
+    - 0.41446
+    - 0.024134
+    - 0.05000000074505806
+- environment: derived/fcan04-close-box.json
+  initial_state_index: 40
+  object_positions_m:
+    object:
+    - 0.419777
+    - 0.067191
+    - 0.05000000074505806
+- environment: derived/fcan04-close-box.json
+  initial_state_index: 41
+  object_positions_m:
+    object:
+    - 0.434578
+    - 0.076699
+    - 0.05000000074505806
+- environment: derived/fcan04-close-box.json
+  initial_state_index: 42
+  object_positions_m:
+    object:
+    - 0.459706
+    - 0.050716
+    - 0.05000000074505806
+- environment: derived/fcan04-close-box.json
+  initial_state_index: 43
+  object_positions_m:
+    object:
+    - 0.430527
+    - 0.06058
+    - 0.05000000074505806
+- environment: derived/fcan04-close-box.json
+  initial_state_index: 44
+  object_positions_m:
+    object:
+    - 0.454119
+    - 0.057601
+    - 0.05000000074505806
+- environment: derived/fcan04-close-box.json
+  initial_state_index: 45
+  object_positions_m:
+    object:
+    - 0.457529
+    - 0.070463
+    - 0.05000000074505806
+- environment: derived/fcan04-close-box.json
+  initial_state_index: 46
+  object_positions_m:
+    object:
+    - 0.438632
+    - 0.02113
+    - 0.05000000074505806
+- environment: derived/fcan04-close-box.json
+  initial_state_index: 47
+  object_positions_m:
+    object:
+    - 0.458276
+    - 0.039811
+    - 0.05000000074505806
+- environment: derived/fcan04-close-box.json
+  initial_state_index: 48
+  object_positions_m:
+    object:
+    - 0.426373
+    - 0.077959
+    - 0.05000000074505806
+- environment: derived/fcan04-close-box.json
+  initial_state_index: 49
+  object_positions_m:
+    object:
+    - 0.400851
+    - 0.057673
+    - 0.05000000074505806
+trajectory:
+  kind: closed_path
+  target: container
+  start_step: 0
+  interpolation: cubic
+  speed_mps: 0.05
+  episode_schedule:
+  - initial_phase: 0.0
+    initial_direction: 1
+  - initial_phase: 0.01
+    initial_direction: 1
+  - initial_phase: 0.02
+    initial_direction: 1
+  - initial_phase: 0.03
+    initial_direction: 1
+  - initial_phase: 0.04
+    initial_direction: 1
+  - initial_phase: 0.05
+    initial_direction: 1
+  - initial_phase: 0.06
+    initial_direction: 1
+  - initial_phase: 0.07
+    initial_direction: 1
+  - initial_phase: 0.08
+    initial_direction: 1
+  - initial_phase: 0.09
+    initial_direction: 1
+  - initial_phase: 0.1
+    initial_direction: 1
+  - initial_phase: 0.11
+    initial_direction: 1
+  - initial_phase: 0.12
+    initial_direction: 1
+  - initial_phase: 0.13
+    initial_direction: 1
+  - initial_phase: 0.14
+    initial_direction: 1
+  - initial_phase: 0.15
+    initial_direction: 1
+  - initial_phase: 0.16
+    initial_direction: 1
+  - initial_phase: 0.17
+    initial_direction: 1
+  - initial_phase: 0.18
+    initial_direction: 1
+  - initial_phase: 0.19
+    initial_direction: 1
+  - initial_phase: 0.2
+    initial_direction: 1
+  - initial_phase: 0.21
+    initial_direction: 1
+  - initial_phase: 0.22
+    initial_direction: 1
+  - initial_phase: 0.23
+    initial_direction: 1
+  - initial_phase: 0.24
+    initial_direction: 1
+  - initial_phase: 0.25
+    initial_direction: 1
+  - initial_phase: 0.26
+    initial_direction: 1
+  - initial_phase: 0.27
+    initial_direction: 1
+  - initial_phase: 0.28
+    initial_direction: 1
+  - initial_phase: 0.29
+    initial_direction: 1
+  - initial_phase: 0.3
+    initial_direction: 1
+  - initial_phase: 0.31
+    initial_direction: 1
+  - initial_phase: 0.32
+    initial_direction: 1
+  - initial_phase: 0.33
+    initial_direction: 1
+  - initial_phase: 0.34
+    initial_direction: 1
+  - initial_phase: 0.35
+    initial_direction: 1
+  - initial_phase: 0.36
+    initial_direction: 1
+  - initial_phase: 0.37
+    initial_direction: 1
+  - initial_phase: 0.38
+    initial_direction: 1
+  - initial_phase: 0.39
+    initial_direction: 1
+  - initial_phase: 0.4
+    initial_direction: 1
+  - initial_phase: 0.41
+    initial_direction: 1
+  - initial_phase: 0.42
+    initial_direction: 1
+  - initial_phase: 0.43
+    initial_direction: 1
+  - initial_phase: 0.44
+    initial_direction: 1
+  - initial_phase: 0.45
+    initial_direction: 1
+  - initial_phase: 0.46
+    initial_direction: 1
+  - initial_phase: 0.47
+    initial_direction: 1
+  - initial_phase: 0.48
+    initial_direction: 1
+  - initial_phase: 0.49
+    initial_direction: 1
+  - initial_phase: 0.0
+    initial_direction: -1
+  - initial_phase: 0.01
+    initial_direction: -1
+  - initial_phase: 0.02
+    initial_direction: -1
+  - initial_phase: 0.03
+    initial_direction: -1
+  - initial_phase: 0.04
+    initial_direction: -1
+  - initial_phase: 0.05
+    initial_direction: -1
+  - initial_phase: 0.06
+    initial_direction: -1
+  - initial_phase: 0.07
+    initial_direction: -1
+  - initial_phase: 0.08
+    initial_direction: -1
+  - initial_phase: 0.09
+    initial_direction: -1
+  - initial_phase: 0.1
+    initial_direction: -1
+  - initial_phase: 0.11
+    initial_direction: -1
+  - initial_phase: 0.12
+    initial_direction: -1
+  - initial_phase: 0.13
+    initial_direction: -1
+  - initial_phase: 0.14
+    initial_direction: -1
+  - initial_phase: 0.15
+    initial_direction: -1
+  - initial_phase: 0.16
+    initial_direction: -1
+  - initial_phase: 0.17
+    initial_direction: -1
+  - initial_phase: 0.18
+    initial_direction: -1
+  - initial_phase: 0.19
+    initial_direction: -1
+  - initial_phase: 0.2
+    initial_direction: -1
+  - initial_phase: 0.21
+    initial_direction: -1
+  - initial_phase: 0.22
+    initial_direction: -1
+  - initial_phase: 0.23
+    initial_direction: -1
+  - initial_phase: 0.24
+    initial_direction: -1
+  - initial_phase: 0.25
+    initial_direction: -1
+  - initial_phase: 0.26
+    initial_direction: -1
+  - initial_phase: 0.27
+    initial_direction: -1
+  - initial_phase: 0.28
+    initial_direction: -1
+  - initial_phase: 0.29
+    initial_direction: -1
+  - initial_phase: 0.3
+    initial_direction: -1
+  - initial_phase: 0.31
+    initial_direction: -1
+  - initial_phase: 0.32
+    initial_direction: -1
+  - initial_phase: 0.33
+    initial_direction: -1
+  - initial_phase: 0.34
+    initial_direction: -1
+  - initial_phase: 0.35
+    initial_direction: -1
+  - initial_phase: 0.36
+    initial_direction: -1
+  - initial_phase: 0.37
+    initial_direction: -1
+  - initial_phase: 0.38
+    initial_direction: -1
+  - initial_phase: 0.39
+    initial_direction: -1
+  - initial_phase: 0.4
+    initial_direction: -1
+  - initial_phase: 0.41
+    initial_direction: -1
+  - initial_phase: 0.42
+    initial_direction: -1
+  - initial_phase: 0.43
+    initial_direction: -1
+  - initial_phase: 0.44
+    initial_direction: -1
+  - initial_phase: 0.45
+    initial_direction: -1
+  - initial_phase: 0.46
+    initial_direction: -1
+  - initial_phase: 0.47
+    initial_direction: -1
+  - initial_phase: 0.48
+    initial_direction: -1
+  - initial_phase: 0.49
+    initial_direction: -1
+  - initial_phase: 0.5
+    initial_direction: 1
+  - initial_phase: 0.51
+    initial_direction: 1
+  - initial_phase: 0.52
+    initial_direction: 1
+  - initial_phase: 0.53
+    initial_direction: 1
+  - initial_phase: 0.54
+    initial_direction: 1
+  - initial_phase: 0.55
+    initial_direction: 1
+  - initial_phase: 0.56
+    initial_direction: 1
+  - initial_phase: 0.57
+    initial_direction: 1
+  - initial_phase: 0.58
+    initial_direction: 1
+  - initial_phase: 0.59
+    initial_direction: 1
+  - initial_phase: 0.6
+    initial_direction: 1
+  - initial_phase: 0.61
+    initial_direction: 1
+  - initial_phase: 0.62
+    initial_direction: 1
+  - initial_phase: 0.63
+    initial_direction: 1
+  - initial_phase: 0.64
+    initial_direction: 1
+  - initial_phase: 0.65
+    initial_direction: 1
+  - initial_phase: 0.66
+    initial_direction: 1
+  - initial_phase: 0.67
+    initial_direction: 1
+  - initial_phase: 0.68
+    initial_direction: 1
+  - initial_phase: 0.69
+    initial_direction: 1
+  - initial_phase: 0.7
+    initial_direction: 1
+  - initial_phase: 0.71
+    initial_direction: 1
+  - initial_phase: 0.72
+    initial_direction: 1
+  - initial_phase: 0.73
+    initial_direction: 1
+  - initial_phase: 0.74
+    initial_direction: 1
+  - initial_phase: 0.75
+    initial_direction: 1
+  - initial_phase: 0.76
+    initial_direction: 1
+  - initial_phase: 0.77
+    initial_direction: 1
+  - initial_phase: 0.78
+    initial_direction: 1
+  - initial_phase: 0.79
+    initial_direction: 1
+  - initial_phase: 0.8
+    initial_direction: 1
+  - initial_phase: 0.81
+    initial_direction: 1
+  - initial_phase: 0.82
+    initial_direction: 1
+  - initial_phase: 0.83
+    initial_direction: 1
+  - initial_phase: 0.84
+    initial_direction: 1
+  - initial_phase: 0.85
+    initial_direction: 1
+  - initial_phase: 0.86
+    initial_direction: 1
+  - initial_phase: 0.87
+    initial_direction: 1
+  - initial_phase: 0.88
+    initial_direction: 1
+  - initial_phase: 0.89
+    initial_direction: 1
+  - initial_phase: 0.9
+    initial_direction: 1
+  - initial_phase: 0.91
+    initial_direction: 1
+  - initial_phase: 0.92
+    initial_direction: 1
+  - initial_phase: 0.93
+    initial_direction: 1
+  - initial_phase: 0.94
+    initial_direction: 1
+  - initial_phase: 0.95
+    initial_direction: 1
+  - initial_phase: 0.96
+    initial_direction: 1
+  - initial_phase: 0.97
+    initial_direction: 1
+  - initial_phase: 0.98
+    initial_direction: 1
+  - initial_phase: 0.99
+    initial_direction: 1
+  - initial_phase: 0.5
+    initial_direction: -1
+  - initial_phase: 0.51
+    initial_direction: -1
+  - initial_phase: 0.52
+    initial_direction: -1
+  - initial_phase: 0.53
+    initial_direction: -1
+  - initial_phase: 0.54
+    initial_direction: -1
+  - initial_phase: 0.55
+    initial_direction: -1
+  - initial_phase: 0.56
+    initial_direction: -1
+  - initial_phase: 0.57
+    initial_direction: -1
+  - initial_phase: 0.58
+    initial_direction: -1
+  - initial_phase: 0.59
+    initial_direction: -1
+  - initial_phase: 0.6
+    initial_direction: -1
+  - initial_phase: 0.61
+    initial_direction: -1
+  - initial_phase: 0.62
+    initial_direction: -1
+  - initial_phase: 0.63
+    initial_direction: -1
+  - initial_phase: 0.64
+    initial_direction: -1
+  - initial_phase: 0.65
+    initial_direction: -1
+  - initial_phase: 0.66
+    initial_direction: -1
+  - initial_phase: 0.67
+    initial_direction: -1
+  - initial_phase: 0.68
+    initial_direction: -1
+  - initial_phase: 0.69
+    initial_direction: -1
+  - initial_phase: 0.7
+    initial_direction: -1
+  - initial_phase: 0.71
+    initial_direction: -1
+  - initial_phase: 0.72
+    initial_direction: -1
+  - initial_phase: 0.73
+    initial_direction: -1
+  - initial_phase: 0.74
+    initial_direction: -1
+  - initial_phase: 0.75
+    initial_direction: -1
+  - initial_phase: 0.76
+    initial_direction: -1
+  - initial_phase: 0.77
+    initial_direction: -1
+  - initial_phase: 0.78
+    initial_direction: -1
+  - initial_phase: 0.79
+    initial_direction: -1
+  - initial_phase: 0.8
+    initial_direction: -1
+  - initial_phase: 0.81
+    initial_direction: -1
+  - initial_phase: 0.82
+    initial_direction: -1
+  - initial_phase: 0.83
+    initial_direction: -1
+  - initial_phase: 0.84
+    initial_direction: -1
+  - initial_phase: 0.85
+    initial_direction: -1
+  - initial_phase: 0.86
+    initial_direction: -1
+  - initial_phase: 0.87
+    initial_direction: -1
+  - initial_phase: 0.88
+    initial_direction: -1
+  - initial_phase: 0.89
+    initial_direction: -1
+  - initial_phase: 0.9
+    initial_direction: -1
+  - initial_phase: 0.91
+    initial_direction: -1
+  - initial_phase: 0.92
+    initial_direction: -1
+  - initial_phase: 0.93
+    initial_direction: -1
+  - initial_phase: 0.94
+    initial_direction: -1
+  - initial_phase: 0.95
+    initial_direction: -1
+  - initial_phase: 0.96
+    initial_direction: -1
+  - initial_phase: 0.97
+    initial_direction: -1
+  - initial_phase: 0.98
+    initial_direction: -1
+  - initial_phase: 0.99
+    initial_direction: -1
+  keyframes:
+  - position_offset_m:
+    - 0.122503
+    - 0.046787571004480916
+    - 0
+  - position_offset_m:
+    - 0.204763
+    - 0.09315522955975813
+    - 0
+  - position_offset_m:
+    - 0.25045
+    - 0.1447525701530341
+    - 0
+  - position_offset_m:
+    - 0.247323
+    - 0.18775416067348094
+    - 0
+  - position_offset_m:
+    - 0.196219
+    - 0.21063785602222934
+    - 0
+  - position_offset_m:
+    - 0.110832
+    - 0.20727107423251453
+    - 0
+  - position_offset_m:
+    - 0.014041
+    - 0.17855742898798693
+    - 0
+  - position_offset_m:
+    - -0.068219
+    - 0.13218977043270974
+    - 0
+  - position_offset_m:
+    - -0.113906
+    - 0.08059242983943374
+    - 0
+  - position_offset_m:
+    - -0.110778
+    - 0.037590839318986935
+    - 0
+  - position_offset_m:
+    - -0.059675
+    - 0.014707143970238534
+    - 0
+  - position_offset_m:
+    - 0.025712
+    - 0.018073925759953313
+    - 0
+  - position_offset_m:
+    - 0.122503
+    - 0.046787571004480916
+    - 0

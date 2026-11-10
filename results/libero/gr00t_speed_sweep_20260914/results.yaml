@@ -1,0 +1,103 @@
+schema_version: 1
+name: gr00t_speed_sweep_repeat_20260915
+host: xtra3090
+gpu: NVIDIA GeForce RTX 3090
+replaces: Mixed-GPU RunPod figures previously published in this directory
+artifact_directory: artifacts/studies/gr00t_speed_sweep_repeat_20260915
+remote_artifact_directory: xtra3090:/drive2/wenqi/studies/gr00t_speed_sweep_repeat_20260915
+points: 144
+episodes: 28800
+npz_files: 28800
+episodes_per_point: 200
+execution_horizon_steps: 5
+action_chunk_steps: 16
+max_active_steps: 600
+control_hz: 20
+seeds:
+  environment: 7
+  dynamics: 7
+  policy: 7
+started_at: '2026-09-15 00:20:23.894660+00:00'
+finished_at: '2026-09-17 02:59:39.245922+00:00'
+source_commits:
+- e1384d8b28d989312b8cb5cdfa0bf97c1619b921
+verification:
+  all_point_file_sha256_verified: true
+  all_run_hardware_verified: true
+  episode_metadata_verified: true
+  unique_episode_ids_per_point: 200
+  recorded_episode_errors: 0
+  success_totals_recomputed: true
+  active_step_limit_verified: true
+  all_point_code_clean: true
+  audit_host: xtra3090
+  video_clips: 1696
+  decoded_video_clips: 1696
+  video_checksums_verified: true
+  video_frames_match_npz_states: true
+  video_outcomes_match_traces: true
+  video_selection_complete: true
+archive:
+  bucket: dynamic-robot-benchmark
+  data_prefix: gr00t-speed-sweep-repeat-20260915
+  video_prefix: gr00t-speed-sweep-repeat-20260915-videos
+  status: complete
+  verified_at: '2026-09-17T11:43:24.673521+00:00'
+  points: 144
+  objects: 31504
+  bytes: 11131107918
+  npz_files: 28800
+  videos: 1696
+  verification: Every artifact matches a complete per-point receipt; new uploads were
+    read back and SHA-256 checked. Previously verified receipt entries were reused.
+  manifest_key: gr00t-speed-sweep-repeat-20260915/archive-manifest.json
+  verification_key: gr00t-speed-sweep-repeat-20260915/archive-verification.json
+  index_objects: 10
+video_shortfalls:
+- study: gr00t_drawer_ellipse_600_20260914
+  point: 0.1_synchronous_200
+  shortfall:
+    success: 1
+    failure: 0
+- study: gr00t_drawer_ellipse_600_20260914
+  point: 0.175_synchronous_200
+  shortfall:
+    success: 1
+    failure: 0
+- study: gr00t_drawer_ellipse_600_20260914
+  point: 0.2_lazy_200
+  shortfall:
+    success: 3
+    failure: 0
+- study: gr00t_drawer_ellipse_600_20260914
+  point: 0.175_synchronous_100
+  shortfall:
+    success: 2
+    failure: 0
+- study: gr00t_drawer_ellipse_600_20260914
+  point: 0.125_synchronous_200
+  shortfall:
+    success: 3
+    failure: 0
+- study: gr00t_drawer_ellipse_600_20260914
+  point: 0.075_synchronous_200
+  shortfall:
+    success: 1
+    failure: 0
+- study: gr00t_drawer_ellipse_600_20260914
+  point: 0.2_synchronous_100
+  shortfall:
+    success: 1
+    failure: 0
+- study: gr00t_drawer_ellipse_600_20260914
+  point: 0.15_synchronous_100
+  shortfall:
+    success: 2
+    failure: 0
+- study: gr00t_drawer_ellipse_600_20260914
+  point: 0.15_synchronous_200
+  shortfall:
+    success: 2
+    failure: 0
+local_collection_complete: true
+audit_artifact_directory: artifacts/gr00t_speed_sweep_repeat_20260915/operations/20260917

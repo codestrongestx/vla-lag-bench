@@ -1,0 +1,13 @@
+schema_version: 2
+name: native_ellipse_600_single
+base_experiment: configs/experiments/libero/libero_object_task1_native_basket_ellipse/basket_ellipse_paired_200.yaml
+sweep:
+  trajectory.speed_mps: [0.001, 0.005, 0.010, 0.015, 0.020, 0.025, 0.050, 0.075, 0.100, 0.125]
+  inference.mode: [synchronous, lazy]
+  inference.latency_ms: [0, 100, 200]
+override:
+  benchmark.max_episode_steps: 600
+order:
+  - inference.mode: [synchronous, lazy]
+  - trajectory.speed_mps: ascending
+  - inference.latency_ms: ascending

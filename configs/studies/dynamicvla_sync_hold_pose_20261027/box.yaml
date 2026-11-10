@@ -1,0 +1,32 @@
+# Moving box, synchronous at every nonzero delay of fcan04_native200_20261001, rerun with the arm holding its pose during waits.
+schema_version: 2
+name: fcan04-native200-750steps-sync-hold-pose
+base_experiment: configs/studies/fcan04_native200_speed_extension_20261001/base.yaml
+sweep:
+  trajectory.speed_mps:
+  - 0.001
+  - 0.025
+  - 0.05
+  - 0.1
+  - 0.15
+  - 0.2
+  - 0.25
+  - 0.3
+  - 0.35
+  - 0.4
+  inference.latency_ms:
+  - 120
+  - 240
+override:
+  inference.mode: synchronous
+policy:
+  kind: dynamicvla
+  antialiasing_mode: DLSS
+  dlss_mode: Balanced
+  enable_dl_denoiser: true
+  enable_dlssg: false
+  render_mode: RaytracedLighting
+# Longest points first; order does not enter the study hash.
+order:
+- trajectory.speed_mps: descending
+- inference.latency_ms: descending

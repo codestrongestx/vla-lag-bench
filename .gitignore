@@ -1,0 +1,32 @@
+.DS_Store
+.venv
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.ruff_cache/
+
+/artifacts/*
+!/artifacts/.gitkeep
+
+/runs/*
+!/runs/.gitkeep
+
+# Generated at runtime by vlalagbench.benchmarks.libero._vendor
+/.libero/
+
+# Default study output_root in configs/placements, and analysis outputs.
+/studies/
+/analysis/build/
+
+# results/ is deny-by-default. Reports publish a record YAML, plot-data CSV,
+# PNG figure, and pooled-source JSON. Row-level data (episodes.jsonl, traces,
+# manifests, receipts) stays in the study directory and is referenced from
+# the record by digest.
+/results/**
+!/results/**/
+!/results/**/*.md
+!/results/**/*.yaml
+!/results/**/*.csv
+!/results/**/*.png
+!/results/**/*.json
+!/results/.gitkeep

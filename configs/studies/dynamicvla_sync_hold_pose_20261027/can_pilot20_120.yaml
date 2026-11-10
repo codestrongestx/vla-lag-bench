@@ -1,0 +1,27 @@
+# Ribbed moving can, random-20 episodes, synchronous 120 ms at all nine speeds, rerun with the arm holding its pose during waits.
+schema_version: 2
+name: fcan04-moving-can-ribbed-random20-750steps-sync120-hold-pose-full
+base_experiment: configs/studies/fcan04_moving_can_pilot20_20261008/base.yaml
+sweep:
+  trajectory.speed_mps:
+  - 0.001
+  - 0.025
+  - 0.05
+  - 0.075
+  - 0.1
+  - 0.125
+  - 0.15
+  - 0.175
+  - 0.2
+override:
+  inference.mode: synchronous
+  inference.latency_ms: 120
+policy:
+  kind: dynamicvla
+  antialiasing_mode: DLSS
+  dlss_mode: Balanced
+  enable_dl_denoiser: true
+  enable_dlssg: false
+  render_mode: RaytracedLighting
+order:
+- trajectory.speed_mps: descending

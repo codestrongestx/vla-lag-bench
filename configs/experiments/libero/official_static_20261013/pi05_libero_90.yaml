@@ -1,0 +1,23 @@
+schema_version: 5
+name: pi05-libero-90-official-static
+model:
+  openpi_config: pi05_libero
+  checkpoint: gs://openpi-assets/checkpoints/pi05_libero
+benchmark:
+  suite: libero_90
+  task_ids: all
+  episodes_per_task: 50
+  control_hz: 20
+  warmup_steps: 10
+  max_episode_steps: 400
+dynamics: []
+inference:
+  mode: synchronous
+  action_chunk_steps: 10
+  execution_horizon_steps: 5
+  latency_ms: 0
+  unavailable_action: [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, -1.0]
+seeds:
+  environment: 7
+  dynamics: 7
+  policy: 7

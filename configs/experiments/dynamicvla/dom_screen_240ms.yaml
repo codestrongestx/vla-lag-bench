@@ -1,0 +1,33 @@
+schema_version: 5
+name: dynamicvla-dom-nine-dimension-240ms
+
+model:
+  checkpoint: $VLALAGBENCH_CHECKPOINTS/dynamic-vla-DOM
+  checkpoint_sha256: e3da8b1e0326d7a3ee6873f7fa17cdf7015201251901be5107377cb851ce3af8
+
+benchmark:
+  kind: dynamicvla
+  upstream_revision: a27a06d2ca74d0e987a5e552e01013073e93cfd8
+  tasks:
+    - name: dom-nine-dimension-screen
+      environments:
+        - tests/1-1_place_franka_avocado05d_O02_01048620_1690.json
+        - tests/1-2_place_franka_potato17d_O04_01150021_c37f.json
+        - tests/1-3_long-horizon_franka_apple19d_O03_01051606_af73.json
+        - tests/2-1_place_franka_beer09d_O03_01150509_472f.json
+        - tests/2-2_place_franka_apple08d_O03_01050789_b41d.json
+        - tests/2-3_place_franka_apple20d_O03_01050837_f264.json
+        - tests/3-1_place_franka_apple99d_O02_01610325_2a43.json
+        - tests/3-2_place_franka_apple00d_O02_01641303_47a0.json
+        - tests/3-3_place_franka_avocado01d_O02_01650109_8032.json
+  episodes_per_environment: 2
+  control_hz: 25
+
+inference:
+  mode: continuous
+  action_chunk_steps: 20
+  execution_horizon_steps: 14
+  latency_ms: 240
+
+seeds:
+  policy: 0

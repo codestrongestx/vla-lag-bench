@@ -1,0 +1,29 @@
+schema_version: 2
+name: pi05_stacks_pytorch_bf16_repeat_plate_20261014
+base_experiment: configs/experiments/libero/libero_spatial_task9_bowl_to_plate/plate_ellipse_paired_200.yaml
+sweep:
+  trajectory.speed_mps: [0.001, 0.10, 0.15]
+  inference.mode: [synchronous]
+  inference.latency_ms: [0]
+override:
+  benchmark.episodes_per_task: 200
+  benchmark.episode_ids: null
+  benchmark.control_hz: 20
+  benchmark.warmup_steps: 10
+  benchmark.max_episode_steps: 600
+  inference.action_chunk_steps: 10
+  inference.execution_horizon_steps: 5
+  seeds:
+    environment: 7
+    dynamics: 7
+    policy: 7
+  model.checkpoint: $VLALAGBENCH_CHECKPOINTS/pi05_libero_pytorch
+policy:
+  implementation: single
+  max_batch_size: 1
+  batch_padding: none
+  max_wait_ms: 0.0
+  deterministic_ops: false
+  pytorch_compile_mode: max-autotune-no-cudagraphs
+order:
+- trajectory.speed_mps: ascending

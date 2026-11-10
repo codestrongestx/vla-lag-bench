@@ -1,0 +1,21 @@
+schema_version: 2
+name: pi05_stacks_flashrt_bf16_lat250_basket_20261014
+base_experiment: configs/experiments/libero/libero_object_task1_native_basket_ellipse/basket_ellipse_paired_200.yaml
+sweep:
+  trajectory.speed_mps: [0.001, 0.10, 0.15]
+  inference.mode: [synchronous, lazy]
+  inference.latency_ms: [250]
+override:
+  benchmark.max_episode_steps: 600
+  model.checkpoint: $VLALAGBENCH_CHECKPOINTS/pi05_libero_pytorch
+  model.engine: flashrt
+policy:
+  implementation: single
+  max_batch_size: 1
+  batch_padding: none
+  max_wait_ms: 0.0
+  deterministic_ops: false
+  pytorch_compile_mode: max-autotune-no-cudagraphs
+order:
+- trajectory.speed_mps: ascending
+- inference.latency_ms: ascending

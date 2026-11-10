@@ -1,0 +1,35 @@
+schema_version: 2
+name: gr00t_task9_plate_continuous_20261001
+base_experiment: configs/experiments/libero/libero_spatial_task9_bowl_to_plate/plate_ellipse_paired_200.yaml
+sweep:
+  trajectory.speed_mps: [0.001, 0.025, 0.05, 0.075, 0.10, 0.125, 0.15, 0.175, 0.20]
+  inference.mode: [continuous]
+  inference.latency_ms: [100, 200]
+override:
+  benchmark.episodes_per_task: 200
+  benchmark.episode_ids: null
+  benchmark.control_hz: 20
+  benchmark.warmup_steps: 10
+  benchmark.max_episode_steps: 600
+  model:
+    backend: gr00t
+    checkpoint: nvidia/GR00T-N1.7-LIBERO
+    revision: 2ea293aa20ba7cf5bbf3ba17a5fbcb1a01cbfe21
+    checkpoint_subdir: libero_spatial
+    embodiment: LIBERO_PANDA
+  inference.action_chunk_steps: 16
+  inference.execution_horizon_steps: 5
+  seeds:
+    environment: 7
+    dynamics: 7
+    policy: 7
+policy:
+  implementation: dynamic_batching
+  max_batch_size: 32
+  batch_padding: none
+  max_wait_ms: 0.0
+  deterministic_ops: false
+  pytorch_compile_mode: eager
+order:
+- trajectory.speed_mps: ascending
+- inference.latency_ms: ascending

@@ -1,0 +1,243 @@
+# Specs whose evaluated study hash differs from the hash they compute now: the
+# checkpoint path each was evaluated with (local checkpoints are now written
+# $VLALAGBENCH_CHECKPOINTS/<name>), the idle_control setting the synchronous reruns
+# were evaluated with (holding the pose is now the only wait behaviour), and the
+# study hash its study directory records.
+# scripts/studies/evaluated_hashes.py recomputes every hash from the spec.
+# pi05_stacks_20261014/flashrt_bf16_repeat has no surviving study record and is not listed.
+# dynamicvla_sync_hold_pose_20261027/can_*_240_slow.yaml were evaluated in one study
+# each with the old wait as a second arm (study hashes 01add65de344... and
+# 2eca24ff5ee1...); their specs keep only the hold arm, so they are not listed.
+configs/studies/fcan04_moving_can_pilot20_20261008/continuous.yaml:
+  checkpoint: /home/wenqi/dynamicvla-smoke/checkpoints/dynamic-vla-DOM
+  study_hash: 4fb4211060d7f3af1b16a2b4d3eda56b4f644a02042356ea2e13d1b28d058464
+configs/studies/fcan04_moving_can_pilot20_20261008/lazy.yaml:
+  checkpoint: /home/wenqi/dynamicvla-smoke/checkpoints/dynamic-vla-DOM
+  study_hash: 0f074102e14109b8bb18f3883c0aa8965d0a176cf47060c3e3bc97327dc8b46a
+configs/studies/fcan04_moving_can_pilot20_20261008/synchronous.yaml:
+  checkpoint: /home/wenqi/dynamicvla-smoke/checkpoints/dynamic-vla-DOM
+  study_hash: aae22428227c26a9bd16fd37774d263882172ff66394c1936dfe9974447bcd9a
+configs/studies/fcan04_moving_can_remaining180_20261008/continuous.yaml:
+  checkpoint: /home/wenqi/dynamicvla-smoke/checkpoints/dynamic-vla-DOM
+  study_hash: c94344ce9cced26c66e631ff5f06de43909b359b79c1f2733b8dbd79ad77acbf
+configs/studies/fcan04_moving_can_remaining180_20261008/lazy.yaml:
+  checkpoint: /home/wenqi/dynamicvla-smoke/checkpoints/dynamic-vla-DOM
+  study_hash: 8eac98b6ecba401c945466ab26209216dbebfad86e12b3487e5e348abeda15ce
+configs/studies/fcan04_moving_can_remaining180_20261008/synchronous.yaml:
+  checkpoint: /home/wenqi/dynamicvla-smoke/checkpoints/dynamic-vla-DOM
+  study_hash: e8ca62c5fa2e2d0b2d8097c7d25612e7cfec5f831885cebce343daed22dccc98
+configs/studies/fcan04_native200_speed_extension_20261001/continuous.yaml:
+  checkpoint: /home/wenqi/dynamicvla-smoke/checkpoints/dynamic-vla-DOM
+  study_hash: 66652e4329e2f29e831a2c73e1019f9fce30662330a388865f7af4e240cfa0a3
+configs/studies/fcan04_native200_speed_extension_20261001/lazy.yaml:
+  checkpoint: /home/wenqi/dynamicvla-smoke/checkpoints/dynamic-vla-DOM
+  study_hash: 304d96c460c5eb3d907f722486ec38ef9da915602f12765296bb6cad7af6231b
+configs/studies/fcan04_native200_speed_extension_20261001/synchronous.yaml:
+  checkpoint: /home/wenqi/dynamicvla-smoke/checkpoints/dynamic-vla-DOM
+  study_hash: a04f05bee3e0640ecdbf55a4648365f6631d7b92d0e84b133e865987b0264232
+configs/studies/fcan04_native_pilot20_20260928/continuous.yaml:
+  checkpoint: /home/wenqi/dynamicvla-smoke/checkpoints/dynamic-vla-DOM
+  study_hash: 244f2b5728e560f552a4e5970daf8936a4877856efc5c403ba2776e241a069e8
+configs/studies/fcan04_native_pilot20_20260928/lazy.yaml:
+  checkpoint: /home/wenqi/dynamicvla-smoke/checkpoints/dynamic-vla-DOM
+  study_hash: aa4d84d34850266607b23239e88df83a4c97bdb997fdd803c68a8c0663394abf
+configs/studies/fcan04_native_pilot20_20260928/synchronous.yaml:
+  checkpoint: /home/wenqi/dynamicvla-smoke/checkpoints/dynamic-vla-DOM
+  study_hash: 80308340aa0108894c992b6a4ec4c19210715014b02dd0f7c6fcd7424460c380
+configs/studies/fcan04_native_remaining180_20260928/continuous.yaml:
+  checkpoint: /home/wenqi/dynamicvla-smoke/checkpoints/dynamic-vla-DOM
+  study_hash: b66302d9c14a35c46f3ac250dfe36ed4cf67349589b42d775cd5060494e5e8d4
+configs/studies/fcan04_native_remaining180_20260928/lazy.yaml:
+  checkpoint: /home/wenqi/dynamicvla-smoke/checkpoints/dynamic-vla-DOM
+  study_hash: 0d1fcc9a9f513cdd57b5f7ab34d076156507b43d323df43da4a0b342ee19bc2c
+configs/studies/fcan04_native_remaining180_20260928/synchronous.yaml:
+  checkpoint: /home/wenqi/dynamicvla-smoke/checkpoints/dynamic-vla-DOM
+  study_hash: 9233858ca7336d16cb5eaf5c0d896b3c40a6e24efc94c36d827624ff8b50d3d0
+configs/studies/flashrt_setdown_grid_20261018/continuous100.yaml:
+  checkpoint: /data/wenqi/checkpoints/pi05_libero_pytorch
+  study_hash: 9e2ed4fdae6907131b9fb3092da384f1c560e5a2df798f764cfe069811bdbf81
+configs/studies/flashrt_setdown_grid_20261018/continuous150_250.yaml:
+  checkpoint: /data/wenqi/checkpoints/pi05_libero_pytorch
+  study_hash: c3d3edb1c23e421c0880efc481c1d5423d83a812e609864515553fbf46026468
+configs/studies/flashrt_setdown_grid_20261018/continuous50.yaml:
+  checkpoint: /data/wenqi/checkpoints/pi05_libero_pytorch
+  study_hash: 60485c34fa6cff77db810100f24df9d594656069cdd63f3c462d4dd7370bad72
+configs/studies/flashrt_setdown_grid_20261018/lazy100_fast.yaml:
+  checkpoint: /data/wenqi/checkpoints/pi05_libero_pytorch
+  study_hash: 3002a473fdacb355fa35da889346e64134eb8a55b5138cb006006b2e0461efbc
+configs/studies/flashrt_setdown_grid_20261018/lazy100_slow.yaml:
+  checkpoint: /data/wenqi/checkpoints/pi05_libero_pytorch
+  study_hash: 940a66a45f5432e337e70456baae0750c9e35904325eeba947e01506e980c302
+configs/studies/flashrt_setdown_grid_20261018/lazy150_fast.yaml:
+  checkpoint: /data/wenqi/checkpoints/pi05_libero_pytorch
+  study_hash: 596de318c90577ae1b81efd90dd205571602b5bdd659ba09cd6a82b01017d61d
+configs/studies/flashrt_setdown_grid_20261018/lazy150_slow.yaml:
+  checkpoint: /data/wenqi/checkpoints/pi05_libero_pytorch
+  study_hash: dd1833578ec670ac0ccde2e6dc5d3b9a42c6f2974f3efda5188ff2a2f319c669
+configs/studies/flashrt_setdown_grid_20261018/lazy200_fast.yaml:
+  checkpoint: /data/wenqi/checkpoints/pi05_libero_pytorch
+  study_hash: 57d84a183e5c537f0ed34c3ee63253af0ee804fc68ef7e14e778b4327f7a2be7
+configs/studies/flashrt_setdown_grid_20261018/lazy200_slow.yaml:
+  checkpoint: /data/wenqi/checkpoints/pi05_libero_pytorch
+  study_hash: e8c05c38cc2d0d1769aaf712a8a4ab99ee74fa26c429441d8e5dc21e9d243563
+configs/studies/flashrt_setdown_grid_20261018/lazy250_fast.yaml:
+  checkpoint: /data/wenqi/checkpoints/pi05_libero_pytorch
+  study_hash: 77ae06b2904767be438912c1135e3a2d5398f228db8b14aafe6c17964fb73828
+configs/studies/flashrt_setdown_grid_20261018/lazy250_slow.yaml:
+  checkpoint: /data/wenqi/checkpoints/pi05_libero_pytorch
+  study_hash: c5b8859d95d06b9bc2d7ed81b7554b79e99b3a8f3855673395d8fa50e21fbaf9
+configs/studies/flashrt_setdown_grid_20261018/lazy50_fast.yaml:
+  checkpoint: /data/wenqi/checkpoints/pi05_libero_pytorch
+  study_hash: 3093a6aefc98d2812bc3ce84027a0807c3ca69582a7910c69bc958ad543893bf
+configs/studies/flashrt_setdown_grid_20261018/lazy50_slow.yaml:
+  checkpoint: /data/wenqi/checkpoints/pi05_libero_pytorch
+  study_hash: 097eaa627e42f2bd23a04fc53fb0f340055fd44b81ffa8bda731ee1e67f19477
+configs/studies/flashrt_setdown_grid_20261018/synchronous0_100.yaml:
+  checkpoint: /data/wenqi/checkpoints/pi05_libero_pytorch
+  study_hash: 1c3d2515df785a9ed14c5a6c9694a3ebd8d1ce1783f1cf5fc4afa9c4abbaa574
+configs/studies/flashrt_setdown_grid_20261018/synchronous150_250.yaml:
+  checkpoint: /data/wenqi/checkpoints/pi05_libero_pytorch
+  study_hash: 10f8a3907e637d9548a416c929f5c578909014140a8dbdad2e757597b3e73d3e
+configs/studies/flashrt_setdown_lazy_h4_20261022/lazy50_h4.yaml:
+  checkpoint: /data/wenqi/checkpoints/pi05_libero_pytorch
+  study_hash: 95c93e38eb3555611f84f7481fa6cb7e1d4b8aa9dbe16e683f62c68ea4adb685
+configs/studies/pi05_stacks_20261014/flashrt_bf16/basket.yaml:
+  checkpoint: /drive2/wenqi/checkpoints/pi05_libero_pytorch
+  study_hash: bf54813434d94636984b018e6eaf6f6d582e2baedc62c654c6a60ca9527190fa
+configs/studies/pi05_stacks_20261014/flashrt_bf16/bowl.yaml:
+  checkpoint: /drive2/wenqi/checkpoints/pi05_libero_pytorch
+  study_hash: 4dd4fcfac578d7d5aeff990cf0faf7125ff3d048fc82f8a5713e15919a3f1ba7
+configs/studies/pi05_stacks_20261014/flashrt_bf16/drawer.yaml:
+  checkpoint: /drive2/wenqi/checkpoints/pi05_libero_pytorch
+  study_hash: 53169e10c332a6b92c6a2c596e099844ef56b7dc49f8fca9478fc0fb43b06c0d
+configs/studies/pi05_stacks_20261014/flashrt_bf16/plate.yaml:
+  checkpoint: /drive2/wenqi/checkpoints/pi05_libero_pytorch
+  study_hash: 8ac6b8572bac7fb373abf62130de1887b735652f19b1566c0f97e49cb716c6ee
+configs/studies/pi05_stacks_20261014/flashrt_bf16_lat250/basket.yaml:
+  checkpoint: /drive2/wenqi/checkpoints/pi05_libero_pytorch
+  study_hash: c05d93ca21f729112113919c49553166f66eb76da58bfe019e21b3fb1c482f40
+configs/studies/pi05_stacks_20261014/flashrt_bf16_lat250/bowl.yaml:
+  checkpoint: /drive2/wenqi/checkpoints/pi05_libero_pytorch
+  study_hash: 58787b6178075b4fe8ef3de4c2fa8db3f7a35a27983fbff13c0fad62feb764a2
+configs/studies/pi05_stacks_20261014/flashrt_bf16_lat250/drawer.yaml:
+  checkpoint: /drive2/wenqi/checkpoints/pi05_libero_pytorch
+  study_hash: b45544724c8c7862cb6c90098193c70fa64b2b06cf70c93d7e113fb3d0f37b74
+configs/studies/pi05_stacks_20261014/flashrt_bf16_lat250/plate.yaml:
+  checkpoint: /drive2/wenqi/checkpoints/pi05_libero_pytorch
+  study_hash: 68d516b92b72455f3488f56340fbdff96e1776aef73f7c2b59ed2f489221da0c
+configs/studies/pi05_stacks_20261014/flashrt_bf16_lazy/basket.yaml:
+  checkpoint: /drive2/wenqi/checkpoints/pi05_libero_pytorch
+  study_hash: 343cb95f02641cd56c73c0092fc60322870f677e656dec2075f92319820484ae
+configs/studies/pi05_stacks_20261014/flashrt_bf16_lazy/bowl.yaml:
+  checkpoint: /drive2/wenqi/checkpoints/pi05_libero_pytorch
+  study_hash: ef768c3de8c5dada1da6fe99db754b61c646e52fc1d91949a8649db333638b93
+configs/studies/pi05_stacks_20261014/flashrt_bf16_lazy/drawer.yaml:
+  checkpoint: /drive2/wenqi/checkpoints/pi05_libero_pytorch
+  study_hash: 0a278ab27825584e7b8e1b801140488ca7863419ef4b939cf9c04f6a5487bc30
+configs/studies/pi05_stacks_20261014/flashrt_bf16_lazy/plate.yaml:
+  checkpoint: /drive2/wenqi/checkpoints/pi05_libero_pytorch
+  study_hash: 4ae69c49a31d1bd13ff798c38554c55d981c7a9a0f86c4ba1f874da105f7a214
+configs/studies/pi05_stacks_20261014/flashrt_bf16_lazygrid/basket.yaml:
+  checkpoint: /drive2/wenqi/checkpoints/pi05_libero_pytorch
+  study_hash: 759540dac8c50a500ec0c5d128f99b97377a5bdadd8c86ee441b5b5fb89bc81c
+configs/studies/pi05_stacks_20261014/flashrt_bf16_lazygrid/bowl.yaml:
+  checkpoint: /drive2/wenqi/checkpoints/pi05_libero_pytorch
+  study_hash: fd4df239376ecd77c331b3eaed5ca9bd9c6dd5804f0b04d062859d9206cf2f5d
+configs/studies/pi05_stacks_20261014/flashrt_bf16_lazygrid/drawer.yaml:
+  checkpoint: /drive2/wenqi/checkpoints/pi05_libero_pytorch
+  study_hash: 9a797fc72dc6d7868118bb9099d8458929c69ad1349582628302a853398dfbc6
+configs/studies/pi05_stacks_20261014/flashrt_bf16_lazygrid/plate.yaml:
+  checkpoint: /drive2/wenqi/checkpoints/pi05_libero_pytorch
+  study_hash: b33f7ad0776e06c4fb26c1ed4035d18c9a3f6b25f20b18167ed860efbcd75d6e
+configs/studies/pi05_stacks_20261014/pytorch_bf16/basket.yaml:
+  checkpoint: /drive2/wenqi/checkpoints/pi05_libero_pytorch
+  study_hash: 41a120154f1e0a95b935031472e7f55c96d25b3caf1749a311c94241fbe208dd
+configs/studies/pi05_stacks_20261014/pytorch_bf16/bowl.yaml:
+  checkpoint: /drive2/wenqi/checkpoints/pi05_libero_pytorch
+  study_hash: 6de274e22b27203e8402ccaf75e3bc492f01641980ea9761fb925c1f72551845
+configs/studies/pi05_stacks_20261014/pytorch_bf16/drawer.yaml:
+  checkpoint: /drive2/wenqi/checkpoints/pi05_libero_pytorch
+  study_hash: 0004076f9c18a0eb4934340e441f90768faad8fd87ad8c9541b630a518b88584
+configs/studies/pi05_stacks_20261014/pytorch_bf16/plate.yaml:
+  checkpoint: /drive2/wenqi/checkpoints/pi05_libero_pytorch
+  study_hash: 14dc395474522b399479831dbfd1de30833b90f426dc2d1a2772fe6d4b5071df
+configs/studies/pi05_stacks_20261014/pytorch_bf16_lazy/basket.yaml:
+  checkpoint: /drive2/wenqi/checkpoints/pi05_libero_pytorch
+  study_hash: 11d56eea44812e669024606a22d45b139c15143dc7f42f3801da0d6dda373b12
+configs/studies/pi05_stacks_20261014/pytorch_bf16_lazy/bowl.yaml:
+  checkpoint: /drive2/wenqi/checkpoints/pi05_libero_pytorch
+  study_hash: 73d79201d7b9c2a24232b782116bc1ed7f90bc852b18122f0b6ecb33fc9e75c9
+configs/studies/pi05_stacks_20261014/pytorch_bf16_lazy/drawer.yaml:
+  checkpoint: /drive2/wenqi/checkpoints/pi05_libero_pytorch
+  study_hash: e27cc8011f4084a3503ae9684aa4231c855372ae8fe951cf1f359c943b7ff915
+configs/studies/pi05_stacks_20261014/pytorch_bf16_lazy/plate.yaml:
+  checkpoint: /drive2/wenqi/checkpoints/pi05_libero_pytorch
+  study_hash: 78cb2fbd0da5496deee9b28832144c9f82f4bdc9bfd39a66ac9978024e7d6df6
+configs/studies/pi05_stacks_20261014/pytorch_bf16_repeat/basket.yaml:
+  checkpoint: /drive2/wenqi/checkpoints/pi05_libero_pytorch
+  study_hash: 41a120154f1e0a95b935031472e7f55c96d25b3caf1749a311c94241fbe208dd
+configs/studies/pi05_stacks_20261014/pytorch_bf16_repeat/bowl.yaml:
+  checkpoint: /drive2/wenqi/checkpoints/pi05_libero_pytorch
+  study_hash: 6de274e22b27203e8402ccaf75e3bc492f01641980ea9761fb925c1f72551845
+configs/studies/pi05_stacks_20261014/pytorch_bf16_repeat/drawer.yaml:
+  checkpoint: /drive2/wenqi/checkpoints/pi05_libero_pytorch
+  study_hash: 0004076f9c18a0eb4934340e441f90768faad8fd87ad8c9541b630a518b88584
+configs/studies/pi05_stacks_20261014/pytorch_bf16_repeat/plate.yaml:
+  checkpoint: /drive2/wenqi/checkpoints/pi05_libero_pytorch
+  study_hash: 14dc395474522b399479831dbfd1de30833b90f426dc2d1a2772fe6d4b5071df
+configs/studies/sync_hold_pose_20261026/gr00t/basket.yaml:
+  idle_control: hold_pose
+  study_hash: b6eb85fc060771cd5734a31a5e1f13cb2156d11979d4223d87e9b69c1abe96fe
+configs/studies/sync_hold_pose_20261026/gr00t/bowl.yaml:
+  idle_control: hold_pose
+  study_hash: 2c85e8d0cdd647486c04a0a978b219a9b95613b99f0bfbc78e64232d1f66af34
+configs/studies/sync_hold_pose_20261026/gr00t/drawer.yaml:
+  idle_control: hold_pose
+  study_hash: dbc0e68bfaa035f709a5699ceffa2173e40d2432faa3b73c611ff33d4d94e40e
+configs/studies/sync_hold_pose_20261026/gr00t/plate.yaml:
+  idle_control: hold_pose
+  study_hash: e536954ce3a348689a0ce6018be8070444fa9e87d60f560fc8b66492bb0fb79a
+configs/studies/sync_hold_pose_20261026/molmoact2/basket.yaml:
+  idle_control: hold_pose
+  study_hash: 5865c44e26b63eaae7c56f96a8675183f9ea3a7edaf6dc746ea104e8f9d19a4c
+configs/studies/sync_hold_pose_20261026/molmoact2/bowl.yaml:
+  idle_control: hold_pose
+  study_hash: 5fc7f6cf3504607214287635614792503eaf78bf261494828df21bd357429202
+configs/studies/sync_hold_pose_20261026/molmoact2/drawer.yaml:
+  idle_control: hold_pose
+  study_hash: 481fa4fba1b329cb9812fb546b26945fee93596829fcd2abf4a9a6de2c625f17
+configs/studies/sync_hold_pose_20261026/molmoact2/plate.yaml:
+  idle_control: hold_pose
+  study_hash: 7399f22944523a500585181bfe20dc6062254e731716970998efadd9e7d4731e
+configs/studies/sync_hold_pose_20261026/pi05/basket.yaml:
+  idle_control: hold_pose
+  study_hash: 65703a5feae96fdac4acff148308132f158062d32943aedd1d696e3d6041b25d
+configs/studies/sync_hold_pose_20261026/pi05/bowl.yaml:
+  idle_control: hold_pose
+  study_hash: 252fa04296c979cf2b5f07cc6ba42fd6fd1778ab7c4aacb66de3c0f8c9f9fbf4
+configs/studies/sync_hold_pose_20261026/pi05/drawer.yaml:
+  idle_control: hold_pose
+  study_hash: 0b63e186f917588f95392e32f543c0437f425d3466afad421fa4c5c4bfec12a3
+configs/studies/sync_hold_pose_20261026/pi05/plate.yaml:
+  idle_control: hold_pose
+  study_hash: 19c6aab6e592131180150c985e3b4dab652fec6a3be5fc2a6f8f891d984b9f3b
+configs/studies/dynamicvla_sync_hold_pose_20261027/box.yaml:
+  checkpoint: /home/wenqi/dynamicvla-smoke/checkpoints/dynamic-vla-DOM
+  idle_control: hold_pose
+  study_hash: c42c93b18d598e9b97da6ba91f5dd16ca09b586823d1ea5fc66c64e7df273cbf
+configs/studies/dynamicvla_sync_hold_pose_20261027/can_pilot20_120.yaml:
+  checkpoint: /home/wenqi/dynamicvla-smoke/checkpoints/dynamic-vla-DOM
+  idle_control: hold_pose
+  study_hash: 27fac4d4b9d364f88afd8f268e63824a57219bcbd9e5932fc05066827b3e7e5c
+configs/studies/dynamicvla_sync_hold_pose_20261027/can_pilot20_240.yaml:
+  checkpoint: /home/wenqi/dynamicvla-smoke/checkpoints/dynamic-vla-DOM
+  idle_control: hold_pose
+  study_hash: 6babf9cc06f0672da15e89c75f1ae8b82e34d210b6b180b9b863e97900216562
+configs/studies/dynamicvla_sync_hold_pose_20261027/can_remaining180_120.yaml:
+  checkpoint: /home/wenqi/dynamicvla-smoke/checkpoints/dynamic-vla-DOM
+  idle_control: hold_pose
+  study_hash: 387d2fa2f862ed5b951348a09d5511c27522af17e383320e2389cde898045df7
+configs/studies/dynamicvla_sync_hold_pose_20261027/can_remaining180_240.yaml:
+  checkpoint: /home/wenqi/dynamicvla-smoke/checkpoints/dynamic-vla-DOM
+  idle_control: hold_pose
+  study_hash: 16e41facbda2f32828730ea2ec2a03452921849adc70e66f2fc9bea40336af2f

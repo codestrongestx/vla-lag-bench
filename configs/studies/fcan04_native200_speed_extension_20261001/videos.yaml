@@ -1,0 +1,8 @@
+# The evaluated placement recorded the first 10 episodes of each point live
+# (save_videos with video_episode_limit: 10), regardless of outcome.
+# Selecting up to 10 per outcome therefore extracts all available recordings,
+# never more than 10 distinct episodes per point (up to 30 camera clips).
+# These settings are passed as flags to `study videos`; this file is a review spec.
+clips_per_outcome: 10
+cameras: [wrist_cam, opst_cam, side_cam]
+resolution: 256

@@ -1,0 +1,17 @@
+schema_version: 1
+kind: dynamicvla
+host: local
+# Replace installation paths and CPU/GPU allocation for the evaluation host.
+gpu_budget: 1
+shards:
+  - policy_gpu: 0
+    simulator_gpu: 0
+    image_port: 3186
+    action_port: 3188
+    cpus: 0-7
+installation:
+  dynamicvla_root: /srv/dynamicvla/source
+  assets_root: /srv/dynamicvla/assets
+  simulator_python: /srv/dynamicvla/envs/isaac/bin/python
+  policy_python: /srv/dynamicvla/envs/policy/bin/python
+output_root: studies

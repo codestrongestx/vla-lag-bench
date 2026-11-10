@@ -1,0 +1,35 @@
+studies:
+- study: pi05_libero10_synchronous_b32_20261013
+  suite: libero_10
+  checkpoint: gs://openpi-assets/checkpoints/pi05_libero
+  run_id: 20261013T023536Z-735d3188-synchronous_0
+  study_hash: bbcd5b7950c44b707b91340fe9480d72c7f67a7875e800a59124c2cb04b795c3
+  episodes_sha256: a22e4ca4275cff516b5a070e32dcbd66b470b542f321e00b121a8ba6c686da56
+  episodes: 500
+  successes: 464
+  max_episode_steps: 520
+  episodes_per_task: 50
+  label: pi0.5
+  success_rate: 0.928
+  ci95:
+  - 0.9019
+  - 0.9475
+  tasks_with_no_success: 0
+  tasks_all_success: 2
+- study: pi05_libero90_synchronous_b32_20261013
+  suite: libero_90
+  checkpoint: gs://openpi-assets/checkpoints/pi05_libero
+  run_id: 20261013T022318Z-33c659f1-synchronous_0
+  study_hash: 610566bdb2df840a81701ee10de3778b551df644fbfbba9489a61ab1ef2353ed
+  episodes_sha256: a4eeef2ec48d1b143cdc70feaf5b0f35e8d00a64bf2abd8fe6f0fe439412d8e5
+  episodes: 4500
+  successes: 1275
+  max_episode_steps: 400
+  episodes_per_task: 50
+  label: pi0.5
+  success_rate: 0.2833
+  ci95:
+  - 0.2704
+  - 0.2967
+  tasks_with_no_success: 43
+  tasks_all_success: 7

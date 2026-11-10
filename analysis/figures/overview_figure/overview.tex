@@ -1,0 +1,67 @@
+% Figure 1, the overview, in VLA-Perf's visual style and arrangement. The factors fill the left as crossed knobs
+% (close-up task photos in a row, the other four factors in a row below); on the right the questions run one per
+% line over the success model. plots/overview.py exports the photos and compiles this file.
+\documentclass[border=0pt]{standalone}
+\input{style}
+\begin{document}
+\begin{tikzpicture}
+\useasboundingbox (0,0) rectangle (6.75,1.85);
+
+% Section 3: task type, close-up photos around each boxed target, crossed with the other four factors in a row.
+\fill[region, rounded corners=6pt] (0,0) rectangle (3.2,1.85);
+\node at (1.6,1.75) {\fontsize{7.5}{9}\selectfont\sectionlabel{3}{VLALagBench: dynamic tasks}};
+\draw[frame] (.06,.56) rectangle (3.14,1.62);
+\node at (1.6,1.535) {\textbf{\num{1} Task type}};
+\foreach \key/\name/\x in {basket/Release/.46, plate/Set-down/1.22, cabinet/Grasping/1.98, drawer/Articulated/2.74} {
+  \node[anchor=south] at (\x,.72) {\includegraphics[width=.70in]{task-\key-crop.png}};
+  \node[anchor=north] at (\x,.69) {\name};
+}
+\pic at (1.6,.49) {cross};
+\draw[frame] (.06,.06) rectangle (3.14,.42);
+% Knob widths follow their labels, so the longer two keep a margin and the crosses keep their gaps.
+\foreach \x/\w/\name/\fill in {.135/.58/{\num{2} Target\\speed}/knobA, .865/.52/{\num{3} VLA\\policy}/knobB,
+                                1.535/.70/{\num{4} Execution\\mode}/knobB, 2.385/.70/{\num{5} Inference\\latency}/knobC} {
+  \draw[knob, fill=\fill] (\x,.11) rectangle (\x+\w,.37);
+  \node[align=center] at (\x+\w/2,.24) {\name};
+}
+\foreach \x in {.79, 1.46, 2.31} {\pic[scale=.85] at (\x,.24) {cross};}
+\draw[flow] (3.21,1.37) -- (3.33,1.37);
+
+% Section 4: one question per line, each answered.
+\fill[cream, rounded corners=6pt] (3.35,1.05) rectangle (6.75,1.85);
+\node at (5.05,1.76) {\fontsize{7.5}{9}\selectfont\sectionlabel{4}{Systematic study}};
+\foreach \i/\q/\text/\sec in {0/Q1/How does latency affect success across tasks?/4.2,
+                              1/Q2/What makes a task sensitive to latency?/4.2,
+                              2/Q3/What are the trade-offs of sync vs.\ async?/4.3,
+                              3/Q4/Do VLA policies respond to latency alike?/4.4} {
+  \pgfmathsetmacro{\top}{1.655-\i*.148}
+  \draw[qbox] (3.43,\top-.125) rectangle (6.55,\top);
+  \node[anchor=west] at (3.50,\top-.0625) {\textbf{\q:} \text};
+  \node[anchor=east, text=section] at (6.49,\top-.0625) {§\sec};
+  \pic at (6.645,\top-.0625) {tick};
+}
+\draw[flow] (5.245,1.045) -- (5.245,.955);
+
+% Section 5: the success model as a black box, then the mode it picks for each system.
+\fill[lavender!45, rounded corners=6pt] (3.35,0) rectangle (6.75,.95);
+\node[anchor=west] at (3.43,.81) {\fontsize{7.5}{9}\selectfont\sectionlabel{5}{Success model}};
+\draw[knob, fill=white] (4.94,.70) rectangle (5.55,.92);
+\node[align=center] at (5.245,.81) {Calibration\\data};
+\draw[flow] (5.56,.81) -- (5.65,.81);
+\draw[draw=edge, line width=.6pt, fill=lavender, rounded corners=3pt] (5.66,.70) rectangle (6.00,.92);
+\node at (5.83,.81) {\textbf{Model}};
+\draw[flow] (6.01,.81) -- (6.10,.81);
+\draw[knob, fill=white] (6.11,.70) rectangle (6.67,.92);
+\node[align=center] at (6.39,.81) {Success\\rates};
+\node[anchor=west, text=ink2] at (3.43,.60) {Best mode for each system};
+\foreach \i/\sys/\mode/\h/\fill in {0/Onboard GPU/Continuous/2/sysA, 1/Shared server/Asynchronous/4/sysB,
+                                    2/Remote cloud/Asynchronous/5/sysC} {
+  \pgfmathsetmacro{\x}{3.43+\i*1.105}
+  \draw[knob, fill=\fill] (\x,.37) rectangle (\x+1.02,.51);
+  \node at (\x+.51,.44) {\sys};
+  \draw[flow] (\x+.51,.365) -- (\x+.51,.315);
+  \draw[knob, fill=white] (\x,.05) rectangle (\x+1.02,.31);
+  \node[align=center] at (\x+.51,.18) {\mode\\\textcolor{ink2}{Action horizon = \h}};
+}
+\end{tikzpicture}
+\end{document}

@@ -1,0 +1,14 @@
+stack,reference,task,speed_mps,mode,latency_ms,episodes,stack_success,reference_success,diff_pts,ci_low_pts,ci_high_pts,discordant,median_model_ms
+xtra:bitblas_w8a8,xtra:jax_bf16,,,,,2400,0.7279,0.7158,1.21,-0.77,3.19,0.2446,495.2
+xtra:bitblas_w8a8,xtra:jax_bf16,plate,0.001,synchronous,0,200,0.975,0.945,3.0,-0.64,6.64,0.07,
+xtra:bitblas_w8a8,xtra:jax_bf16,plate,0.1,synchronous,0,200,0.72,0.74,-2.0,-10.76,6.76,0.4,
+xtra:bitblas_w8a8,xtra:jax_bf16,plate,0.15,synchronous,0,200,0.47,0.44,3.0,-6.79,12.79,0.5,
+xtra:bitblas_w8a8,xtra:jax_bf16,bowl,0.001,synchronous,0,200,1.0,0.975,2.5,0.34,4.66,0.025,
+xtra:bitblas_w8a8,xtra:jax_bf16,bowl,0.15,synchronous,0,200,0.63,0.64,-1.0,-9.76,7.76,0.4,
+xtra:bitblas_w8a8,xtra:jax_bf16,bowl,0.25,synchronous,0,200,0.44,0.445,-0.5,-7.9,6.9,0.285,
+xtra:bitblas_w8a8,xtra:jax_bf16,basket,0.001,synchronous,0,200,0.92,0.95,-3.0,-7.78,1.78,0.12,
+xtra:bitblas_w8a8,xtra:jax_bf16,basket,0.1,synchronous,0,200,0.895,0.83,6.5,0.94,12.06,0.165,
+xtra:bitblas_w8a8,xtra:jax_bf16,basket,0.15,synchronous,0,200,0.6,0.54,6.0,-2.94,14.94,0.42,
+xtra:bitblas_w8a8,xtra:jax_bf16,drawer,0.001,synchronous,0,200,0.935,0.955,-2.0,-6.15,2.15,0.09,
+xtra:bitblas_w8a8,xtra:jax_bf16,drawer,0.025,synchronous,0,200,0.695,0.73,-3.5,-9.44,2.44,0.185,
+xtra:bitblas_w8a8,xtra:jax_bf16,drawer,0.05,synchronous,0,200,0.455,0.4,5.5,-1.73,12.73,0.275,

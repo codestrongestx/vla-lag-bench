@@ -1,0 +1,16 @@
+# The serving layout of the paper's H100 runs: one GPU, one policy server
+# batching up to the study's max_batch_size, 48 environment workers, and
+# rendering limited to the frames the policy observes. Use it with studies
+# whose policy section sets implementation: dynamic_batching.
+schema_version: 1
+host: local
+gpu_budget: 1
+shards:
+  - {policy_gpu: 0, port: 8100, cpus: "0-25"}
+render_gpu: 0
+policy_memory_fraction: 0.5
+workers_per_shard: 48
+render_policy_observations_only: true
+dynamic_episode_queue: true
+policy_python: third_party/openpi/.venv/bin/python
+output_root: studies

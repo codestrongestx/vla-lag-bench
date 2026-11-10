@@ -1,0 +1,368 @@
+/* VLALagBench project page. Colors repeat the paper's figure tokens (plots/style.py): warm greys, and one color per
+   execution mode. Media in demo rows are drawn on white, so the page stays white. */
+:root {
+  --ink: #111110;
+  --ink-2: #4f4e4a;
+  --muted: #6e6d68;
+  --rule: #e6e5e1;
+  --wash: #f5f5f3;
+  --link: #1f5fbf;
+  --zero: #b4b3af;
+  --sync: #d55e00;
+  --lazy: #0072b2;
+  --cont: #009e73;
+  --text: 42rem;
+  --wide: 58rem;
+  --gutter: 1.25rem;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html {
+  font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", sans-serif;
+  font-optical-sizing: auto;
+  font-size: 16px;
+  -webkit-text-size-adjust: 100%;
+  text-rendering: optimizeLegibility;
+}
+
+body {
+  margin: 0;
+  background: #fff;
+  color: var(--ink);
+  font-size: 1.0625rem;
+  line-height: 1.6;
+}
+
+img, video { display: block; max-width: 100%; height: auto; }
+sup { font-size: .68em; line-height: 0; }
+sub { font-size: .72em; line-height: 0; }
+a { color: var(--link); text-decoration: none; }
+a:hover { text-decoration: underline; text-underline-offset: .15em; }
+.nowrap { white-space: nowrap; }
+.short, .phone-only { display: none; }
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+/* ---------- cover ---------- */
+.cover {
+  background: #000;
+  color: #fff;
+  padding: 2.75rem var(--gutter) 2.75rem;
+  text-align: center;
+}
+
+.cover h1 {
+  max-width: 48rem;
+  margin: 0 auto;
+  font-size: clamp(1.75rem, 1.15rem + 2.4vw, 2.5rem);
+  font-weight: 500;
+  line-height: 1.15;
+  letter-spacing: -.022em;
+  text-wrap: balance;
+}
+
+/* Inline names, so the lines balance; each name stays whole. */
+.authors {
+  max-width: 46rem;
+  margin: 1.35rem auto 0;
+  font-size: 1.0625rem;
+  line-height: 1.75;
+  text-wrap: balance;
+}
+.authors span { display: inline-block; margin: 0 .5rem; white-space: nowrap; }
+.authors sup, .affiliations sup { color: #9d9c97; margin-left: .08em; }
+
+.affiliations {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: .2rem 1.4rem;
+  margin: .55rem auto 0;
+  color: #b9b8b3;
+  font-size: .875rem;
+}
+
+.teaser {
+  position: relative;
+  container-type: inline-size;
+  width: 100%;
+  max-width: 46rem;
+  aspect-ratio: 10 / 6;
+  margin: 1.7rem auto 0;
+  overflow: hidden;
+  border-radius: .5rem;
+  background: #0c0c0c;
+}
+.teaser video { width: 100%; height: 100%; object-fit: cover; }
+
+/* The wordmark covers the mosaic's central 6 x 2 block of tiles (scripts/build_website.py, WORDMARK). */
+.wordmark {
+  position: absolute;
+  left: 20%;
+  top: 33.3333%;
+  width: 60%;
+  height: 33.3334%;
+  display: grid;
+  place-items: center;
+  background: #000;
+  color: #fff;
+  font-size: clamp(1.5rem, 5.4vw, 3.65rem);
+  font-size: 7.6cqi;
+  font-weight: 640;
+  letter-spacing: -.035em;
+  line-height: 1;
+  user-select: none;
+}
+
+.buttons {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 1.35rem;
+}
+.buttons a {
+  min-width: 5.5rem;
+  padding: .55em 1.1em .5em;
+  border: 1px solid #fff;
+  color: #fff;
+  font-size: 1.0625rem;
+  line-height: 1.2;
+  transition: background-color .2s, color .2s;
+}
+.buttons a:hover { background: #fff; color: #000; text-decoration: none; }
+.buttons a[aria-disabled="true"] { border-color: #444; color: #75746f; cursor: default; }
+.buttons a[aria-disabled="true"]:hover { background: none; color: #75746f; }
+
+/* ---------- article ---------- */
+main { padding: 0 var(--gutter) 3rem; }
+section > * { max-width: var(--text); margin-left: auto; margin-right: auto; }
+section > .wide { max-width: var(--wide); }
+
+h2 {
+  margin-top: 4rem;
+  margin-bottom: 1rem;
+  font-size: 1.625rem;
+  font-weight: 500;
+  line-height: 1.2;
+  letter-spacing: -.015em;
+}
+p { margin-top: 1rem; margin-bottom: 1rem; }
+section > p { text-wrap: pretty; }
+
+.note {
+  margin-top: .9rem;
+  color: var(--muted);
+  font-size: .875rem;
+  text-align: center;
+  text-wrap: balance;
+}
+
+/* The paper's findings, set as it sets them: a bold label, then the claim in italics, where emphasis turns upright. */
+.finding { margin-top: 2rem; margin-bottom: 1.25rem; font-size: 1.125rem; line-height: 1.55; }
+.finding b {
+  display: block;
+  margin-bottom: .35rem;
+  color: var(--muted);
+  font-size: .75rem;
+  font-weight: 600;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+.finding em { font-style: normal; }
+.tldr, .factors { padding-left: 1.2rem; }
+.tldr li + li, .factors li + li { margin-top: .5rem; }
+.finding { font-weight: 600; }
+.figure.figure-wide img { max-width: 100%; }
+.claim { margin-top: 1.25rem; font-size: 1.125rem; line-height: 1.5; }
+.claim b { font-weight: 600; }
+/* ---------- demo rows: one frame-locked video per row; labels sit under its tiles ---------- */
+.demos-note { color: var(--muted); font-size: .9375rem; }
+.demos { margin-top: 2.25rem; }
+.demo + .demo { margin-top: 2.5rem; }
+
+.demo-head {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: .15rem .7rem;
+}
+.demo-head h3 { margin: 0; font-size: 1.125rem; font-weight: 600; letter-spacing: -.01em; }
+.demo-speed { color: var(--muted); font-size: .9375rem; font-variant-numeric: tabular-nums; }
+.demo-task { margin: .2rem 0 .75rem; color: var(--ink-2); font-size: .9375rem; line-height: 1.45; }
+
+.replay {
+  display: grid;
+  place-items: center;
+  align-self: center;
+  width: 1.6rem;
+  height: 1.6rem;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: var(--wash);
+  color: var(--ink-2);
+  cursor: pointer;
+  transition: background-color .15s;
+}
+.replay svg { width: .95rem; height: .95rem; fill: none; stroke: currentColor; stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; }
+.replay:hover { background: var(--rule); }
+
+.demo-video { width: 100%; aspect-ratio: 1584 / 512; background: #fff; }
+.real-video { aspect-ratio: 1968 / 400; }
+
+.demo-labels {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  column-gap: var(--gap, calc(100% * 24 / 1584));
+  margin-top: .55rem;
+}
+.demo-labels p {
+  margin: 0;
+  color: var(--ink-2);
+  font-size: .875rem;
+  line-height: 1.4;
+  text-align: center;
+}
+.demo-labels b {
+  margin-left: .35em;
+  color: var(--ink);
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+
+.key {
+  display: inline-block;
+  width: .5rem;
+  height: .5rem;
+  margin: 0 .45em .08em 0;
+  border-radius: 50%;
+  vertical-align: middle;
+}
+.key.zero { background: var(--zero); }
+.key.sync { background: var(--sync); }
+.key.lazy { background: var(--lazy); }
+.key.cont { background: var(--cont); }
+
+/* ---------- figures ---------- */
+.figure { margin-top: 2.25rem; margin-bottom: 2.25rem; text-align: center; }
+.figure a { display: block; cursor: zoom-in; }
+.figure img { width: 100%; max-width: 33rem; margin: 0 auto; }
+.figure-tall img { max-width: 30rem; }
+.figure figcaption {
+  max-width: 34rem;
+  margin: .8rem auto 0;
+  color: var(--muted);
+  font-size: .875rem;
+  line-height: 1.5;
+  text-wrap: balance;
+}
+
+/* ---------- equation and table ---------- */
+.equation {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: .25rem 1.75rem;
+  margin-top: 1.6rem;
+  margin-bottom: 1.6rem;
+  font-size: 1.125rem;
+}
+.equation math { display: inline-block; margin: 0; font-family: "STIX Two Math", "Cambria Math", "Latin Modern Math", math; }
+
+.table-wrap { overflow-x: auto; margin-top: 1.75rem; }
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: .875rem;
+  line-height: 1.4;
+  font-variant-numeric: tabular-nums;
+}
+th, td { padding: .55rem .6rem; text-align: left; white-space: nowrap; }
+th:first-child, td:first-child { padding-left: 0; }
+th:last-child, td:last-child { padding-right: 0; }
+thead th { border-bottom: 1px solid var(--ink); color: var(--ink-2); font-weight: 500; vertical-align: bottom; }
+/* Headers break in two lines, as the paper's table stacks them. */
+thead .unit { display: block; }
+tbody tr + tr td { border-top: 1px solid var(--rule); }
+tbody tr:last-child td { border-bottom: 1px solid var(--rule); }
+td:first-child { font-weight: 600; }
+.num { text-align: right; }
+
+/* ---------- citation ---------- */
+.bibtex { position: relative; margin-top: 1.25rem; }
+.bibtex pre {
+  margin: 0;
+  padding: 1.1rem 1.25rem;
+  overflow-x: auto;
+  border-radius: .375rem;
+  background: var(--wash);
+  color: var(--ink-2);
+  font: .8125rem/1.6 ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+}
+.copy {
+  position: absolute;
+  top: .6rem;
+  right: .6rem;
+  padding: .3rem .7rem;
+  border: 1px solid var(--rule);
+  border-radius: .3rem;
+  background: #fff;
+  color: var(--ink-2);
+  font: inherit;
+  font-size: .8125rem;
+  cursor: pointer;
+}
+.copy:hover { border-color: var(--muted); }
+
+/* ---------- narrow screens ---------- */
+@media (max-width: 48rem) {
+  .long { display: none; }
+  .short { display: inline; }
+}
+
+@media (max-width: 40rem) {
+  body { font-size: 1rem; }
+  .cover { padding-top: 2.75rem; padding-bottom: 2.5rem; }
+  .cover h1 { font-size: 1.6rem; }
+  .cover h1 .nowrap { white-space: normal; }
+  .authors { margin-top: 1.25rem; font-size: .9375rem; line-height: 1.7; }
+  .authors span { margin: 0 .35rem; }
+  .affiliations { font-size: .8125rem; gap: .1rem 1rem; }
+  .teaser { margin-top: 1.6rem; border-radius: .375rem; }
+  .buttons { gap: .7rem; margin-top: 1.4rem; }
+  .buttons a { min-width: 0; font-size: 1rem; }
+  h2 { margin-top: 3rem; font-size: 1.4rem; }
+  /* Rows run nearly edge to edge so each tile is as large as the screen allows; tap a row for full screen. */
+  .demos.wide { margin-left: calc(.375rem - var(--gutter)); margin-right: calc(.375rem - var(--gutter)); }
+  .demo-head, .demo-task { padding: 0 calc(var(--gutter) - .375rem); }
+  .finding { font-size: 1.0625rem; }
+  .demo-labels p { font-size: .75rem; }
+  .demo-labels b { display: block; margin: .1rem 0 0; }
+  .phone-only { display: block; }
+  .equation { font-size: 1rem; }
+  /* The systems table becomes one block per system. */
+  table, tbody, tr, td { display: block; }
+  thead { display: none; }
+  tbody tr { padding: .7rem 0; }
+  tbody tr + tr td { border-top: 0; }
+  tbody tr + tr { border-top: 1px solid var(--rule); }
+  tbody tr:last-child td { border-bottom: 0; }
+  tbody tr:last-child { border-bottom: 1px solid var(--rule); }
+  td { padding: .12rem 0; white-space: normal; text-align: right; }
+  td::before { content: attr(data-label); float: left; margin-right: 1rem; color: var(--muted); }
+  td:first-child { text-align: left; padding-bottom: .3rem; }
+  td:first-child::before { content: "System"; float: none; margin-right: .3em; color: inherit; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .buttons a, .replay { transition: none; }
+}

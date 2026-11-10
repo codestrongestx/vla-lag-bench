@@ -1,0 +1,183 @@
+"""Audit paired native LIBERO suites before spending policy compute.
+
+Run with ``python -m vlalagbench.benchmarks.libero.suite CONFIG --output REPORT``.
+The full orbit is checked geometrically before grasp release. This is a scene
+legality check, not a prediction that a robot can complete the task.
+"""
+
+from __future__ import annotations
+
+import argparse
+from collections import Counter, defaultdict
+import hashlib
+import json
+import math
+from pathlib import Path
+import random
+import time
+
+import numpy as np
+
+from vlalagbench.benchmarks.libero import _vendor
+from vlalagbench.benchmarks.libero.envs import make_env, reset_to_init_state, warm_up
+from vlalagbench.config import load_experiment
+from vlalagbench.files import atomic_text, sha256
+from vlalagbench.simulators.mujoco.dynamics import DynamicEnv
+from vlalagbench.simulators.mujoco.tracing import get_mj_sim
+from vlalagbench.trajectory import motion_path_length, sample_trajectory
+
+
+def _digest(value) -> str:
+    return hashlib.sha256(json.dumps(value, sort_keys=True, separators=(",", ":")).encode()).hexdigest()
+
+
+def _array_digest(value) -> str:
+    return _digest(np.asarray(value, dtype=np.float64).round(9).tolist())
+
+
+def _owners(model, targets):
+    import mujoco
+
+    roots = {mujoco.mj_name2id(model, mujoco.mjtObj.mjOBJ_BODY, name): name for name in targets}
+    roots[mujoco.mj_name2id(model, mujoco.mjtObj.mjOBJ_BODY, "robot0_base")] = "robot"
+    if -1 in roots:
+        raise ValueError("audit body is missing")
+    owners = {}
+    for geom, body in enumerate(model.geom_bodyid):
+        while body > 0 and body not in roots:
+            body = int(model.body_parentid[body])
+        if body in roots:
+            owners[geom] = roots[body]
+    return owners
+
+
+def audit(path: Path, *, spacing_m: float = 0.001) -> dict:
+    started = time.monotonic()
+    experiment = load_experiment(path)
+    benchmark = experiment.benchmark
+    trajectory = experiment.trajectory
+    if benchmark.suite != "libero_object" or len(benchmark.task_ids) != 1:
+        raise ValueError("audit requires one LIBERO-Object task")
+    if trajectory is None or trajectory.kind != "closed_path" or experiment.dynamics:
+        raise ValueError("audit requires a single closed-path trajectory")
+    if benchmark.initial_state_indices != list(range(50)) or benchmark.episodes_per_task != 200:
+        raise ValueError("native paired protocol requires all 50 official layouts and 200 episodes")
+    if trajectory.episode_schedule is None or len(trajectory.episode_schedule) != 200:
+        raise ValueError("native paired protocol requires an explicit 200-entry schedule")
+    if spacing_m <= 0 or trajectory.speed_mps <= 0:
+        raise ValueError("path speed and sampling distance must be positive")
+    task_id = benchmark.task_ids[0]
+    suite = _vendor.libero().benchmark.get_benchmark_dict()[benchmark.suite]()
+    states = suite.get_task_init_states(task_id)
+    official_hashes = [_array_digest(states[index]) for index in range(50)]
+    failures = []
+    if len(set(official_hashes)) != 50:
+        failures.append("official state vectors contain duplicates")
+    overrides = {row.initial_state_index: row for row in experiment.initial_state_overrides if row.task_id == task_id}
+    episodes, contacts = [], []
+    sample_count = 0
+    maximum_drift = 0.0
+    maximum_support_penetration = 0.0
+    max_sample_distance = 0.0
+    for episode_id in range(200):
+        index = episode_id % 50
+        actor = sample_trajectory(trajectory, base_seed=experiment.seeds.dynamics, task_id=task_id, episode_id=episode_id)
+        np.random.seed(experiment.seeds.environment)
+        random.seed(experiment.seeds.environment)
+        env = DynamicEnv(make_env(suite.get_task(task_id), resolution=64,
+            seed=experiment.seeds.environment, hard_reset=False, ignore_done=True,
+            camera_observations=False), [actor])
+        try:
+            override = overrides.get(index)
+            if override:
+                env.set_initial_object_positions(override.object_positions_m)
+                env.set_initial_object_yaws(override.object_yaws_rad)
+            reset_to_init_state(env, states[index])
+            sim = get_mj_sim(env)
+            targets = sorted(obj.root_body for obj in env.env.env.objects_dict.values())
+            env.prepare_dynamic_step(0)
+            before = {target: np.array(sim.data.get_body_xpos(target)) for target in targets}
+            # Hash the composed initial state before numerical settling. Opposite
+            # directions have the same pose and different initial velocities.
+            pose_hash = _array_digest(sim.data.qpos)
+            warm_up(env, None, benchmark.warmup_steps, hold_dynamic_time=0.0)
+            env.prepare_dynamic_step(0)
+            after = {target: np.array(sim.data.get_body_xpos(target)) for target in targets}
+            drift = max(float(np.linalg.norm(after[target][:2] - before[target][:2])) for target in targets)
+            maximum_drift = max(maximum_drift, drift)
+            settled_pose_hash = _array_digest(sim.data.qpos)
+            condition_hash = _digest({"official_sha256": official_hashes[index], "trajectory": actor.model_dump(mode="json")})
+            episodes.append({"episode_id": episode_id, "official_index": index,
+                "official_sha256": official_hashes[index], "pose_sha256": pose_hash,
+                "settled_pose_sha256": settled_pose_hash,
+                "condition_sha256": condition_hash, "phase": actor.motion.initial_phase,
+                "direction": actor.motion.initial_direction, "target_z_m": float(after[actor.target][2])})
+            length = motion_path_length(actor)
+            count = math.ceil(length / spacing_m)
+            max_sample_distance = max(max_sample_distance, length / count)
+            owners = _owners(sim.model._model, targets)
+            for step in np.arange(count) * length / count / actor.motion.speed_mps * benchmark.control_hz:
+                env.apply_dynamic_time(float(step), free_joints=True)
+                for contact in sim.data._data.contact[:sim.data._data.ncon]:
+                    left, right = owners.get(int(contact.geom1)), owners.get(int(contact.geom2))
+                    if (left == actor.target and right is None) or (right == actor.target and left is None):
+                        maximum_support_penetration = max(maximum_support_penetration, -float(contact.dist))
+                    if left is not None and right is not None and left != right and contact.dist <= 0:
+                        if len(contacts) < 100:
+                            contacts.append({"episode_id": episode_id, "control_step": float(step),
+                                "left": left, "right": right, "distance_m": float(contact.dist)})
+                        if "forbidden object/object or robot/object contact" not in failures:
+                            failures.append("forbidden object/object or robot/object contact")
+                sample_count += 1
+        finally:
+            env.close()
+        if (episode_id + 1) % 10 == 0:
+            print(f"audited {episode_id + 1}/200 conditions; contacts={len(contacts)}", flush=True)
+    if maximum_drift > 0.005:
+        failures.append(f"settling drift exceeds 5 mm: {maximum_drift:.6f} m")
+    if maximum_support_penetration > 0.001:
+        failures.append(f"moving target penetrates its support by more than 1 mm: {maximum_support_penetration:.6f} m")
+    by_layout = defaultdict(list)
+    for episode in episodes:
+        by_layout[episode["official_index"]].append(episode)
+    for index, rows in by_layout.items():
+        phases = defaultdict(list)
+        for row in rows:
+            phases[row["phase"]].append(row["direction"])
+        if len(phases) != 2 or any(sorted(directions) != [-1, 1] for directions in phases.values()):
+            failures.append(f"layout {index} lacks two phases paired in both directions")
+    pose_counts = Counter(row["pose_sha256"] for row in episodes)
+    unique_conditions = len({row["condition_sha256"] for row in episodes})
+    if len(pose_counts) != 100 or set(pose_counts.values()) != {2}:
+        failures.append("expected exactly 100 physical poses, each repeated for opposite directions")
+    if unique_conditions != 200:
+        failures.append("motion conditions contain accidental duplicates")
+    return {"schema_version": 1, "experiment": experiment.name, "config_sha256": sha256(path),
+        "passed": not failures, "failures": failures, "official_states": 50,
+        "unique_official_state_hashes": len(set(official_hashes)), "conditions": 200,
+        "unique_condition_hashes": unique_conditions, "unique_pose_hashes": len(pose_counts),
+        "unique_settled_pose_hashes": len({row["settled_pose_sha256"] for row in episodes}),
+        "pose_hash_rounding_decimals": 9, "expected_repeats_per_pose": 2,
+        "release_on_grasp_steps": trajectory.release_on_grasp_steps,
+        "settled_target_z_range_m": [min(row["target_z_m"] for row in episodes), max(row["target_z_m"] for row in episodes)],
+        "maximum_support_penetration_m": maximum_support_penetration,
+        "audit_source_sha256": sha256(Path(__file__)),
+        "dynamics_source_sha256": sha256(Path(__file__).parents[2] / "simulators/mujoco/dynamics.py"),
+        "mujoco_forward_samples": sample_count, "maximum_sample_travel_m": max_sample_distance,
+        "maximum_settle_xy_drift_m": maximum_drift, "first_forbidden_contacts": contacts,
+        "elapsed_seconds": time.monotonic() - started, "episodes": episodes}
+
+
+def main() -> int:
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("experiment", type=Path)
+    parser.add_argument("--output", required=True, type=Path)
+    args = parser.parse_args()
+    report = audit(args.experiment)
+    atomic_text(args.output, json.dumps(report, indent=2, sort_keys=True) + "\n")
+    print(json.dumps({key: value for key, value in report.items() if key != "episodes"}, indent=2))
+    return int(not report["passed"])
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())

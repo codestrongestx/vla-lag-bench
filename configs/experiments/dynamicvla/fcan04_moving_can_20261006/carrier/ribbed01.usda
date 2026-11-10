@@ -1,0 +1,102 @@
+#usda 1.0
+(
+    defaultPrim = "Carrier"
+    metersPerUnit = 1
+    upAxis = "Z"
+)
+
+def Xform "Carrier" (
+    prepend apiSchemas = ["PhysicsRigidBodyAPI", "PhysicsMassAPI"]
+)
+{
+    bool physics:rigidBodyEnabled = 1
+    bool physics:kinematicEnabled = 0
+    def Cube "rail_0" (
+        prepend apiSchemas = ["PhysicsCollisionAPI", "MaterialBindingAPI"]
+    )
+    {
+        double size = 1
+        token visibility = "invisible"
+        rel material:binding:physics = </Carrier/PhysicsMaterial> (
+            bindMaterialAs = "weakerThanDescendants"
+        )
+        double3 xformOp:translate = (0, -0.140000, 0.007000)
+        float3 xformOp:scale = (0.270000, 0.004000, 0.014000)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:scale"]
+    }
+    def Cube "rail_1" (
+        prepend apiSchemas = ["PhysicsCollisionAPI", "MaterialBindingAPI"]
+    )
+    {
+        double size = 1
+        token visibility = "invisible"
+        rel material:binding:physics = </Carrier/PhysicsMaterial> (
+            bindMaterialAs = "weakerThanDescendants"
+        )
+        double3 xformOp:translate = (0, -0.084000, 0.007000)
+        float3 xformOp:scale = (0.270000, 0.004000, 0.014000)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:scale"]
+    }
+    def Cube "rail_2" (
+        prepend apiSchemas = ["PhysicsCollisionAPI", "MaterialBindingAPI"]
+    )
+    {
+        double size = 1
+        token visibility = "invisible"
+        rel material:binding:physics = </Carrier/PhysicsMaterial> (
+            bindMaterialAs = "weakerThanDescendants"
+        )
+        double3 xformOp:translate = (0, -0.028000, 0.007000)
+        float3 xformOp:scale = (0.270000, 0.004000, 0.014000)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:scale"]
+    }
+    def Cube "rail_3" (
+        prepend apiSchemas = ["PhysicsCollisionAPI", "MaterialBindingAPI"]
+    )
+    {
+        double size = 1
+        token visibility = "invisible"
+        rel material:binding:physics = </Carrier/PhysicsMaterial> (
+            bindMaterialAs = "weakerThanDescendants"
+        )
+        double3 xformOp:translate = (0, 0.028000, 0.007000)
+        float3 xformOp:scale = (0.270000, 0.004000, 0.014000)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:scale"]
+    }
+    def Cube "rail_4" (
+        prepend apiSchemas = ["PhysicsCollisionAPI", "MaterialBindingAPI"]
+    )
+    {
+        double size = 1
+        token visibility = "invisible"
+        rel material:binding:physics = </Carrier/PhysicsMaterial> (
+            bindMaterialAs = "weakerThanDescendants"
+        )
+        double3 xformOp:translate = (0, 0.084000, 0.007000)
+        float3 xformOp:scale = (0.270000, 0.004000, 0.014000)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:scale"]
+    }
+    def Cube "rail_5" (
+        prepend apiSchemas = ["PhysicsCollisionAPI", "MaterialBindingAPI"]
+    )
+    {
+        double size = 1
+        token visibility = "invisible"
+        rel material:binding:physics = </Carrier/PhysicsMaterial> (
+            bindMaterialAs = "weakerThanDescendants"
+        )
+        double3 xformOp:translate = (0, 0.140000, 0.007000)
+        float3 xformOp:scale = (0.270000, 0.004000, 0.014000)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:scale"]
+    }
+
+    def Material "PhysicsMaterial" (
+        prepend apiSchemas = ["PhysicsMaterialAPI", "PhysxMaterialAPI"]
+    )
+    {
+        float physics:dynamicFriction = 1.5
+        float physics:staticFriction = 1.5
+        float physics:restitution = 0
+        uniform token physxMaterial:frictionCombineMode = "max"
+    }
+}

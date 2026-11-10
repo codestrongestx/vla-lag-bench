@@ -1,0 +1,31 @@
+schema_version: 2
+name: flashrt_bf16_plate_lazy100_fast_b16_20261018
+base_experiment: configs/experiments/libero/libero_spatial_task9_bowl_to_plate/plate_ellipse_paired_200.yaml
+sweep:
+  trajectory.speed_mps: [0.125, 0.15, 0.175, 0.20]
+  inference.mode: [lazy]
+  inference.latency_ms: [100]
+override:
+  benchmark.episodes_per_task: 200
+  benchmark.episode_ids: null
+  benchmark.control_hz: 20
+  benchmark.warmup_steps: 10
+  benchmark.max_episode_steps: 600
+  inference.action_chunk_steps: 10
+  inference.execution_horizon_steps: 5
+  seeds:
+    environment: 7
+    dynamics: 7
+    policy: 7
+  model.checkpoint: $VLALAGBENCH_CHECKPOINTS/pi05_libero_pytorch
+  model.engine: flashrt
+policy:
+  implementation: dynamic_batching
+  max_batch_size: 16
+  batch_padding: fixed
+  max_wait_ms: 0.0
+  deterministic_ops: false
+  pytorch_compile_mode: max-autotune-no-cudagraphs
+order:
+- trajectory.speed_mps: ascending
+- inference.latency_ms: ascending

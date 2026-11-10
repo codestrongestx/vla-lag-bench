@@ -1,0 +1,23 @@
+# Ribbed moving can, remaining 180 episodes, synchronous 240 ms at the speeds can_remaining180_240_slow.yaml does not cover.
+schema_version: 2
+name: fcan04-moving-can-ribbed-remaining180-750steps-sync240-hold-pose-full
+base_experiment: configs/studies/fcan04_moving_can_remaining180_20261008/base.yaml
+sweep:
+  trajectory.speed_mps:
+  - 0.001
+  - 0.125
+  - 0.15
+  - 0.175
+  - 0.2
+override:
+  inference.mode: synchronous
+  inference.latency_ms: 240
+policy:
+  kind: dynamicvla
+  antialiasing_mode: DLSS
+  dlss_mode: Balanced
+  enable_dl_denoiser: true
+  enable_dlssg: false
+  render_mode: RaytracedLighting
+order:
+- trajectory.speed_mps: descending

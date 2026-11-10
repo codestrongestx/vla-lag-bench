@@ -1,0 +1,64 @@
+schema_version: 5
+name: pi05-libero-goal-task0-2x-lazy-100ms
+model:
+  openpi_config: pi05_libero
+  checkpoint: gs://openpi-assets/checkpoints/pi05_libero
+benchmark:
+  suite: libero_goal
+  task_ids:
+  - 0
+  episodes_per_task: 200
+  control_hz: 20
+  warmup_steps: 10
+  max_episode_steps: 600
+dynamics: []
+dynamics_by_task:
+  0:
+  - target: wooden_cabinet_1_main
+    start_step: 0
+    end_step: null
+    loop: true
+    interpolation: cubic
+    keyframes:
+    - step: 0
+      position_offset_m:
+      - 0.0
+      - 0.0
+      - 0.0
+    - step: 30
+      position_offset_m:
+      - 0.035
+      - 0.01
+      - 0.0
+    - step: 60
+      position_offset_m:
+      - 0.0
+      - 0.02
+      - 0.0
+    - step: 90
+      position_offset_m:
+      - -0.035
+      - 0.01
+      - 0.0
+    - step: 120
+      position_offset_m:
+      - 0.0
+      - 0.0
+      - 0.0
+inference:
+  mode: lazy
+  action_chunk_steps: 10
+  execution_horizon_steps: 5
+  latency_ms: 100
+  unavailable_action:
+  - 0.0
+  - 0.0
+  - 0.0
+  - 0.0
+  - 0.0
+  - 0.0
+  - -1.0
+seeds:
+  environment: 7
+  dynamics: 7
+  policy: 7

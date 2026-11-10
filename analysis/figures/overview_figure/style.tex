@@ -1,0 +1,48 @@
+% Shared look of the TikZ Figure 1, after VLA-Perf's Figure 1 (OmniGraffle, Helvetica Neue):
+% blue "Section N" labels, square pastel knob boxes graded in tint, outlined crosses between combined
+% factors, a cream question region with green checks, and a lavender box for the solution.
+\usepackage{fontspec}
+\setmainfont{Helvetica Neue}[UprightFont=* Medium, BoldFont=* Bold, ItalicFont=* Medium Italic,
+  BoldItalicFont=* Bold Italic]
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta, positioning, calc}
+\graphicspath{{./}}
+
+\definecolor{ink}{HTML}{1F1F1F}
+\definecolor{ink2}{HTML}{5A5A5A}
+\definecolor{edge}{HTML}{3A3A3A}
+\definecolor{soft}{HTML}{9A9A9A}
+\definecolor{section}{HTML}{2846F0}
+\definecolor{region}{HTML}{F4F7FA}
+\definecolor{knobA}{HTML}{F7F8EE}
+\definecolor{knobB}{HTML}{EFF3DC}
+\definecolor{knobC}{HTML}{E5EDC5}
+\definecolor{sysA}{HTML}{F5F8FB}
+\definecolor{sysB}{HTML}{EAF0F7}
+\definecolor{sysC}{HTML}{DFE8F2}
+\definecolor{cream}{HTML}{FDF9EF}
+\definecolor{question}{HTML}{FBF2D3}
+\definecolor{lavender}{HTML}{E3DFF5}
+\definecolor{check}{HTML}{5DB82E}
+\definecolor{target}{HTML}{17BECF}
+
+\tikzset{
+  x=1in, y=1in,
+  every node/.style={font=\fontsize{7}{8}\selectfont, text=ink, inner sep=0pt},
+  knob/.style={draw=edge, line width=.6pt, align=center},
+  frame/.style={draw=edge, line width=.6pt, rounded corners=4pt, fill=white},
+  qbox/.style={draw=soft, line width=.5pt, rounded corners=3pt, fill=question},
+  flow/.style={-{Triangle[length=3.2pt, width=3.2pt]}, line width=.7pt, draw=ink},
+  cross/.pic={\draw[line width=.5pt, draw=edge, fill=white, rotate=45]
+    (-.06,-.017)--(-.017,-.017)--(-.017,-.06)--(.017,-.06)--(.017,-.017)--(.06,-.017)--(.06,.017)
+    --(.017,.017)--(.017,.06)--(-.017,.06)--(-.017,.017)--(-.06,.017)--cycle;},
+  tick/.pic={\fill[check] (0,0) circle (.06);
+    \draw[white, line width=1.1pt, line cap=round, line join=round] (-.03,.0)--(-.008,-.024)--(.032,.026);},
+}
+% "Section N - title", the number in blue as in VLA-Perf.
+\newcommand{\sectionlabel}[2]{\textbf{\textcolor{section}{Section #1}} \textbf{-- #2}}
+% The factor numbers the text uses, drawn as small circled digits (Helvetica Neue has no circled glyphs).
+\newcommand{\num}[1]{\tikz[baseline=(n.base)]\node[circle, draw=ink, line width=.45pt, inner sep=.6pt,
+  minimum size=7.2pt, font=\fontsize{5.5}{6}\selectfont\bfseries] (n) {#1};}
+% Diagram text never hyphenates.
+\hyphenpenalty=10000 \exhyphenpenalty=10000

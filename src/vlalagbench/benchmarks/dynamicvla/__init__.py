@@ -1,0 +1,1 @@
+"""DynamicVLA/DOM benchmark integration."""

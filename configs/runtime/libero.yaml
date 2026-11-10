@@ -1,0 +1,16 @@
+schema_version: 3
+name: libero-single-request
+policy_server:
+  host: 127.0.0.1
+  port: 8000
+  implementation: single
+  pytorch_compile_mode: max-autotune-no-cudagraphs
+  max_batch_size: 1
+  max_wait_ms: 0.0
+  batch_padding: none
+  deterministic_ops: false
+environment:
+  workers: 1
+  reuse_task_envs: false
+  initial_state_strategy: cycle_official
+  process_start_method: spawn

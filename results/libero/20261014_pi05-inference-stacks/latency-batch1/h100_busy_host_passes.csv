@@ -1,0 +1,22 @@
+model,stack,precision,transport,gpu,p50,p95,p99,model_p50,hz,steps,steps_p99,calls,host_load,cpu_model,arm_mean_abs,label,record
+dynamicvla,dynamicvla,fp32,in-process,H100 80GB HBM3,259.52,359.62,575.04,253.15,25.0,6.49,14.38,500,,,0.0011,,h100_m500/dynamicvla.json
+dynamicvla,dynamicvla,fp32,in-process,H100 80GB HBM3,262.04,324.61,344.34,255.59,25.0,6.55,8.61,500,,,0.0011,,h100_m500_numad_unpinned/dynamicvla.json
+gr00t,gr00t,bf16,in-process,H100 80GB HBM3,201.24,656.96,793.5,153.88,20.0,4.02,15.87,500,,,,,h100_m500/gr00t.json
+gr00t,gr00t,bf16,in-process,H100 80GB HBM3,141.48,153.0,159.11,134.14,20.0,2.83,3.18,500,,,,,h100_m500_numad_unpinned/gr00t.json
+gr00t,gr00t,bf16,websocket,H100 80GB HBM3,179.67,320.47,389.76,154.33,20.0,3.59,7.8,500,,,,,h100_m500/gr00t_ws.json
+gr00t,gr00t,bf16,websocket,H100 80GB HBM3,126.18,169.84,207.74,117.37,20.0,2.52,4.15,500,,,,,h100_m500_numad_unpinned/gr00t_ws.json
+pi05,flashrt,bf16,in-process,H100 80GB HBM3,17.86,18.88,26.26,17.65,20.0,0.36,0.53,500,,,0.0062,,h100_m500/pi05_flashrt.json
+pi05,flashrt,bf16,in-process,H100 80GB HBM3,18.36,19.4,26.23,18.09,20.0,0.37,0.52,500,125.3,,0.0062,flashrt-cuda13.1-cublasLt,h100_m500/pi05_flashrt13.json
+pi05,flashrt,bf16,in-process,H100 80GB HBM3,18.12,23.46,32.2,17.94,20.0,0.36,0.64,500,,,0.0062,,h100_m500_numad_unpinned/pi05_flashrt.json
+pi05,foldquant,bf16,in-process,H100 80GB HBM3,69.89,106.67,289.51,65.02,20.0,1.4,5.79,500,,,0.0062,,h100_m500/foldquant_bf16.json
+pi05,foldquant,bf16,in-process,H100 80GB HBM3,62.79,69.05,95.03,58.76,20.0,1.26,1.9,500,,,0.0062,,h100_m500_numad_unpinned/foldquant_bf16.json
+pi05,foldquant,w4a4,in-process,H100 80GB HBM3,178.72,198.31,213.28,173.89,20.0,3.57,4.27,500,,,0.0152,,h100_m500/foldquant_w4a4.json
+pi05,foldquant,w4a4,in-process,H100 80GB HBM3,180.42,183.4,195.04,175.22,20.0,3.61,3.9,500,,,0.0152,,h100_m500_numad_unpinned/foldquant_w4a4.json
+pi05,foldquant,w8a8,in-process,H100 80GB HBM3,91.13,142.09,152.4,85.17,20.0,1.82,3.05,500,,,0.0064,,h100_m500/foldquant_w8a8.json
+pi05,foldquant,w8a8,in-process,H100 80GB HBM3,76.09,85.23,94.6,71.87,20.0,1.52,1.89,500,,,0.0064,,h100_m500_numad_unpinned/foldquant_w8a8.json
+pi05,openpi-jax,bf16,in-process,H100 80GB HBM3,56.43,73.24,102.99,39.9,20.0,1.13,2.06,500,,,0.0061,,h100_m500/pi05_jax.json
+pi05,openpi-jax,bf16,in-process,H100 80GB HBM3,49.91,58.35,60.29,39.52,20.0,1.0,1.21,500,,,0.0061,,h100_m500_numad_unpinned/pi05_jax.json
+pi05,openpi-jax,bf16,websocket,H100 80GB HBM3,49.14,51.35,53.04,39.36,20.0,0.98,1.06,500,,,0.0061,,h100_m500/pi05_jax_ws.json
+pi05,openpi-jax,bf16,websocket,H100 80GB HBM3,50.54,69.55,79.04,39.7,20.0,1.01,1.58,500,,,0.0061,,h100_m500_numad_unpinned/pi05_jax_ws.json
+pi05,openpi-pytorch,bf16,in-process,H100 80GB HBM3,62.66,84.23,107.73,58.29,20.0,1.25,2.15,500,,,0.006,,h100_m500/pi05_pytorch.json
+pi05,openpi-pytorch,bf16,in-process,H100 80GB HBM3,76.68,81.79,130.16,71.58,20.0,1.53,2.6,500,,,0.006,,h100_m500_numad_unpinned/pi05_pytorch.json

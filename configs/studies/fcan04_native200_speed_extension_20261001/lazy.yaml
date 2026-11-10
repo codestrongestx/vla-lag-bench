@@ -1,0 +1,25 @@
+# Launch with run_fcan04_speed_extension.sh on GPUs 0-1.
+# Missing speeds relative to the LIBERO moving-cabinet grid; 0.001 m/s is already complete.
+schema_version: 2
+name: fcan04-native200-speed-extension-20261001-lazy
+base_experiment: configs/studies/fcan04_native200_speed_extension_20261001/base.yaml
+sweep:
+  trajectory.speed_mps:
+  - 0.15
+  - 0.25
+  - 0.35
+  inference.latency_ms:
+  - 120
+  - 240
+override:
+  inference.mode: lazy
+policy:
+  kind: dynamicvla
+  antialiasing_mode: DLSS
+  dlss_mode: Balanced
+  enable_dl_denoiser: true
+  enable_dlssg: false
+  render_mode: RaytracedLighting
+order:
+- trajectory.speed_mps: ascending
+- inference.latency_ms: ascending

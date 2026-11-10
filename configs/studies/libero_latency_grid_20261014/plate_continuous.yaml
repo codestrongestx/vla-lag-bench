@@ -1,0 +1,29 @@
+schema_version: 2
+name: pi05_plate_continuous_b32_20261014
+base_experiment: configs/experiments/libero/libero_spatial_task9_bowl_to_plate/plate_ellipse_paired_200.yaml
+sweep:
+  trajectory.speed_mps: [0.001, 0.025, 0.05, 0.075, 0.10, 0.125, 0.15, 0.175, 0.20]
+  inference.mode: [continuous]
+  inference.latency_ms: [50, 150, 250]
+override:
+  benchmark.episodes_per_task: 200
+  benchmark.episode_ids: null
+  benchmark.control_hz: 20
+  benchmark.warmup_steps: 10
+  benchmark.max_episode_steps: 600
+  inference.action_chunk_steps: 10
+  inference.execution_horizon_steps: 5
+  seeds:
+    environment: 7
+    dynamics: 7
+    policy: 7
+policy:
+  implementation: dynamic_batching
+  max_batch_size: 32
+  batch_padding: none
+  max_wait_ms: 0.0
+  deterministic_ops: false
+  pytorch_compile_mode: max-autotune-no-cudagraphs
+order:
+- trajectory.speed_mps: ascending
+- inference.latency_ms: ascending

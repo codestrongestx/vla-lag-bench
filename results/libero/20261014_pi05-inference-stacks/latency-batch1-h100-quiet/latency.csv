@@ -1,0 +1,10 @@
+model,stack,precision,transport,gpu,p50,p95,p99,model_p50,hz,steps,steps_p99,calls,host_load,cpu_model,arm_mean_abs,label,record
+dynamicvla,dynamicvla,fp32,in-process,H100 80GB HBM3,213.87,226.01,273.66,208.31,25.0,5.35,6.84,500,16.5,Intel(R) Xeon(R) Platinum 8481C CPU @ 2.70GHz,0.0011,,h100_m500_quiet2/dynamicvla.json
+gr00t,gr00t,bf16,in-process,H100 80GB HBM3,104.34,112.5,118.55,99.63,20.0,2.09,2.37,500,21.0,Intel(R) Xeon(R) Platinum 8481C CPU @ 2.70GHz,,,h100_m500_quiet2/gr00t.json
+gr00t,gr00t,bf16,websocket,H100 80GB HBM3,104.47,116.41,184.14,98.41,20.0,2.09,3.68,500,18.4,Intel(R) Xeon(R) Platinum 8481C CPU @ 2.70GHz,,,h100_m500_quiet2/gr00t_ws.json
+pi05,foldquant,bf16,in-process,H100 80GB HBM3,61.47,64.68,66.09,57.63,20.0,1.23,1.32,500,12.0,Intel(R) Xeon(R) Platinum 8481C CPU @ 2.70GHz,0.0062,,h100_m500_quiet2/foldquant_bf16.json
+pi05,foldquant,w4a4,in-process,H100 80GB HBM3,176.14,183.29,208.99,171.54,20.0,3.52,4.18,500,29.6,Intel(R) Xeon(R) Platinum 8481C CPU @ 2.70GHz,0.0152,,h100_m500_quiet2/foldquant_w4a4.json
+pi05,foldquant,w8a8,in-process,H100 80GB HBM3,73.22,78.16,84.32,69.66,20.0,1.46,1.69,500,6.7,Intel(R) Xeon(R) Platinum 8481C CPU @ 2.70GHz,0.0064,,h100_m500_quiet2/foldquant_w8a8.json
+pi05,openpi-jax,bf16,in-process,H100 80GB HBM3,47.83,55.65,56.57,39.19,20.0,0.96,1.13,500,14.5,Intel(R) Xeon(R) Platinum 8481C CPU @ 2.70GHz,0.0061,,h100_m500_quiet2/pi05_jax.json
+pi05,openpi-jax,bf16,websocket,H100 80GB HBM3,48.53,56.13,58.19,39.13,20.0,0.97,1.16,500,10.3,Intel(R) Xeon(R) Platinum 8481C CPU @ 2.70GHz,0.0061,,h100_m500_quiet2/pi05_jax_ws.json
+pi05,openpi-pytorch,bf16,in-process,H100 80GB HBM3,59.16,64.26,66.34,55.33,20.0,1.18,1.33,500,12.0,Intel(R) Xeon(R) Platinum 8481C CPU @ 2.70GHz,0.006,,h100_m500_quiet2/pi05_pytorch.json

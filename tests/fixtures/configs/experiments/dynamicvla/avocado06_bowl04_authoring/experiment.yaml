@@ -1,0 +1,131 @@
+schema_version: 5
+name: avocado06-bowl04-authoring
+model:
+  checkpoint: $VLALAGBENCH_CHECKPOINTS/dynamic-vla-DOM
+  checkpoint_sha256: e3da8b1e0326d7a3ee6873f7fa17cdf7015201251901be5107377cb851ce3af8
+benchmark:
+  kind: dynamicvla
+  upstream_revision: a27a06d2ca74d0e987a5e552e01013073e93cfd8
+  tasks:
+    - name: DA
+      environments:
+        - tests/1-2_place_franka_avocado06d_O03_01050247_9766.json
+  episodes_per_environment: 20
+  initial_states_per_environment: 2
+  start_at_rest: true
+  control_hz: 25
+initial_state_overrides:
+  - environment: tests/1-2_place_franka_avocado06d_O03_01050247_9766.json
+    initial_state_index: 1
+    object_positions_m:
+      container:
+        - 0.4
+        - -0.2
+        - 0.075
+trajectory:
+  kind: closed_path
+  target: container
+  start_step: 0
+  interpolation: cubic
+  speed_mps: 0.05
+  episode_schedule:
+    - initial_phase: 0
+      initial_direction: 1
+    - initial_phase: 0
+      initial_direction: 1
+    - initial_phase: 0
+      initial_direction: -1
+    - initial_phase: 0
+      initial_direction: -1
+    - initial_phase: 0.2
+      initial_direction: 1
+    - initial_phase: 0.2
+      initial_direction: 1
+    - initial_phase: 0.2
+      initial_direction: -1
+    - initial_phase: 0.2
+      initial_direction: -1
+    - initial_phase: 0.4
+      initial_direction: 1
+    - initial_phase: 0.4
+      initial_direction: 1
+    - initial_phase: 0.4
+      initial_direction: -1
+    - initial_phase: 0.4
+      initial_direction: -1
+    - initial_phase: 0.6
+      initial_direction: 1
+    - initial_phase: 0.6
+      initial_direction: 1
+    - initial_phase: 0.6
+      initial_direction: -1
+    - initial_phase: 0.6
+      initial_direction: -1
+    - initial_phase: 0.8
+      initial_direction: 1
+    - initial_phase: 0.8
+      initial_direction: 1
+    - initial_phase: 0.8
+      initial_direction: -1
+    - initial_phase: 0.8
+      initial_direction: -1
+  keyframes:
+    - position_offset_m:
+        - 0
+        - 0
+        - 0
+    - position_offset_m:
+        - -0.006699
+        - 0.015
+        - 0
+    - position_offset_m:
+        - -0.025
+        - 0.025981
+        - 0
+    - position_offset_m:
+        - -0.05
+        - 0.03
+        - 0
+    - position_offset_m:
+        - -0.075
+        - 0.025981
+        - 0
+    - position_offset_m:
+        - -0.093301
+        - 0.015
+        - 0
+    - position_offset_m:
+        - -0.1
+        - 0
+        - 0
+    - position_offset_m:
+        - -0.093301
+        - -0.015
+        - 0
+    - position_offset_m:
+        - -0.075
+        - -0.025981
+        - 0
+    - position_offset_m:
+        - -0.05
+        - -0.03
+        - 0
+    - position_offset_m:
+        - -0.025
+        - -0.025981
+        - 0
+    - position_offset_m:
+        - -0.006699
+        - -0.015
+        - 0
+    - position_offset_m:
+        - 0
+        - 0
+        - 0
+inference:
+  mode: synchronous
+  action_chunk_steps: 20
+  execution_horizon_steps: 14
+  latency_ms: 0
+seeds:
+  policy: 0

@@ -1,0 +1,782 @@
+{
+  "synchronous_0.001_0": [
+    {
+      "study_hash": "80308340aa0108894c992b6a4ec4c19210715014b02dd0f7c6fcd7424460c380",
+      "run_id": "20260928T130711Z-45cb254d-0.001_0",
+      "commit": "246ecd307c3c548e5d5d6c6545306ecdd2e412eb",
+      "episodes": 20,
+      "successes": 19,
+      "episode_sha256": "1cf0fdf270907e74c787f0c646d815db20000b87e1aed547d87f232c6782ad12"
+    },
+    {
+      "study_hash": "9233858ca7336d16cb5eaf5c0d896b3c40a6e24efc94c36d827624ff8b50d3d0",
+      "run_id": "20260930T155011Z-331f3e05-0.001_0",
+      "commit": "6ffd85f7e1e44d7f81ac52fb7395701bc26b1ede",
+      "episodes": 180,
+      "successes": 178,
+      "episode_sha256": "20dd6ec30757a3039519814aab271ae2393642ce510fc915a04cc0c3bc74f4ba"
+    }
+  ],
+  "synchronous_0.025_0": [
+    {
+      "study_hash": "80308340aa0108894c992b6a4ec4c19210715014b02dd0f7c6fcd7424460c380",
+      "run_id": "20260928T130711Z-d0d36b9e-0.025_0",
+      "commit": "246ecd307c3c548e5d5d6c6545306ecdd2e412eb",
+      "episodes": 20,
+      "successes": 20,
+      "episode_sha256": "2690c268caa87926eec2a7ff251115669a6caf6584cf7ccad4f5c146cc1e0310"
+    },
+    {
+      "study_hash": "9233858ca7336d16cb5eaf5c0d896b3c40a6e24efc94c36d827624ff8b50d3d0",
+      "run_id": "20260930T124753Z-d3f4c664-0.025_0",
+      "commit": "6ffd85f7e1e44d7f81ac52fb7395701bc26b1ede",
+      "episodes": 180,
+      "successes": 176,
+      "episode_sha256": "adf8a51506003b16a316d787e7e11648ff85508a43fe4813636e0b8dcf3d7c64"
+    }
+  ],
+  "synchronous_0.05_0": [
+    {
+      "study_hash": "80308340aa0108894c992b6a4ec4c19210715014b02dd0f7c6fcd7424460c380",
+      "run_id": "20260928T130711Z-10b67888-0.05_0",
+      "commit": "246ecd307c3c548e5d5d6c6545306ecdd2e412eb",
+      "episodes": 20,
+      "successes": 18,
+      "episode_sha256": "c468d94fec32478e5aa20ac59ca27e893955b2a0939e2f26de80dd970add5545"
+    },
+    {
+      "study_hash": "9233858ca7336d16cb5eaf5c0d896b3c40a6e24efc94c36d827624ff8b50d3d0",
+      "run_id": "20260930T104658Z-b328af0e-0.05_0",
+      "commit": "6ffd85f7e1e44d7f81ac52fb7395701bc26b1ede",
+      "episodes": 180,
+      "successes": 173,
+      "episode_sha256": "8e09a42f250614549148e695c2dcda6cf52acf419116bccf525bc304e34e09f8"
+    }
+  ],
+  "synchronous_0.1_0": [
+    {
+      "study_hash": "80308340aa0108894c992b6a4ec4c19210715014b02dd0f7c6fcd7424460c380",
+      "run_id": "20260928T130711Z-9ae4950e-0.1_0",
+      "commit": "246ecd307c3c548e5d5d6c6545306ecdd2e412eb",
+      "episodes": 20,
+      "successes": 16,
+      "episode_sha256": "a6856cd678594fab45d1ba8d6c77728daa83df29dc849140a25d099b7c771301"
+    },
+    {
+      "study_hash": "9233858ca7336d16cb5eaf5c0d896b3c40a6e24efc94c36d827624ff8b50d3d0",
+      "run_id": "20260930T072358Z-206ac05f-0.1_0",
+      "commit": "6ffd85f7e1e44d7f81ac52fb7395701bc26b1ede",
+      "episodes": 180,
+      "successes": 156,
+      "episode_sha256": "524a62d4107c47ae59e0e4ea0561ef0566868da7088927a2d29fec390b1598db"
+    }
+  ],
+  "synchronous_0.2_0": [
+    {
+      "study_hash": "80308340aa0108894c992b6a4ec4c19210715014b02dd0f7c6fcd7424460c380",
+      "run_id": "20260928T132414Z-2ccc5372-0.2_0",
+      "commit": "246ecd307c3c548e5d5d6c6545306ecdd2e412eb",
+      "episodes": 20,
+      "successes": 10,
+      "episode_sha256": "b737c4884632505de3fec344081058116a95f2fdf83d5d6acd3d3d0a9957084a"
+    },
+    {
+      "study_hash": "9233858ca7336d16cb5eaf5c0d896b3c40a6e24efc94c36d827624ff8b50d3d0",
+      "run_id": "20260930T035058Z-e1d7b0f6-0.2_0",
+      "commit": "6ffd85f7e1e44d7f81ac52fb7395701bc26b1ede",
+      "episodes": 180,
+      "successes": 97,
+      "episode_sha256": "bddb4c7e0acc65e01ae4489f6943b1d73ea6b9488e23c85a6d06d94fdec2a829"
+    }
+  ],
+  "synchronous_0.3_0": [
+    {
+      "study_hash": "80308340aa0108894c992b6a4ec4c19210715014b02dd0f7c6fcd7424460c380",
+      "run_id": "20260928T132416Z-d322b34f-0.3_0",
+      "commit": "246ecd307c3c548e5d5d6c6545306ecdd2e412eb",
+      "episodes": 20,
+      "successes": 7,
+      "episode_sha256": "0c9d48a8be45512535318c34ed784fb5cff096875835339561bb5caea452df47"
+    },
+    {
+      "study_hash": "9233858ca7336d16cb5eaf5c0d896b3c40a6e24efc94c36d827624ff8b50d3d0",
+      "run_id": "20260929T204916Z-1db7264c-0.3_0",
+      "commit": "6ffd85f7e1e44d7f81ac52fb7395701bc26b1ede",
+      "episodes": 180,
+      "successes": 51,
+      "episode_sha256": "f0443f5c05c701752863398e77d439bdcdfae5f8852c04cb121e24047b751310"
+    }
+  ],
+  "synchronous_0.4_0": [
+    {
+      "study_hash": "80308340aa0108894c992b6a4ec4c19210715014b02dd0f7c6fcd7424460c380",
+      "run_id": "20260928T132437Z-7d968353-0.4_0",
+      "commit": "246ecd307c3c548e5d5d6c6545306ecdd2e412eb",
+      "episodes": 20,
+      "successes": 2,
+      "episode_sha256": "351f747af41ee289439d98d690489206f01c7a3cb8c05a2c99ab6e52d50c4f48"
+    },
+    {
+      "study_hash": "9233858ca7336d16cb5eaf5c0d896b3c40a6e24efc94c36d827624ff8b50d3d0",
+      "run_id": "20260929T124704Z-0ee8e346-0.4_0",
+      "commit": "6ffd85f7e1e44d7f81ac52fb7395701bc26b1ede",
+      "episodes": 180,
+      "successes": 21,
+      "episode_sha256": "dd9e9b61055a43ae3b3d74e4e4c8efc7789fdde329e22918dca4d0d7e1f6ea20"
+    }
+  ],
+  "lazy_0.001_120": [
+    {
+      "study_hash": "aa4d84d34850266607b23239e88df83a4c97bdb997fdd803c68a8c0663394abf",
+      "run_id": "20260928T174351Z-9e20f9bc-0.001_120",
+      "commit": "246ecd307c3c548e5d5d6c6545306ecdd2e412eb",
+      "episodes": 20,
+      "successes": 20,
+      "episode_sha256": "c636c096fff6977ac5a2b0a4981c0781d0b6b22b50e601e7ab79770ad6ec0e58"
+    },
+    {
+      "study_hash": "0d1fcc9a9f513cdd57b5f7ab34d076156507b43d323df43da4a0b342ee19bc2c",
+      "run_id": "20260930T154658Z-b2175cea-0.001_120",
+      "commit": "6ffd85f7e1e44d7f81ac52fb7395701bc26b1ede",
+      "episodes": 180,
+      "successes": 179,
+      "episode_sha256": "0b7e316c7c203ada57cba5b8e3845e8027fab22d926051e0c7e47c41297d1eef"
+    }
+  ],
+  "lazy_0.025_120": [
+    {
+      "study_hash": "aa4d84d34850266607b23239e88df83a4c97bdb997fdd803c68a8c0663394abf",
+      "run_id": "20260928T174351Z-381c7ea1-0.025_120",
+      "commit": "246ecd307c3c548e5d5d6c6545306ecdd2e412eb",
+      "episodes": 20,
+      "successes": 20,
+      "episode_sha256": "6771c48d5deb2712d4cf7ab9798bda8de7ee2a4ed6f83e387bd0098ec5cd7d18"
+    },
+    {
+      "study_hash": "0d1fcc9a9f513cdd57b5f7ab34d076156507b43d323df43da4a0b342ee19bc2c",
+      "run_id": "20260930T125424Z-3078247d-0.025_120",
+      "commit": "6ffd85f7e1e44d7f81ac52fb7395701bc26b1ede",
+      "episodes": 180,
+      "successes": 174,
+      "episode_sha256": "a1d4cae65891220310188a05b174539e86b77b00b623502efa1276de1cc73d28"
+    }
+  ],
+  "lazy_0.05_120": [
+    {
+      "study_hash": "aa4d84d34850266607b23239e88df83a4c97bdb997fdd803c68a8c0663394abf",
+      "run_id": "20260928T174351Z-1b5b8548-0.05_120",
+      "commit": "246ecd307c3c548e5d5d6c6545306ecdd2e412eb",
+      "episodes": 20,
+      "successes": 20,
+      "episode_sha256": "77f97c0492abec81f29b6b15066a39723c7f06d6b2ea1b9e46f4ed85dbc1de11"
+    },
+    {
+      "study_hash": "0d1fcc9a9f513cdd57b5f7ab34d076156507b43d323df43da4a0b342ee19bc2c",
+      "run_id": "20260930T095525Z-80ff48d7-0.05_120",
+      "commit": "6ffd85f7e1e44d7f81ac52fb7395701bc26b1ede",
+      "episodes": 180,
+      "successes": 167,
+      "episode_sha256": "41fe7a482f22ac9ad87f4644c22f1d2f9dd5711b42b5d3948d052be39fff3bcb"
+    }
+  ],
+  "lazy_0.1_120": [
+    {
+      "study_hash": "aa4d84d34850266607b23239e88df83a4c97bdb997fdd803c68a8c0663394abf",
+      "run_id": "20260928T174351Z-baf8dc59-0.1_120",
+      "commit": "246ecd307c3c548e5d5d6c6545306ecdd2e412eb",
+      "episodes": 20,
+      "successes": 16,
+      "episode_sha256": "676f68c58c6517a6a8140a041ec5e4d720d7f8d1fe615ccc6ed4de2b5e5c8c14"
+    },
+    {
+      "study_hash": "0d1fcc9a9f513cdd57b5f7ab34d076156507b43d323df43da4a0b342ee19bc2c",
+      "run_id": "20260930T063430Z-0165239a-0.1_120",
+      "commit": "6ffd85f7e1e44d7f81ac52fb7395701bc26b1ede",
+      "episodes": 180,
+      "successes": 156,
+      "episode_sha256": "fbf6db3ff308fd8ecdc4a01550f35c4ceae3ef4f0c6537262ddeb6b61ea180e8"
+    }
+  ],
+  "lazy_0.2_120": [
+    {
+      "study_hash": "aa4d84d34850266607b23239e88df83a4c97bdb997fdd803c68a8c0663394abf",
+      "run_id": "20260928T175857Z-1be70ed2-0.2_120",
+      "commit": "246ecd307c3c548e5d5d6c6545306ecdd2e412eb",
+      "episodes": 20,
+      "successes": 10,
+      "episode_sha256": "515d95dcb32800d54df9f287cf8bef6a9e585169ea68f0dd8ce54ced4b6aa144"
+    },
+    {
+      "study_hash": "0d1fcc9a9f513cdd57b5f7ab34d076156507b43d323df43da4a0b342ee19bc2c",
+      "run_id": "20260930T010354Z-de613827-0.2_120",
+      "commit": "6ffd85f7e1e44d7f81ac52fb7395701bc26b1ede",
+      "episodes": 180,
+      "successes": 78,
+      "episode_sha256": "26b06def5e71600b3729af2398862d163c786bd1ca532d2a6c2457267d41ce8f"
+    }
+  ],
+  "lazy_0.3_120": [
+    {
+      "study_hash": "aa4d84d34850266607b23239e88df83a4c97bdb997fdd803c68a8c0663394abf",
+      "run_id": "20260928T175931Z-a545b83b-0.3_120",
+      "commit": "246ecd307c3c548e5d5d6c6545306ecdd2e412eb",
+      "episodes": 20,
+      "successes": 5,
+      "episode_sha256": "9728d81a7b3ee4524ff1c82677ac4dc70a95efdd59825bdea2a301a8e6f0aef8"
+    },
+    {
+      "study_hash": "0d1fcc9a9f513cdd57b5f7ab34d076156507b43d323df43da4a0b342ee19bc2c",
+      "run_id": "20260929T190227Z-25960d31-0.3_120",
+      "commit": "6ffd85f7e1e44d7f81ac52fb7395701bc26b1ede",
+      "episodes": 180,
+      "successes": 38,
+      "episode_sha256": "61909be346ff53409180589cbab4b59d87264aea77369be1f081b02b1bc14b1a"
+    }
+  ],
+  "lazy_0.4_120": [
+    {
+      "study_hash": "aa4d84d34850266607b23239e88df83a4c97bdb997fdd803c68a8c0663394abf",
+      "run_id": "20260928T175936Z-e841950a-0.4_120",
+      "commit": "246ecd307c3c548e5d5d6c6545306ecdd2e412eb",
+      "episodes": 20,
+      "successes": 0,
+      "episode_sha256": "459210ab99174b17098e7ce8854a02b5f19f01b864634c980db0084374e6524e"
+    },
+    {
+      "study_hash": "0d1fcc9a9f513cdd57b5f7ab34d076156507b43d323df43da4a0b342ee19bc2c",
+      "run_id": "20260929T124629Z-7cf4781f-0.4_120",
+      "commit": "6ffd85f7e1e44d7f81ac52fb7395701bc26b1ede",
+      "episodes": 180,
+      "successes": 16,
+      "episode_sha256": "803e94373c44c128d562ed22174a27114e47c3676552f737b11862a5a3fc5260"
+    }
+  ],
+  "lazy_0.001_240": [
+    {
+      "study_hash": "aa4d84d34850266607b23239e88df83a4c97bdb997fdd803c68a8c0663394abf",
+      "run_id": "20260928T180614Z-05ba5906-0.001_240",
+      "commit": "246ecd307c3c548e5d5d6c6545306ecdd2e412eb",
+      "episodes": 20,
+      "successes": 19,
+      "episode_sha256": "63a36156659018690c26d98b83109a22f0f9fd96a1db8cfd527dd6f38e9b8995"
+    },
+    {
+      "study_hash": "0d1fcc9a9f513cdd57b5f7ab34d076156507b43d323df43da4a0b342ee19bc2c",
+      "run_id": "20260930T154457Z-ad72122d-0.001_240",
+      "commit": "6ffd85f7e1e44d7f81ac52fb7395701bc26b1ede",
+      "episodes": 180,
+      "successes": 180,
+      "episode_sha256": "473cc09f6343a35b98319ca7f9e46800919000b8ac5225eb321498c37c7714fe"
+    }
+  ],
+  "lazy_0.025_240": [
+    {
+      "study_hash": "aa4d84d34850266607b23239e88df83a4c97bdb997fdd803c68a8c0663394abf",
+      "run_id": "20260928T182326Z-9c85236a-0.025_240",
+      "commit": "246ecd307c3c548e5d5d6c6545306ecdd2e412eb",
+      "episodes": 20,
+      "successes": 20,
+      "episode_sha256": "5708c2a4ca8172f279709b0ee00889ade8ff247f013658ca21020c4abf5b3a92"
+    },
+    {
+      "study_hash": "0d1fcc9a9f513cdd57b5f7ab34d076156507b43d323df43da4a0b342ee19bc2c",
+      "run_id": "20260930T125305Z-8e2107af-0.025_240",
+      "commit": "6ffd85f7e1e44d7f81ac52fb7395701bc26b1ede",
+      "episodes": 180,
+      "successes": 172,
+      "episode_sha256": "235d750677da88facb9e18f5e85d254a6c2a4abdc38fbd19ab97265827e4e082"
+    }
+  ],
+  "lazy_0.05_240": [
+    {
+      "study_hash": "aa4d84d34850266607b23239e88df83a4c97bdb997fdd803c68a8c0663394abf",
+      "run_id": "20260928T182527Z-ca15e0f8-0.05_240",
+      "commit": "246ecd307c3c548e5d5d6c6545306ecdd2e412eb",
+      "episodes": 20,
+      "successes": 19,
+      "episode_sha256": "f16e4f5a9db61ee339a8b936a578e3a133d1c82764f9fe29dea5efea90881ff0"
+    },
+    {
+      "study_hash": "0d1fcc9a9f513cdd57b5f7ab34d076156507b43d323df43da4a0b342ee19bc2c",
+      "run_id": "20260930T095149Z-5fa3844f-0.05_240",
+      "commit": "6ffd85f7e1e44d7f81ac52fb7395701bc26b1ede",
+      "episodes": 180,
+      "successes": 170,
+      "episode_sha256": "f403fdd6cc0ffd48c97d1f1fc221c6e9f9516daa046eae37e2eccb82814ad8fa"
+    }
+  ],
+  "lazy_0.1_240": [
+    {
+      "study_hash": "aa4d84d34850266607b23239e88df83a4c97bdb997fdd803c68a8c0663394abf",
+      "run_id": "20260928T182906Z-d82d9311-0.1_240",
+      "commit": "246ecd307c3c548e5d5d6c6545306ecdd2e412eb",
+      "episodes": 20,
+      "successes": 16,
+      "episode_sha256": "d2f99207b0316747bb45bacd27bb519a5d73226e91d17b3c701f3cf96406bd44"
+    },
+    {
+      "study_hash": "0d1fcc9a9f513cdd57b5f7ab34d076156507b43d323df43da4a0b342ee19bc2c",
+      "run_id": "20260930T061321Z-6d8b5f89-0.1_240",
+      "commit": "6ffd85f7e1e44d7f81ac52fb7395701bc26b1ede",
+      "episodes": 180,
+      "successes": 148,
+      "episode_sha256": "afc906130defbbb7f7d3ca330e48141dca7304f6caee1c63b45ccc6248d9680c"
+    }
+  ],
+  "lazy_0.2_240": [
+    {
+      "study_hash": "aa4d84d34850266607b23239e88df83a4c97bdb997fdd803c68a8c0663394abf",
+      "run_id": "20260928T183651Z-27a277af-0.2_240",
+      "commit": "246ecd307c3c548e5d5d6c6545306ecdd2e412eb",
+      "episodes": 20,
+      "successes": 11,
+      "episode_sha256": "5b670bd64dabbac6d64a383a7efb51e0f6b5d6953422dd1d6d6609243a685ec5"
+    },
+    {
+      "study_hash": "0d1fcc9a9f513cdd57b5f7ab34d076156507b43d323df43da4a0b342ee19bc2c",
+      "run_id": "20260930T005443Z-dc9fa08f-0.2_240",
+      "commit": "6ffd85f7e1e44d7f81ac52fb7395701bc26b1ede",
+      "episodes": 180,
+      "successes": 61,
+      "episode_sha256": "adac1ac0af924677a5f9751a2a193fb2420dd87d888156af87dc9c2b22e35a6a"
+    }
+  ],
+  "lazy_0.3_240": [
+    {
+      "study_hash": "aa4d84d34850266607b23239e88df83a4c97bdb997fdd803c68a8c0663394abf",
+      "run_id": "20260928T183914Z-b5c319bd-0.3_240",
+      "commit": "246ecd307c3c548e5d5d6c6545306ecdd2e412eb",
+      "episodes": 20,
+      "successes": 0,
+      "episode_sha256": "3e9d5ef485068714dab6e82f1c2f6bf38b1532b42bd5818d02b36870fff751ba"
+    },
+    {
+      "study_hash": "0d1fcc9a9f513cdd57b5f7ab34d076156507b43d323df43da4a0b342ee19bc2c",
+      "run_id": "20260929T184326Z-43a894ac-0.3_240",
+      "commit": "6ffd85f7e1e44d7f81ac52fb7395701bc26b1ede",
+      "episodes": 180,
+      "successes": 27,
+      "episode_sha256": "6791340b39e21517a0f3a70b666d42556ad1bf3e6ecf313e4b73f0dc61ba9849"
+    }
+  ],
+  "lazy_0.4_240": [
+    {
+      "study_hash": "aa4d84d34850266607b23239e88df83a4c97bdb997fdd803c68a8c0663394abf",
+      "run_id": "20260928T184318Z-120dd424-0.4_240",
+      "commit": "246ecd307c3c548e5d5d6c6545306ecdd2e412eb",
+      "episodes": 20,
+      "successes": 2,
+      "episode_sha256": "33361de1a651ac276f1dfa267c0b5465aa4303ff4a07ac173d45d0b315a7f523"
+    },
+    {
+      "study_hash": "0d1fcc9a9f513cdd57b5f7ab34d076156507b43d323df43da4a0b342ee19bc2c",
+      "run_id": "20260929T124629Z-73d2d5e4-0.4_240",
+      "commit": "6ffd85f7e1e44d7f81ac52fb7395701bc26b1ede",
+      "episodes": 180,
+      "successes": 8,
+      "episode_sha256": "3a1bcc55351b9fc5d44b478d1ba2c869abe1dab16fa8bca8d38f6b0cf7e6600e"
+    }
+  ],
+  "continuous_0.001_120": [
+    {
+      "study_hash": "244f2b5728e560f552a4e5970daf8936a4877856efc5c403ba2776e241a069e8",
+      "run_id": "20260928T155040Z-a14fc2b9-0.001_120",
+      "commit": "246ecd307c3c548e5d5d6c6545306ecdd2e412eb",
+      "episodes": 20,
+      "successes": 16,
+      "episode_sha256": "9f92071deca1d22abfab2e450ae693bb4dcd9dd0ba981d2b8dd6bffcb9baf14b"
+    },
+    {
+      "study_hash": "b66302d9c14a35c46f3ac250dfe36ed4cf67349589b42d775cd5060494e5e8d4",
+      "run_id": "20260930T172653Z-1bc74976-0.001_120",
+      "commit": "6ffd85f7e1e44d7f81ac52fb7395701bc26b1ede",
+      "episodes": 180,
+      "successes": 130,
+      "episode_sha256": "ba5a8c1d8ee1b0af2f992856b1b6123c7f3136f2b1658bb0354b4992b5bced83"
+    }
+  ],
+  "continuous_0.025_120": [
+    {
+      "study_hash": "244f2b5728e560f552a4e5970daf8936a4877856efc5c403ba2776e241a069e8",
+      "run_id": "20260928T155040Z-398adcca-0.025_120",
+      "commit": "246ecd307c3c548e5d5d6c6545306ecdd2e412eb",
+      "episodes": 20,
+      "successes": 16,
+      "episode_sha256": "bb8502ad6db66ec52416500af6c64dfd75807144f0a9c608fb41f31c13af4280"
+    },
+    {
+      "study_hash": "b66302d9c14a35c46f3ac250dfe36ed4cf67349589b42d775cd5060494e5e8d4",
+      "run_id": "20260930T135550Z-1960f977-0.025_120",
+      "commit": "6ffd85f7e1e44d7f81ac52fb7395701bc26b1ede",
+      "episodes": 180,
+      "successes": 140,
+      "episode_sha256": "b7312575ac097a9d595547ed5818e95ec819f05817500f8f0154cf3693ba03ea"
+    }
+  ],
+  "continuous_0.05_120": [
+    {
+      "study_hash": "244f2b5728e560f552a4e5970daf8936a4877856efc5c403ba2776e241a069e8",
+      "run_id": "20260928T155040Z-f4a27e3d-0.05_120",
+      "commit": "246ecd307c3c548e5d5d6c6545306ecdd2e412eb",
+      "episodes": 20,
+      "successes": 14,
+      "episode_sha256": "c2e73348b562a7496cad57e9a7c848a63d8db26c9bf004e4505983bc66bd1d82"
+    },
+    {
+      "study_hash": "b66302d9c14a35c46f3ac250dfe36ed4cf67349589b42d775cd5060494e5e8d4",
+      "run_id": "20260930T095952Z-0bba7bea-0.05_120",
+      "commit": "6ffd85f7e1e44d7f81ac52fb7395701bc26b1ede",
+      "episodes": 180,
+      "successes": 136,
+      "episode_sha256": "6f15147e824ab7892bbcaa3ea7de11e29c66a5450100acc82157a43a05fae530"
+    }
+  ],
+  "continuous_0.1_120": [
+    {
+      "study_hash": "244f2b5728e560f552a4e5970daf8936a4877856efc5c403ba2776e241a069e8",
+      "run_id": "20260928T155040Z-c1e811aa-0.1_120",
+      "commit": "246ecd307c3c548e5d5d6c6545306ecdd2e412eb",
+      "episodes": 20,
+      "successes": 12,
+      "episode_sha256": "788f05a0455a1698d236a04d2206a6446915c215b647fbfef78cce11de5a1c2f"
+    },
+    {
+      "study_hash": "b66302d9c14a35c46f3ac250dfe36ed4cf67349589b42d775cd5060494e5e8d4",
+      "run_id": "20260930T061012Z-5e1f150f-0.1_120",
+      "commit": "6ffd85f7e1e44d7f81ac52fb7395701bc26b1ede",
+      "episodes": 180,
+      "successes": 116,
+      "episode_sha256": "6dd6de4296618e45aac4062725c540c7f7291b04d3f6c550c757017db31361b7"
+    }
+  ],
+  "continuous_0.2_120": [
+    {
+      "study_hash": "244f2b5728e560f552a4e5970daf8936a4877856efc5c403ba2776e241a069e8",
+      "run_id": "20260928T161137Z-1e7b45e4-0.2_120",
+      "commit": "246ecd307c3c548e5d5d6c6545306ecdd2e412eb",
+      "episodes": 20,
+      "successes": 8,
+      "episode_sha256": "15a4da0198b3c9d8595244cf96aa29340f4f9d2a8317eaa82216107384ff7f1c"
+    },
+    {
+      "study_hash": "b66302d9c14a35c46f3ac250dfe36ed4cf67349589b42d775cd5060494e5e8d4",
+      "run_id": "20260930T013204Z-dfd1bdfa-0.2_120",
+      "commit": "6ffd85f7e1e44d7f81ac52fb7395701bc26b1ede",
+      "episodes": 180,
+      "successes": 117,
+      "episode_sha256": "02d11f9723d440dfedee51723877ec5cf2db4528912f1ea0d8b8b32e2cd8ec1a"
+    }
+  ],
+  "continuous_0.3_120": [
+    {
+      "study_hash": "244f2b5728e560f552a4e5970daf8936a4877856efc5c403ba2776e241a069e8",
+      "run_id": "20260928T161429Z-5875b2dd-0.3_120",
+      "commit": "246ecd307c3c548e5d5d6c6545306ecdd2e412eb",
+      "episodes": 20,
+      "successes": 7,
+      "episode_sha256": "c4da10bf530fb42934222d02d854756156c9805375af8f74fa54eac2e1092086"
+    },
+    {
+      "study_hash": "b66302d9c14a35c46f3ac250dfe36ed4cf67349589b42d775cd5060494e5e8d4",
+      "run_id": "20260929T192630Z-59d61f94-0.3_120",
+      "commit": "6ffd85f7e1e44d7f81ac52fb7395701bc26b1ede",
+      "episodes": 180,
+      "successes": 76,
+      "episode_sha256": "d511003825eeb0256687a0250b9f5ae239a5796b28eec88ee737360c952be691"
+    }
+  ],
+  "continuous_0.4_120": [
+    {
+      "study_hash": "244f2b5728e560f552a4e5970daf8936a4877856efc5c403ba2776e241a069e8",
+      "run_id": "20260928T161441Z-f2b71d77-0.4_120",
+      "commit": "246ecd307c3c548e5d5d6c6545306ecdd2e412eb",
+      "episodes": 20,
+      "successes": 5,
+      "episode_sha256": "2b2bba7d5b4670a96ae8ef4156815c739deace5d57e9833bc680903a8bc5ec69"
+    },
+    {
+      "study_hash": "b66302d9c14a35c46f3ac250dfe36ed4cf67349589b42d775cd5060494e5e8d4",
+      "run_id": "20260929T124629Z-555460a4-0.4_120",
+      "commit": "6ffd85f7e1e44d7f81ac52fb7395701bc26b1ede",
+      "episodes": 180,
+      "successes": 39,
+      "episode_sha256": "7dd2d034b9556ffa7136a7fc14ae23d89d72e40eca46d3c89a7aba21fb05d71e"
+    }
+  ],
+  "continuous_0.001_240": [
+    {
+      "study_hash": "244f2b5728e560f552a4e5970daf8936a4877856efc5c403ba2776e241a069e8",
+      "run_id": "20260928T161742Z-8b9b987a-0.001_240",
+      "commit": "246ecd307c3c548e5d5d6c6545306ecdd2e412eb",
+      "episodes": 20,
+      "successes": 18,
+      "episode_sha256": "81ad22a54d86e88c507c5645133a7b8fdf4ffe6d097afb876b1bbafb79faa53e"
+    },
+    {
+      "study_hash": "b66302d9c14a35c46f3ac250dfe36ed4cf67349589b42d775cd5060494e5e8d4",
+      "run_id": "20260930T141824Z-e23ac6cd-0.001_240",
+      "commit": "6ffd85f7e1e44d7f81ac52fb7395701bc26b1ede",
+      "episodes": 180,
+      "successes": 163,
+      "episode_sha256": "5a71de13bfc84fa94021662c523631a9d315f2f5d306312c068e701068f2b32f"
+    }
+  ],
+  "continuous_0.025_240": [
+    {
+      "study_hash": "244f2b5728e560f552a4e5970daf8936a4877856efc5c403ba2776e241a069e8",
+      "run_id": "20260928T163718Z-ca82aef7-0.025_240",
+      "commit": "246ecd307c3c548e5d5d6c6545306ecdd2e412eb",
+      "episodes": 20,
+      "successes": 17,
+      "episode_sha256": "abd59b52774e5e198b962adea8486757c477c7f8aa03fe3a674dec5c8076ddbd"
+    },
+    {
+      "study_hash": "b66302d9c14a35c46f3ac250dfe36ed4cf67349589b42d775cd5060494e5e8d4",
+      "run_id": "20260930T103326Z-fdbcfdbc-0.025_240",
+      "commit": "6ffd85f7e1e44d7f81ac52fb7395701bc26b1ede",
+      "episodes": 180,
+      "successes": 155,
+      "episode_sha256": "9b19bafc64e8356c6e029c410ab92659012fb628e26d9b504c7271a70eff6739"
+    }
+  ],
+  "continuous_0.05_240": [
+    {
+      "study_hash": "244f2b5728e560f552a4e5970daf8936a4877856efc5c403ba2776e241a069e8",
+      "run_id": "20260928T164637Z-51bcb9bf-0.05_240",
+      "commit": "246ecd307c3c548e5d5d6c6545306ecdd2e412eb",
+      "episodes": 20,
+      "successes": 18,
+      "episode_sha256": "d495d4985c51cd8ad2a19f9de8f927aa9e4af32c798c14638addf33fbe334888"
+    },
+    {
+      "study_hash": "b66302d9c14a35c46f3ac250dfe36ed4cf67349589b42d775cd5060494e5e8d4",
+      "run_id": "20260930T064646Z-fb307ab1-0.05_240",
+      "commit": "6ffd85f7e1e44d7f81ac52fb7395701bc26b1ede",
+      "episodes": 180,
+      "successes": 159,
+      "episode_sha256": "ed380edbf6569bca18854351b35f4ddd1e3172b6faaea59315cce246777ba626"
+    }
+  ],
+  "continuous_0.1_240": [
+    {
+      "study_hash": "244f2b5728e560f552a4e5970daf8936a4877856efc5c403ba2776e241a069e8",
+      "run_id": "20260928T164735Z-41013a41-0.1_240",
+      "commit": "246ecd307c3c548e5d5d6c6545306ecdd2e412eb",
+      "episodes": 20,
+      "successes": 16,
+      "episode_sha256": "1c7aeec8397474bc7f0cfb5bbc5331f35807ec49b065e0d08756680290b78e50"
+    },
+    {
+      "study_hash": "b66302d9c14a35c46f3ac250dfe36ed4cf67349589b42d775cd5060494e5e8d4",
+      "run_id": "20260930T025928Z-7c131568-0.1_240",
+      "commit": "6ffd85f7e1e44d7f81ac52fb7395701bc26b1ede",
+      "episodes": 180,
+      "successes": 135,
+      "episode_sha256": "a0ca8e87b2086be6d4653becd6d253ab6cd182c01e4421e3fe5921a0e3781f47"
+    }
+  ],
+  "continuous_0.2_240": [
+    {
+      "study_hash": "244f2b5728e560f552a4e5970daf8936a4877856efc5c403ba2776e241a069e8",
+      "run_id": "20260928T164800Z-93cbf588-0.2_240",
+      "commit": "246ecd307c3c548e5d5d6c6545306ecdd2e412eb",
+      "episodes": 20,
+      "successes": 6,
+      "episode_sha256": "10f7a09f76699df980854cedb7d6d25b2bbbea42c88a514791931267e1597e70"
+    },
+    {
+      "study_hash": "b66302d9c14a35c46f3ac250dfe36ed4cf67349589b42d775cd5060494e5e8d4",
+      "run_id": "20260930T232143Z-e42ed1b1-0.2_240",
+      "commit": "6ffd85f7e1e44d7f81ac52fb7395701bc26b1ede",
+      "episodes": 180,
+      "successes": 70,
+      "episode_sha256": "4a24cc362a0b2733644739a6c43f20c4534ea1c198596f50d41bf6478cd7de49"
+    }
+  ],
+  "continuous_0.3_240": [
+    {
+      "study_hash": "244f2b5728e560f552a4e5970daf8936a4877856efc5c403ba2776e241a069e8",
+      "run_id": "20260928T165556Z-69639548-0.3_240",
+      "commit": "246ecd307c3c548e5d5d6c6545306ecdd2e412eb",
+      "episodes": 20,
+      "successes": 5,
+      "episode_sha256": "aa76d8d3577910510e974cc5bbbfaf1203a61cae3139ab1a994fbb7653e63a8e"
+    },
+    {
+      "study_hash": "b66302d9c14a35c46f3ac250dfe36ed4cf67349589b42d775cd5060494e5e8d4",
+      "run_id": "20260929T190216Z-848e5641-0.3_240",
+      "commit": "6ffd85f7e1e44d7f81ac52fb7395701bc26b1ede",
+      "episodes": 180,
+      "successes": 23,
+      "episode_sha256": "344c43187f63652feab611e40c660a87a6c5d751c017d7e663c366698bdff05d"
+    }
+  ],
+  "continuous_0.4_240": [
+    {
+      "study_hash": "244f2b5728e560f552a4e5970daf8936a4877856efc5c403ba2776e241a069e8",
+      "run_id": "20260928T170659Z-5f0c8123-0.4_240",
+      "commit": "246ecd307c3c548e5d5d6c6545306ecdd2e412eb",
+      "episodes": 20,
+      "successes": 1,
+      "episode_sha256": "c47b57d2bc074fd478ca14d8b4a8dad77d8807843460964d9550ed818f0e1655"
+    },
+    {
+      "study_hash": "b66302d9c14a35c46f3ac250dfe36ed4cf67349589b42d775cd5060494e5e8d4",
+      "run_id": "20260929T124629Z-b1b4cc14-0.4_240",
+      "commit": "6ffd85f7e1e44d7f81ac52fb7395701bc26b1ede",
+      "episodes": 180,
+      "successes": 10,
+      "episode_sha256": "266faa86b0fab530f1e7a7ecdc4aea5748715a5ce4a1eef70e623042219950ad"
+    }
+  ],
+  "synchronous_0.15_0": [
+    {
+      "study_hash": "a04f05bee3e0640ecdbf55a4648365f6631d7b92d0e84b133e865987b0264232",
+      "run_id": "20261002T095130Z-245632e7-0.15_0",
+      "commit": "2ea41eea850f2040e3f5e0f121f9bfde6d507e1b",
+      "episodes": 200,
+      "successes": 136,
+      "episode_sha256": "a5975bb15aa0a2ee2415f8f994a975d81f3d928ff25a6a442a31416b6fca2bdd"
+    }
+  ],
+  "synchronous_0.25_0": [
+    {
+      "study_hash": "a04f05bee3e0640ecdbf55a4648365f6631d7b92d0e84b133e865987b0264232",
+      "run_id": "20261002T095130Z-f0c7a10f-0.25_0",
+      "commit": "2ea41eea850f2040e3f5e0f121f9bfde6d507e1b",
+      "episodes": 200,
+      "successes": 62,
+      "episode_sha256": "03f05130e75f585c948137b4bfc431cdc155f86482550c14612538b772e071a1"
+    }
+  ],
+  "synchronous_0.35_0": [
+    {
+      "study_hash": "a04f05bee3e0640ecdbf55a4648365f6631d7b92d0e84b133e865987b0264232",
+      "run_id": "20261002T131441Z-f560aa61-0.35_0",
+      "commit": "2ea41eea850f2040e3f5e0f121f9bfde6d507e1b",
+      "episodes": 200,
+      "successes": 24,
+      "episode_sha256": "3a4670b536a34c31854b05a04ae88793cdd7c3751b5e67910cc388728c33d69b"
+    }
+  ],
+  "lazy_0.15_120": [
+    {
+      "study_hash": "304d96c460c5eb3d907f722486ec38ef9da915602f12765296bb6cad7af6231b",
+      "run_id": "20261002T194320Z-8d32e13d-0.15_120",
+      "commit": "2ea41eea850f2040e3f5e0f121f9bfde6d507e1b",
+      "episodes": 200,
+      "successes": 125,
+      "episode_sha256": "1d1d220caa7b607695d60c86ee2af9f4a82ec2312e23cb2216d47edfed29dbf6"
+    }
+  ],
+  "lazy_0.15_240": [
+    {
+      "study_hash": "304d96c460c5eb3d907f722486ec38ef9da915602f12765296bb6cad7af6231b",
+      "run_id": "20261002T194320Z-bbf9c474-0.15_240",
+      "commit": "2ea41eea850f2040e3f5e0f121f9bfde6d507e1b",
+      "episodes": 200,
+      "successes": 100,
+      "episode_sha256": "bd0bbc448407aed9bcd7d7d1d03e1e3741f4b3755d57b9550dad990009b694c9"
+    }
+  ],
+  "lazy_0.25_120": [
+    {
+      "study_hash": "304d96c460c5eb3d907f722486ec38ef9da915602f12765296bb6cad7af6231b",
+      "run_id": "20261002T194320Z-baf748c9-0.25_120",
+      "commit": "2ea41eea850f2040e3f5e0f121f9bfde6d507e1b",
+      "episodes": 200,
+      "successes": 42,
+      "episode_sha256": "0dcec3f162568f3e46b8589ac56b9da60371ee478911690a005483f46723da59"
+    }
+  ],
+  "lazy_0.25_240": [
+    {
+      "study_hash": "304d96c460c5eb3d907f722486ec38ef9da915602f12765296bb6cad7af6231b",
+      "run_id": "20261002T194320Z-4ba96b5e-0.25_240",
+      "commit": "2ea41eea850f2040e3f5e0f121f9bfde6d507e1b",
+      "episodes": 200,
+      "successes": 24,
+      "episode_sha256": "8d635399e44300ed8f1e8e7eba821325bdc8e05a8ea0ef97c2410958dc3bdf53"
+    }
+  ],
+  "lazy_0.35_120": [
+    {
+      "study_hash": "304d96c460c5eb3d907f722486ec38ef9da915602f12765296bb6cad7af6231b",
+      "run_id": "20261002T215513Z-17c0e62d-0.35_120",
+      "commit": "2ea41eea850f2040e3f5e0f121f9bfde6d507e1b",
+      "episodes": 200,
+      "successes": 20,
+      "episode_sha256": "cd63ad8f1417cc526e29ce7ad98797335673d0ef9bef2c6739d759b3e8c2d820"
+    }
+  ],
+  "lazy_0.35_240": [
+    {
+      "study_hash": "304d96c460c5eb3d907f722486ec38ef9da915602f12765296bb6cad7af6231b",
+      "run_id": "20261002T221525Z-cbc9ce82-0.35_240",
+      "commit": "2ea41eea850f2040e3f5e0f121f9bfde6d507e1b",
+      "episodes": 200,
+      "successes": 15,
+      "episode_sha256": "a4f7b1e9ad0bc17e3f56caccb5fd602304297caa7e195f072b49f99b1724392e"
+    }
+  ],
+  "continuous_0.15_120": [
+    {
+      "study_hash": "66652e4329e2f29e831a2c73e1019f9fce30662330a388865f7af4e240cfa0a3",
+      "run_id": "20261003T014630Z-9d2adb73-0.15_120",
+      "commit": "2ea41eea850f2040e3f5e0f121f9bfde6d507e1b",
+      "episodes": 200,
+      "successes": 128,
+      "episode_sha256": "63a5500f28cce10cac6ea2930a7f43d0c46105e52720cbcbdac4bc6dc15b1d68"
+    }
+  ],
+  "continuous_0.15_240": [
+    {
+      "study_hash": "66652e4329e2f29e831a2c73e1019f9fce30662330a388865f7af4e240cfa0a3",
+      "run_id": "20261003T014630Z-80f7ea51-0.15_240",
+      "commit": "2ea41eea850f2040e3f5e0f121f9bfde6d507e1b",
+      "episodes": 200,
+      "successes": 98,
+      "episode_sha256": "ebde77132320a17915fe041cb4d1cb4d2f33cefc2662ed2d9df547e160bd7d20"
+    }
+  ],
+  "continuous_0.25_120": [
+    {
+      "study_hash": "66652e4329e2f29e831a2c73e1019f9fce30662330a388865f7af4e240cfa0a3",
+      "run_id": "20261003T014630Z-a5cdc615-0.25_120",
+      "commit": "2ea41eea850f2040e3f5e0f121f9bfde6d507e1b",
+      "episodes": 200,
+      "successes": 85,
+      "episode_sha256": "c0a4f47569633d2e28c108d368ddb131511d367c150255186b97a3b92fe7f611"
+    }
+  ],
+  "continuous_0.25_240": [
+    {
+      "study_hash": "66652e4329e2f29e831a2c73e1019f9fce30662330a388865f7af4e240cfa0a3",
+      "run_id": "20261003T014630Z-e7f11bee-0.25_240",
+      "commit": "2ea41eea850f2040e3f5e0f121f9bfde6d507e1b",
+      "episodes": 200,
+      "successes": 40,
+      "episode_sha256": "7c19590044a45ce4376f3ad64dcd762424bc6aa72a89efe97348595033c10ca6"
+    }
+  ],
+  "continuous_0.35_120": [
+    {
+      "study_hash": "66652e4329e2f29e831a2c73e1019f9fce30662330a388865f7af4e240cfa0a3",
+      "run_id": "20261003T042852Z-913cd9c8-0.35_120",
+      "commit": "2ea41eea850f2040e3f5e0f121f9bfde6d507e1b",
+      "episodes": 200,
+      "successes": 43,
+      "episode_sha256": "b061b3cf19c5fae673ef20e8abf2927942673aab17bf87738b99739d16ec3e08"
+    }
+  ],
+  "continuous_0.35_240": [
+    {
+      "study_hash": "66652e4329e2f29e831a2c73e1019f9fce30662330a388865f7af4e240cfa0a3",
+      "run_id": "20261003T045904Z-f4e9f16b-0.35_240",
+      "commit": "2ea41eea850f2040e3f5e0f121f9bfde6d507e1b",
+      "episodes": 200,
+      "successes": 14,
+      "episode_sha256": "21ae632830d6cafdba672cc4ee9ca8b4308df38168b7c77a57525b6da2405bf7"
+    }
+  ]
+}

@@ -1,0 +1,160 @@
+synchronous_0.4_240:
+- study: fcan04-native200-750steps-sync-hold-pose
+  study_hash: c42c93b18d598e9b97da6ba91f5dd16ca09b586823d1ea5fc66c64e7df273cbf
+  run_id: 20261029T103319Z-8446cfee-0.4_240
+  commit: beddc3d777eff69021ef05b02be1dd20ad7da8a2
+  episodes: 200
+  successes: 10
+  episode_sha256: d9329117644b0497e53aee8dcfe0c2ea4d01426f28b05b5fa378ed9267ff6256
+synchronous_0.4_120:
+- study: fcan04-native200-750steps-sync-hold-pose
+  study_hash: c42c93b18d598e9b97da6ba91f5dd16ca09b586823d1ea5fc66c64e7df273cbf
+  run_id: 20261029T103319Z-86a07ed0-0.4_120
+  commit: beddc3d777eff69021ef05b02be1dd20ad7da8a2
+  episodes: 200
+  successes: 16
+  episode_sha256: 8b56cb8e47a89ebc05f7b0c45946a9013b2260756c9f283bab33c0cfa5fe167e
+synchronous_0.35_240:
+- study: fcan04-native200-750steps-sync-hold-pose
+  study_hash: c42c93b18d598e9b97da6ba91f5dd16ca09b586823d1ea5fc66c64e7df273cbf
+  run_id: 20261029T103319Z-9d03628e-0.35_240
+  commit: beddc3d777eff69021ef05b02be1dd20ad7da8a2
+  episodes: 200
+  successes: 12
+  episode_sha256: d2e5af8ca071e20dafba0a09358e33103fbd4f8b9707caf3760df745072ce25c
+synchronous_0.35_120:
+- study: fcan04-native200-750steps-sync-hold-pose
+  study_hash: c42c93b18d598e9b97da6ba91f5dd16ca09b586823d1ea5fc66c64e7df273cbf
+  run_id: 20261029T103319Z-c9cbfa57-0.35_120
+  commit: beddc3d777eff69021ef05b02be1dd20ad7da8a2
+  episodes: 200
+  successes: 18
+  episode_sha256: bb905ac6074a57b00cc023e978c87678451463262118f66d04c8bc8e899d527a
+synchronous_0.3_240:
+- study: fcan04-native200-750steps-sync-hold-pose-gpu5
+  study_hash: c42c93b18d598e9b97da6ba91f5dd16ca09b586823d1ea5fc66c64e7df273cbf
+  run_id: 20261029T130429Z-14138768-0.3_240
+  commit: 86d7d55f19b3cf72b187e97636c6b0449ae4b790
+  episodes: 200
+  successes: 10
+  episode_sha256: 865fd96d2ef038459db59aa30aebffb0fdfa864f09a682d90053f26d2b7c30b7
+synchronous_0.3_120:
+- study: fcan04-native200-750steps-sync-hold-pose-gpu5
+  study_hash: c42c93b18d598e9b97da6ba91f5dd16ca09b586823d1ea5fc66c64e7df273cbf
+  run_id: 20261029T130429Z-2c6ec320-0.3_120
+  commit: 86d7d55f19b3cf72b187e97636c6b0449ae4b790
+  episodes: 200
+  successes: 12
+  episode_sha256: 7be0dbc8ac37643bbbd0cccefa3c0dc609ed968f07c80d58b65eb25e96230209
+synchronous_0.25_240:
+- study: fcan04-native200-750steps-sync-hold-pose
+  study_hash: c42c93b18d598e9b97da6ba91f5dd16ca09b586823d1ea5fc66c64e7df273cbf
+  run_id: 20261029T143607Z-0c54af58-0.25_240
+  commit: 86d7d55f19b3cf72b187e97636c6b0449ae4b790
+  episodes: 200
+  successes: 20
+  episode_sha256: c8f7ac99e77ddcf1054aed25a69fe493539cf4f021f07db1ede5256f832d4ceb
+synchronous_0.25_120:
+- study: fcan04-native200-750steps-sync-hold-pose
+  study_hash: c42c93b18d598e9b97da6ba91f5dd16ca09b586823d1ea5fc66c64e7df273cbf
+  run_id: 20261029T143757Z-86c85c35-0.25_120
+  commit: 86d7d55f19b3cf72b187e97636c6b0449ae4b790
+  episodes: 200
+  successes: 55
+  episode_sha256: 26975d6d8c0501c89575e34fead0dff3a3233d4fa794ed386d839d4d9a52cc97
+synchronous_0.2_240:
+- study: fcan04-native200-750steps-sync-hold-pose
+  study_hash: c42c93b18d598e9b97da6ba91f5dd16ca09b586823d1ea5fc66c64e7df273cbf
+  run_id: 20261029T145316Z-b4bca8e1-0.2_240
+  commit: 86d7d55f19b3cf72b187e97636c6b0449ae4b790
+  episodes: 200
+  successes: 56
+  episode_sha256: df890cecd99015708a85ac22dbd06dbb3d9f6b6ab19316c89830a55471a3ecda
+synchronous_0.2_120:
+- study: fcan04-native200-750steps-sync-hold-pose
+  study_hash: c42c93b18d598e9b97da6ba91f5dd16ca09b586823d1ea5fc66c64e7df273cbf
+  run_id: 20261029T145854Z-d901a5ef-0.2_120
+  commit: 86d7d55f19b3cf72b187e97636c6b0449ae4b790
+  episodes: 200
+  successes: 64
+  episode_sha256: b3a39818f702e3d981d29d1f674f8b9428b3c98a63e990f8c90e2c7c34bd1ca2
+synchronous_0.15_240:
+- study: fcan04-native200-750steps-sync-hold-pose
+  study_hash: c42c93b18d598e9b97da6ba91f5dd16ca09b586823d1ea5fc66c64e7df273cbf
+  run_id: 20261029T182303Z-ab19793a-0.15_240
+  commit: 86d7d55f19b3cf72b187e97636c6b0449ae4b790
+  episodes: 200
+  successes: 79
+  episode_sha256: f85c3ab447a9d7ec2d32ae4438acd26521f1b2d5906246ca151eb9f98a39f35c
+synchronous_0.15_120:
+- study: fcan04-native200-750steps-sync-hold-pose
+  study_hash: c42c93b18d598e9b97da6ba91f5dd16ca09b586823d1ea5fc66c64e7df273cbf
+  run_id: 20261029T183701Z-141c6b66-0.15_120
+  commit: 86d7d55f19b3cf72b187e97636c6b0449ae4b790
+  episodes: 200
+  successes: 95
+  episode_sha256: 1358c02f816eac25150ece02ffa3503273b8f4892a1eaac6cf57d80121794dff
+synchronous_0.1_240:
+- study: fcan04-native200-750steps-sync-hold-pose
+  study_hash: c42c93b18d598e9b97da6ba91f5dd16ca09b586823d1ea5fc66c64e7df273cbf
+  run_id: 20261029T184434Z-ad172617-0.1_240
+  commit: 86d7d55f19b3cf72b187e97636c6b0449ae4b790
+  episodes: 200
+  successes: 136
+  episode_sha256: 5833b59d23a701cf9c0c7db6881260218b204b2218ef2048628de6bd698712a8
+synchronous_0.1_120:
+- study: fcan04-native200-750steps-sync-hold-pose
+  study_hash: c42c93b18d598e9b97da6ba91f5dd16ca09b586823d1ea5fc66c64e7df273cbf
+  run_id: 20261029T185327Z-a43ab916-0.1_120
+  commit: 86d7d55f19b3cf72b187e97636c6b0449ae4b790
+  episodes: 200
+  successes: 151
+  episode_sha256: 52a8e45f33b7e6bd69e34cee5c6d1df80a94e8f81883fd43d745e886c2fb73d3
+synchronous_0.05_240:
+- study: fcan04-native200-750steps-sync-hold-pose-gpu5
+  study_hash: c42c93b18d598e9b97da6ba91f5dd16ca09b586823d1ea5fc66c64e7df273cbf
+  run_id: 20261029T173509Z-3f76846b-0.05_240
+  commit: 86d7d55f19b3cf72b187e97636c6b0449ae4b790
+  episodes: 200
+  successes: 190
+  episode_sha256: 01a510d7ba7797b178cbbfdd6777844929b7a67ef49201a73ec458a7e62a9a59
+synchronous_0.05_120:
+- study: fcan04-native200-750steps-sync-hold-pose-gpu5
+  study_hash: c42c93b18d598e9b97da6ba91f5dd16ca09b586823d1ea5fc66c64e7df273cbf
+  run_id: 20261029T180637Z-11c92ba4-0.05_120
+  commit: 86d7d55f19b3cf72b187e97636c6b0449ae4b790
+  episodes: 200
+  successes: 191
+  episode_sha256: 41571929207fc294be7782f315683b96d31a04eb41d46d63ed0f09797a86d1b6
+synchronous_0.025_240:
+- study: fcan04-native200-750steps-sync-hold-pose-gpu5
+  study_hash: c42c93b18d598e9b97da6ba91f5dd16ca09b586823d1ea5fc66c64e7df273cbf
+  run_id: 20261029T195341Z-387f39c5-0.025_240
+  commit: 86d7d55f19b3cf72b187e97636c6b0449ae4b790
+  episodes: 200
+  successes: 197
+  episode_sha256: 1b550ca09cf7401c62cdb56d8666d1435afa3c680bf6397da5fce1b8777aa004
+synchronous_0.025_120:
+- study: fcan04-native200-750steps-sync-hold-pose-gpu5
+  study_hash: c42c93b18d598e9b97da6ba91f5dd16ca09b586823d1ea5fc66c64e7df273cbf
+  run_id: 20261029T195341Z-9523dacb-0.025_120
+  commit: 86d7d55f19b3cf72b187e97636c6b0449ae4b790
+  episodes: 200
+  successes: 194
+  episode_sha256: d96f1487ba906578625a1974b53c3c67a024745e22d01e679765df1c4c0ac2a0
+synchronous_0.001_240:
+- study: fcan04-native200-750steps-sync-hold-pose-gpu5
+  study_hash: c42c93b18d598e9b97da6ba91f5dd16ca09b586823d1ea5fc66c64e7df273cbf
+  run_id: 20261029T213848Z-8db31b9a-0.001_240
+  commit: 86d7d55f19b3cf72b187e97636c6b0449ae4b790
+  episodes: 200
+  successes: 200
+  episode_sha256: dd8f0f8d9360dfdfbe432f784734f66f13ad4a49b72b86d096d51622087caff4
+synchronous_0.001_120:
+- study: fcan04-native200-750steps-sync-hold-pose-gpu5
+  study_hash: c42c93b18d598e9b97da6ba91f5dd16ca09b586823d1ea5fc66c64e7df273cbf
+  run_id: 20261029T214115Z-c0dadd9b-0.001_120
+  commit: 86d7d55f19b3cf72b187e97636c6b0449ae4b790
+  episodes: 200
+  successes: 197
+  episode_sha256: cb5695901298b2be93e3fc4cf9ed20f838a92ef64ad17872d8f5785eb7666cd0

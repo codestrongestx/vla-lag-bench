@@ -1,0 +1,548 @@
+schema_version: 5
+name: pi05-libero-object-task1-native-cream-cheese-ellipse-paired-200
+model:
+  openpi_config: pi05_libero
+  checkpoint: gs://openpi-assets/checkpoints/pi05_libero
+benchmark:
+  kind: libero
+  suite: libero_object
+  task_ids:
+  - 1
+  episodes_per_task: 200
+  control_hz: 20
+  warmup_steps: 10
+  max_episode_steps: 600
+  initial_state_indices:
+  - 0
+  - 1
+  - 2
+  - 3
+  - 4
+  - 5
+  - 6
+  - 7
+  - 8
+  - 9
+  - 10
+  - 11
+  - 12
+  - 13
+  - 14
+  - 15
+  - 16
+  - 17
+  - 18
+  - 19
+  - 20
+  - 21
+  - 22
+  - 23
+  - 24
+  - 25
+  - 26
+  - 27
+  - 28
+  - 29
+  - 30
+  - 31
+  - 32
+  - 33
+  - 34
+  - 35
+  - 36
+  - 37
+  - 38
+  - 39
+  - 40
+  - 41
+  - 42
+  - 43
+  - 44
+  - 45
+  - 46
+  - 47
+  - 48
+  - 49
+initial_state_overrides: []
+dynamics: []
+dynamics_by_task: {}
+trajectory:
+  kind: closed_path
+  target: cream_cheese_1_main
+  start_step: 0
+  interpolation: cubic
+  speed_mps: 0.046918794
+  release_on_grasp_steps: 3
+  phase_bins: null
+  shuffle: false
+  episode_schedule:
+  - initial_phase: 0.564198222082
+    initial_direction: -1
+  - initial_phase: 0.141179688082
+    initial_direction: 1
+  - initial_phase: 0.977942784109
+    initial_direction: 1
+  - initial_phase: 0.904137918086
+    initial_direction: 1
+  - initial_phase: 0.316167914873
+    initial_direction: -1
+  - initial_phase: 0.933742560686
+    initial_direction: -1
+  - initial_phase: 0.495342928834
+    initial_direction: 1
+  - initial_phase: 0.187842379169
+    initial_direction: -1
+  - initial_phase: 0.503854197823
+    initial_direction: 1
+  - initial_phase: 0.546396807065
+    initial_direction: -1
+  - initial_phase: 0.240139523665
+    initial_direction: 1
+  - initial_phase: 0.416692100517
+    initial_direction: 1
+  - initial_phase: 0.550193248972
+    initial_direction: 1
+  - initial_phase: 0.164330767932
+    initial_direction: -1
+  - initial_phase: 0.826875688403
+    initial_direction: 1
+  - initial_phase: 0.177373071974
+    initial_direction: 1
+  - initial_phase: 0.615976147857
+    initial_direction: -1
+  - initial_phase: 0.367815259511
+    initial_direction: 1
+  - initial_phase: 0.468062344357
+    initial_direction: 1
+  - initial_phase: 0.736308864147
+    initial_direction: -1
+  - initial_phase: 0.456840301428
+    initial_direction: 1
+  - initial_phase: 0.844035264159
+    initial_direction: 1
+  - initial_phase: 0.526074801473
+    initial_direction: 1
+  - initial_phase: 0.39273168199
+    initial_direction: -1
+  - initial_phase: 0.3529649928
+    initial_direction: 1
+  - initial_phase: 0.776089500687
+    initial_direction: 1
+  - initial_phase: 0.588992581121
+    initial_direction: 1
+  - initial_phase: 0.622995449469
+    initial_direction: 1
+  - initial_phase: 0.806411362081
+    initial_direction: 1
+  - initial_phase: 0.285336888077
+    initial_direction: -1
+  - initial_phase: 0.014674463097
+    initial_direction: -1
+  - initial_phase: 0.259578361325
+    initial_direction: -1
+  - initial_phase: 0.207713602502
+    initial_direction: 1
+  - initial_phase: 0.837899877595
+    initial_direction: 1
+  - initial_phase: 0.691433552182
+    initial_direction: 1
+  - initial_phase: 0.636180611992
+    initial_direction: 1
+  - initial_phase: 0.57655371031
+    initial_direction: 1
+  - initial_phase: 0.214640484375
+    initial_direction: -1
+  - initial_phase: 0.444700649291
+    initial_direction: 1
+  - initial_phase: 0.987682091219
+    initial_direction: -1
+  - initial_phase: 0.094792337893
+    initial_direction: 1
+  - initial_phase: 0.102938870233
+    initial_direction: -1
+  - initial_phase: 0.874687364423
+    initial_direction: -1
+  - initial_phase: 0.92250141202
+    initial_direction: 1
+  - initial_phase: 0.881178332611
+    initial_direction: -1
+  - initial_phase: 0.260810218383
+    initial_direction: -1
+  - initial_phase: 0.032788742471
+    initial_direction: 1
+  - initial_phase: 0.659790855786
+    initial_direction: -1
+  - initial_phase: 0.725272472784
+    initial_direction: 1
+  - initial_phase: 0.792457006416
+    initial_direction: -1
+  - initial_phase: 0.064809425115
+    initial_direction: -1
+  - initial_phase: 0.141179688082
+    initial_direction: -1
+  - initial_phase: 0.977942784109
+    initial_direction: -1
+  - initial_phase: 0.904137918086
+    initial_direction: -1
+  - initial_phase: 0.813811088328
+    initial_direction: 1
+  - initial_phase: 0.933742560686
+    initial_direction: 1
+  - initial_phase: 0.495342928834
+    initial_direction: -1
+  - initial_phase: 0.187842379169
+    initial_direction: 1
+  - initial_phase: 0.002132274433
+    initial_direction: 1
+  - initial_phase: 0.045518657349
+    initial_direction: 1
+  - initial_phase: 0.240139523665
+    initial_direction: -1
+  - initial_phase: 0.416692100517
+    initial_direction: -1
+  - initial_phase: 0.050309415945
+    initial_direction: 1
+  - initial_phase: 0.661369669849
+    initial_direction: 1
+  - initial_phase: 0.325320008397
+    initial_direction: 1
+  - initial_phase: 0.672333990164
+    initial_direction: -1
+  - initial_phase: 0.615976147857
+    initial_direction: 1
+  - initial_phase: 0.367815259511
+    initial_direction: -1
+  - initial_phase: 0.962775988035
+    initial_direction: 1
+  - initial_phase: 0.231197667825
+    initial_direction: 1
+  - initial_phase: 0.953794583689
+    initial_direction: -1
+  - initial_phase: 0.349396947837
+    initial_direction: 1
+  - initial_phase: 0.029847078284
+    initial_direction: 1
+  - initial_phase: 0.8985433773
+    initial_direction: -1
+  - initial_phase: 0.852780246019
+    initial_direction: 1
+  - initial_phase: 0.273637193379
+    initial_direction: 1
+  - initial_phase: 0.089916003792
+    initial_direction: -1
+  - initial_phase: 0.123989286504
+    initial_direction: 1
+  - initial_phase: 0.307544383763
+    initial_direction: 1
+  - initial_phase: 0.783059684629
+    initial_direction: 1
+  - initial_phase: 0.512381747057
+    initial_direction: 1
+  - initial_phase: 0.75825726566
+    initial_direction: -1
+  - initial_phase: 0.207713602502
+    initial_direction: -1
+  - initial_phase: 0.332289802386
+    initial_direction: 1
+  - initial_phase: 0.196046824536
+    initial_direction: 1
+  - initial_phase: 0.137375521901
+    initial_direction: 1
+  - initial_phase: 0.57655371031
+    initial_direction: -1
+  - initial_phase: 0.214640484375
+    initial_direction: 1
+  - initial_phase: 0.949362665143
+    initial_direction: 1
+  - initial_phase: 0.48445910272
+    initial_direction: 1
+  - initial_phase: 0.094792337893
+    initial_direction: -1
+  - initial_phase: 0.607011933149
+    initial_direction: -1
+  - initial_phase: 0.375421280822
+    initial_direction: -1
+  - initial_phase: 0.421791672161
+    initial_direction: 1
+  - initial_phase: 0.380544176634
+    initial_direction: -1
+  - initial_phase: 0.760698496042
+    initial_direction: -1
+  - initial_phase: 0.535024501705
+    initial_direction: -1
+  - initial_phase: 0.659790855786
+    initial_direction: 1
+  - initial_phase: 0.725272472784
+    initial_direction: -1
+  - initial_phase: 0.29342650039
+    initial_direction: 1
+  - initial_phase: 0.064809425115
+    initial_direction: 1
+  - initial_phase: 0.641004625573
+    initial_direction: -1
+  - initial_phase: 0.473149811566
+    initial_direction: 1
+  - initial_phase: 0.401775468189
+    initial_direction: -1
+  - initial_phase: 0.813811088328
+    initial_direction: -1
+  - initial_phase: 0.43916691924
+    initial_direction: 1
+  - initial_phase: 0.999296056706
+    initial_direction: 1
+  - initial_phase: 0.686140415941
+    initial_direction: 1
+  - initial_phase: 0.503854197823
+    initial_direction: -1
+  - initial_phase: 0.546396807065
+    initial_direction: 1
+  - initial_phase: 0.746691122479
+    initial_direction: 1
+  - initial_phase: 0.915696655204
+    initial_direction: -1
+  - initial_phase: 0.550193248972
+    initial_direction: -1
+  - initial_phase: 0.661369669849
+    initial_direction: -1
+  - initial_phase: 0.826875688403
+    initial_direction: -1
+  - initial_phase: 0.672333990164
+    initial_direction: 1
+  - initial_phase: 0.118687285532
+    initial_direction: 1
+  - initial_phase: 0.864694551431
+    initial_direction: 1
+  - initial_phase: 0.962775988035
+    initial_direction: -1
+  - initial_phase: 0.231197667825
+    initial_direction: -1
+  - initial_phase: 0.953794583689
+    initial_direction: 1
+  - initial_phase: 0.349396947837
+    initial_direction: -1
+  - initial_phase: 0.029847078284
+    initial_direction: -1
+  - initial_phase: 0.8985433773
+    initial_direction: 1
+  - initial_phase: 0.3529649928
+    initial_direction: -1
+  - initial_phase: 0.273637193379
+    initial_direction: -1
+  - initial_phase: 0.089916003792
+    initial_direction: 1
+  - initial_phase: 0.123989286504
+    initial_direction: -1
+  - initial_phase: 0.806411362081
+    initial_direction: -1
+  - initial_phase: 0.285336888077
+    initial_direction: 1
+  - initial_phase: 0.512381747057
+    initial_direction: -1
+  - initial_phase: 0.75825726566
+    initial_direction: 1
+  - initial_phase: 0.701313106994
+    initial_direction: -1
+  - initial_phase: 0.332289802386
+    initial_direction: -1
+  - initial_phase: 0.196046824536
+    initial_direction: -1
+  - initial_phase: 0.137375521901
+    initial_direction: -1
+  - initial_phase: 0.071728258379
+    initial_direction: -1
+  - initial_phase: 0.714163204912
+    initial_direction: -1
+  - initial_phase: 0.949362665143
+    initial_direction: -1
+  - initial_phase: 0.48445910272
+    initial_direction: -1
+  - initial_phase: 0.59830249057
+    initial_direction: -1
+  - initial_phase: 0.607011933149
+    initial_direction: 1
+  - initial_phase: 0.375421280822
+    initial_direction: 1
+  - initial_phase: 0.92250141202
+    initial_direction: -1
+  - initial_phase: 0.881178332611
+    initial_direction: 1
+  - initial_phase: 0.260810218383
+    initial_direction: 1
+  - initial_phase: 0.535024501705
+    initial_direction: 1
+  - initial_phase: 0.155374912957
+    initial_direction: 1
+  - initial_phase: 0.222448238461
+    initial_direction: 1
+  - initial_phase: 0.792457006416
+    initial_direction: 1
+  - initial_phase: 0.564198222082
+    initial_direction: 1
+  - initial_phase: 0.641004625573
+    initial_direction: 1
+  - initial_phase: 0.473149811566
+    initial_direction: -1
+  - initial_phase: 0.401775468189
+    initial_direction: 1
+  - initial_phase: 0.316167914873
+    initial_direction: 1
+  - initial_phase: 0.43916691924
+    initial_direction: -1
+  - initial_phase: 0.999296056706
+    initial_direction: -1
+  - initial_phase: 0.686140415941
+    initial_direction: -1
+  - initial_phase: 0.002132274433
+    initial_direction: -1
+  - initial_phase: 0.045518657349
+    initial_direction: -1
+  - initial_phase: 0.746691122479
+    initial_direction: -1
+  - initial_phase: 0.915696655204
+    initial_direction: 1
+  - initial_phase: 0.050309415945
+    initial_direction: -1
+  - initial_phase: 0.164330767932
+    initial_direction: 1
+  - initial_phase: 0.325320008397
+    initial_direction: -1
+  - initial_phase: 0.177373071974
+    initial_direction: -1
+  - initial_phase: 0.118687285532
+    initial_direction: -1
+  - initial_phase: 0.864694551431
+    initial_direction: -1
+  - initial_phase: 0.468062344357
+    initial_direction: -1
+  - initial_phase: 0.736308864147
+    initial_direction: 1
+  - initial_phase: 0.456840301428
+    initial_direction: -1
+  - initial_phase: 0.844035264159
+    initial_direction: -1
+  - initial_phase: 0.526074801473
+    initial_direction: -1
+  - initial_phase: 0.39273168199
+    initial_direction: 1
+  - initial_phase: 0.852780246019
+    initial_direction: -1
+  - initial_phase: 0.776089500687
+    initial_direction: -1
+  - initial_phase: 0.588992581121
+    initial_direction: -1
+  - initial_phase: 0.622995449469
+    initial_direction: -1
+  - initial_phase: 0.307544383763
+    initial_direction: -1
+  - initial_phase: 0.783059684629
+    initial_direction: -1
+  - initial_phase: 0.014674463097
+    initial_direction: 1
+  - initial_phase: 0.259578361325
+    initial_direction: 1
+  - initial_phase: 0.701313106994
+    initial_direction: 1
+  - initial_phase: 0.837899877595
+    initial_direction: -1
+  - initial_phase: 0.691433552182
+    initial_direction: -1
+  - initial_phase: 0.636180611992
+    initial_direction: -1
+  - initial_phase: 0.071728258379
+    initial_direction: 1
+  - initial_phase: 0.714163204912
+    initial_direction: 1
+  - initial_phase: 0.444700649291
+    initial_direction: -1
+  - initial_phase: 0.987682091219
+    initial_direction: 1
+  - initial_phase: 0.59830249057
+    initial_direction: 1
+  - initial_phase: 0.102938870233
+    initial_direction: 1
+  - initial_phase: 0.874687364423
+    initial_direction: 1
+  - initial_phase: 0.421791672161
+    initial_direction: -1
+  - initial_phase: 0.380544176634
+    initial_direction: 1
+  - initial_phase: 0.760698496042
+    initial_direction: 1
+  - initial_phase: 0.032788742471
+    initial_direction: -1
+  - initial_phase: 0.155374912957
+    initial_direction: -1
+  - initial_phase: 0.222448238461
+    initial_direction: -1
+  - initial_phase: 0.29342650039
+    initial_direction: -1
+  keyframes:
+  - position_offset_m:
+    - 0.03
+    - 0.02
+    - 0.0
+  - position_offset_m:
+    - 0.019282
+    - 0.04
+    - 0.0
+  - position_offset_m:
+    - -0.01
+    - 0.054641
+    - 0.0
+  - position_offset_m:
+    - -0.05
+    - 0.06
+    - 0.0
+  - position_offset_m:
+    - -0.09
+    - 0.054641
+    - 0.0
+  - position_offset_m:
+    - -0.119282
+    - 0.04
+    - 0.0
+  - position_offset_m:
+    - -0.13
+    - 0.02
+    - 0.0
+  - position_offset_m:
+    - -0.119282
+    - 0.0
+    - 0.0
+  - position_offset_m:
+    - -0.09
+    - -0.014641
+    - 0.0
+  - position_offset_m:
+    - -0.05
+    - -0.02
+    - 0.0
+  - position_offset_m:
+    - -0.01
+    - -0.014641
+    - 0.0
+  - position_offset_m:
+    - 0.019282
+    - 0.0
+    - 0.0
+  - position_offset_m:
+    - 0.03
+    - 0.02
+    - 0.0
+inference:
+  mode: synchronous
+  action_chunk_steps: 10
+  execution_horizon_steps: 5
+  latency_ms: 0
+  unavailable_action:
+  - 0.0
+  - 0.0
+  - 0.0
+  - 0.0
+  - 0.0
+  - 0.0
+  - -1.0
+seeds:
+  environment: 7
+  dynamics: 7
+  policy: 7

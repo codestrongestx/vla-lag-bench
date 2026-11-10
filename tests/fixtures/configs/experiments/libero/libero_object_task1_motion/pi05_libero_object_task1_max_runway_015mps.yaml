@@ -1,0 +1,31 @@
+schema_version: 5
+name: pi05-libero-object-task1-max-runway-015mps
+model:
+  openpi_config: pi05_libero
+  checkpoint: gs://openpi-assets/checkpoints/pi05_libero
+benchmark:
+  suite: libero_object
+  task_ids: [1]
+  episodes_per_task: 48
+  initial_state_indices: [0]
+  control_hz: 20
+  warmup_steps: 10
+  max_episode_steps: 280
+dynamics: []
+trajectory:
+  target: basket_1_main
+  start_step: 0
+  path_start_offset_m: [-0.495, 0.0, 0.0]
+  path_end_offset_m: [0.37, 0.0, 0.0]
+  speed_mps: 0.15
+  phase_bins: 12
+inference:
+  mode: synchronous
+  action_chunk_steps: 10
+  execution_horizon_steps: 5
+  latency_ms: 0
+  unavailable_action: [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, -1.0]
+seeds:
+  environment: 7
+  dynamics: 1701
+  policy: 7000

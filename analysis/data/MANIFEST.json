@@ -1,0 +1,74 @@
+{
+  "basket_alignment_speed/episodes.csv.gz": {
+    "measurement": "basket-alignment",
+    "rows": 14400,
+    "bytes": 1047559,
+    "sha256": "667d91d121938ca24d18e1be36ac924aa96d0fc1a7721b23363fcedba61b70c1"
+  },
+  "basket_releases/attempts.csv.gz": {
+    "measurement": "basket-releases",
+    "rows": 16047,
+    "bytes": 254753,
+    "sha256": "b9dec47edafbbac4ec95d34eb2f05cd1517ea37c7ae224c0b1478fa5b57b9c95"
+  },
+  "drawer_alignment_speed/episodes.csv.gz": {
+    "measurement": "drawer-alignment",
+    "rows": 14400,
+    "bytes": 574966,
+    "sha256": "487cbd1e574b55b732592f45fcbb7cd1fcb123977e96729cf4258ffc148e4368"
+  },
+  "dynamicvla_episodes/episodes.csv.gz": {
+    "measurement": "dynamicvla-episodes",
+    "rows": 26600,
+    "bytes": 177378,
+    "sha256": "ee85ff941229e25e392d3f3f7a3c7148d7eeca32043926c53fa68207669c83c3"
+  },
+  "dynamicvla_replay/attempts.csv.gz": {
+    "measurement": "dynamicvla-replay",
+    "rows": 71817,
+    "bytes": 1115427,
+    "sha256": "16452a8ede2c8c1385f39b19673a1a322c7e202a45bc82367c271862b272d1eb"
+  },
+  "latency_grid_episodes/episodes.csv.gz": {
+    "measurement": "latency-grid-episodes",
+    "rows": 64800,
+    "bytes": 446740,
+    "sha256": "05fd2e8e053ebc97938775c91786e3f08234265ec361042f784a24b2b8d57e9b"
+  },
+  "libero_episodes/gr00t.csv.gz": {
+    "measurement": "libero-episodes",
+    "rows": 28800,
+    "bytes": 225532,
+    "sha256": "cbb22f49a78b873bf025adf70df4b769810f631fece99496b12428536a6328b4"
+  },
+  "libero_episodes/pi05.csv.gz": {
+    "measurement": "libero-episodes",
+    "rows": 36000,
+    "bytes": 327532,
+    "sha256": "40d533a599c50aaa5a084258a0085f96b9e22519da0ae258b09f303c0980a21d"
+  },
+  "molmoact2_episodes/episodes.csv.gz": {
+    "measurement": "molmoact2-episodes",
+    "rows": 115200,
+    "bytes": 804451,
+    "sha256": "a0f2840436b0402893707c57774574b40af230c3afc676703e8b760bccf98c3d"
+  },
+  "plate_cabinet_episodes/episodes.csv.gz": {
+    "measurement": "plate-cabinet-episodes",
+    "rows": 50400,
+    "bytes": 378228,
+    "sha256": "a991bf9c74903d4fc37a935aa137f5fd04e42e55b46da70e92311b6be9420f64"
+  },
+  "plate_cabinet_replay/alignment.csv.gz": {
+    "measurement": "plate-cabinet-replay",
+    "rows": 50400,
+    "bytes": 1536269,
+    "sha256": "f6f595756dd37915142de0b017e030c0224369524d96c640c9c68b26de1efa49"
+  },
+  "plate_cabinet_replay/attempts.csv.gz": {
+    "measurement": "plate-cabinet-replay",
+    "rows": 184148,
+    "bytes": 2889931,
+    "sha256": "b2e53fcaff67921e1a7d3f22c44085babb6dda49138f7c2fd27842a9d9f072e9"
+  }
+}

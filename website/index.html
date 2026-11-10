@@ -1,0 +1,248 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>VLALagBench: Understanding When and Why VLA Inference Latency Matters</title>
+<!-- Every sentence on this page is the arXiv paper's (arXiv:2611.03103); scripts/build_website.py checks each one
+     against the arXiv source. Text written only for the website, which describes the page's own media, is marked
+     data-web. -->
+<meta name="description" content="VLALagBench links VLA inference latency to task success through observation staleness and idle time, enabling a compact model to predict success at unseen latencies and choose the execution mode for a given deployment.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="VLALagBench: Understanding When and Why VLA Inference Latency Matters">
+<meta property="og:description" content="Using VLALagBench, we find that even a modest inference latency of 100 ms can nearly halve task success on moving targets, with sensitivity varying substantially across tasks and policies.">
+<meta property="og:image" content="https://codestrongestx.github.io/vla-lag-bench/media/og.jpg">
+<meta property="og:url" content="https://codestrongestx.github.io/vla-lag-bench/">
+<link rel="canonical" href="https://codestrongestx.github.io/vla-lag-bench/">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#000000">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7'/%3E%3Ccircle cx='12.5' cy='16' r='6' fill='none' stroke='%23777' stroke-width='2.4'/%3E%3Ccircle cx='19.5' cy='16' r='6' fill='%23fff'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,400..700;1,14..32,400..700&display=swap">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="cover">
+  <h1>VLALagBench: Understanding When and Why <span class="nowrap">VLA Inference Latency Matters</span></h1>
+
+  <p class="authors">
+    <span>Qi Wen<sup>1</sup></span>
+    <span>Borui Xu<sup>1</sup></span>
+    <span>Hussein Amro<sup>1</sup></span>
+    <span>Hongshi Tan<sup>1</sup></span>
+    <span>Hanmin Lin<sup>2</sup></span>
+    <span>Chaoyi Ruan<sup>1</sup></span>
+    <span>Shanghao Liu<sup>1</sup></span>
+    <span>Gang Yang<sup>1</sup></span>
+    <span>Yuejiang Liu<sup>1,3</sup></span>
+    <span>Jiafei Duan<sup>1</sup></span>
+    <span>Bingsheng He<sup>1</sup></span>
+    <span>Jason Clemons<sup>4</sup></span>
+    <span>Christos Kozyrakis<sup>3,4</sup></span>
+    <span>Wenqi Jiang<sup>1</sup></span>
+  </p>
+  <p class="affiliations">
+    <span><sup>1</sup>National University of Singapore</span>
+    <span><sup>2</sup>Nanyang Technological University</span>
+    <span><sup>3</sup>Stanford University</span>
+    <span><sup>4</sup>NVIDIA</span>
+  </p>
+
+  <div class="teaser">
+    <video id="mosaic" src="media/mosaic.mp4" poster="media/mosaic.jpg" width="1440" height="864" preload="none" muted loop playsinline aria-label="Rollouts from VLALagBench: three VLA policies on four simulated tasks, DynamicVLA in Isaac Sim, and MolmoAct2 on an SO-101 arm"></video>
+    <div class="wordmark" aria-hidden="true">VLALagBench</div>
+  </div>
+
+  <nav class="buttons" aria-label="Paper, code, and citation">
+    <a href="https://arxiv.org/abs/2611.03103">Paper</a>
+    <a href="https://github.com/codestrongestx/vla-lag-bench">Code</a>
+    <a href="#citation">BibTeX</a>
+  </nav>
+</header>
+
+<main>
+
+<section id="abstract">
+  <h2>Abstract</h2>
+  <p>Vision-language-action (VLA) models offer a promising path toward general-purpose robot manipulation. While inference latency can affect task success in a constantly evolving physical world, the relationship between latency and task success rate remains poorly understood. In this paper, we introduce VLALagBench, a comprehensive benchmark for studying VLA inference latency sensitivity across task types, object speeds, execution modes (synchronous and asynchronous), and VLA policies. Using VLALagBench, we find that even a modest inference latency of 100&nbsp;ms can nearly halve task success on moving targets, with sensitivity varying substantially across tasks and policies. These differences reflect task-specific requirements for precision and continuous motion. By overlapping inference with action execution, asynchronous execution can recover some of the lost success at the cost of more frequent inference requests. Building on these findings, we develop an empirical model that predicts task success from limited calibration data, achieving root-mean-square prediction errors of only 5.7–7.8% across various VLA policies. Given an inference system's latency and per-robot throughput, these predictions guide the selection of system-specific VLA algorithm configurations to maximize task success. We believe VLALagBench and these findings provide a solid foundation for future robotics algorithm–system co-design.</p>
+</section>
+
+<section id="problem">
+  <h2>The problem</h2>
+  <p>Although VLA models need to respond in real time to keep up with changes in the physical world, the inference latency required for successful task execution remains poorly understood. From a benchmarking perspective, popular robotic manipulation benchmarks such as LIBERO and RoboCasa primarily evaluate model generalization across tasks and scenes, but their static environments provide limited insight into how inference latency affects task success in evolving physical environments. While recent benchmarks such as DynamicVLA's DOM, MoveBench, and ReflexBench support manipulation tasks with moving objects, these benchmarks do not systematically evaluate how inference latency affects task success: their evaluations either omit latency, use latencies tied to specific hardware, or cover only a limited set of policies and tasks.</p>
+</section>
+
+<section id="overview">
+  <h2>VLALagBench</h2>
+  <p>In this paper, we present VLALagBench, a benchmark for systematically studying how VLA inference latency affects task success, which provides the foundation for future robotic system design.</p>
+  <figure class="figure figure-wide wide">
+    <a href="figures/overview.webp"><img src="figures/overview.webp" width="1400" height="384" loading="lazy" alt="Overview: VLA inference latency affects task success through observation staleness and idle time; the benchmark varies task type, target speed, inference latency, execution mode, and policy to answer four research questions."></a>
+  </figure>
+</section>
+
+<section id="found">
+  <h2>What we found</h2>
+  <ul class="tldr">
+    <li><b>Finding 1.</b> Inference latency can substantially reduce task success on moving targets, with the extent of degradation depending on both the task nature and target speed.</li>
+    <li><b>Finding 2.</b> A task's latency sensitivity depends on its requirements for action precision and continuous motion.</li>
+    <li><b>Finding 3.</b> Asynchronous execution may recover task success by reducing robot pauses and observation staleness, at the cost of more frequent inference.</li>
+    <li><b>Finding 4.</b> VLA policies differ in their latency sensitivity, so the best-performing policy at a given inference latency depends on both the task and target speed.</li>
+  </ul>
+  <p>Building on these findings, we develop an empirical model that predicts task success from limited calibration data, achieving root-mean-square prediction errors of only 5.7–7.8% across various VLA policies.</p>
+</section>
+
+<section id="benchmark">
+  <h2>The benchmark</h2>
+  <p>VLALagBench examines five factors related to latency sensitivity.</p>
+  <ul class="factors">
+    <li>(1) <em>Task type</em>: grasping a moving object, releasing an object into a moving receptacle, placing an object on a moving surface, and manipulating a moving articulated object.</li>
+    <li>(2) <em>Object speed</em>: different target speeds within each task.</li>
+    <li>(3) <em>VLA policy</em>: popular models including π<sub>0.5</sub>, GR00T N1.7, and MolmoAct2.</li>
+    <li>(4) <em>Execution mode</em>: synchronous and various asynchronous execution methods.</li>
+    <li>(5) <em>Inference latency</em>: controlled latency levels.</li>
+  </ul>
+  <p>We compare synchronous execution with two representative asynchronous schedules: lazy and continuous execution. An execution mode governs when the robot requests a new action chunk and how it acts while waiting, creating a fundamental trade-off between robot idle time, observation staleness, and inference frequency.</p>
+  <figure class="figure">
+    <a href="figures/schedule-quantities.webp"><img src="figures/schedule-quantities.webp" width="312" height="283" loading="lazy" alt="Timelines of three execution modes at 100 ms latency and 50 ms per action. Synchronous execution idles 100 ms per five actions and acts on observations 200 ms old on average; lazy asynchronous execution idles 0 ms with the same 200 ms staleness; continuous asynchronous execution idles 0 ms with 125 ms staleness."></a>
+    <figcaption>Synchronous and two types of asynchronous execution, assuming 100&nbsp;ms inference latency and 50&nbsp;ms per action.</figcaption>
+  </figure>
+  <p>We select four representative tasks that cover distinct ways a robot interacts with a moving target. Each target moves at a constant speed along a closed, nearly elliptical path that avoids collisions with background objects in LIBERO's original layouts.</p>
+
+  <div class="demos wide">
+    <div class="demo">
+      <div class="demo-head">
+        <button class="replay" type="button" data-replay="demo-release" aria-label="Replay release"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M13 8.5A5 5 0 1 1 11.3 4.4"/><path d="M11.8 1.9v2.9H8.9"/></svg></button>
+        <h3>Release</h3>
+        <span class="demo-speed" data-web>0.1&nbsp;m/s</span>
+      </div>
+      <p class="demo-task">The robot picks up a stationary cream cheese package and drops it into a moving basket.</p>
+      <video id="demo-release" class="demo-video" src="media/release.mp4" poster="media/release.jpg" width="1584" height="512" muted loop playsinline controls preload="none" data-play aria-label="Release, one episode: success at 0 ms, failure with synchronous execution at 100 ms, success with continuous execution at 100 ms"></video>
+      <div class="demo-labels" data-web>
+        <p><i class="key zero"></i>0&nbsp;ms <b data-rate="pi0.5|basket|0.1|synchronous|0">82.5%</b></p>
+        <p><i class="key sync"></i><span class="long">Synchronous,</span><span class="short">Sync.</span> 100&nbsp;ms <b data-rate="pi0.5|basket|0.1|synchronous|100">67.0%</b></p>
+        <p><i class="key cont"></i><span class="long">Continuous,</span><span class="short">Cont.</span> 100&nbsp;ms <b data-rate="pi0.5|basket|0.1|continuous|100">83.5%</b></p>
+      </div>
+    </div>
+
+    <div class="demo">
+      <div class="demo-head">
+        <button class="replay" type="button" data-replay="demo-setdown" aria-label="Replay set-down"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M13 8.5A5 5 0 1 1 11.3 4.4"/><path d="M11.8 1.9v2.9H8.9"/></svg></button>
+        <h3>Set-down</h3>
+        <span class="demo-speed" data-web>0.1&nbsp;m/s</span>
+      </div>
+      <p class="demo-task">The robot picks up a stationary bowl and places it on a moving plate.</p>
+      <video id="demo-setdown" class="demo-video" src="media/setdown.mp4" poster="media/setdown.jpg" width="1584" height="512" muted loop playsinline controls preload="none" data-play aria-label="Set-down, one episode: success at 0 ms, failure with synchronous execution at 100 ms, success with continuous execution at 100 ms"></video>
+      <div class="demo-labels" data-web>
+        <p><i class="key zero"></i>0&nbsp;ms <b data-rate="pi0.5|plate|0.1|synchronous|0">71.5%</b></p>
+        <p><i class="key sync"></i><span class="long">Synchronous,</span><span class="short">Sync.</span> 100&nbsp;ms <b data-rate="pi0.5|plate|0.1|synchronous|100">40.5%</b></p>
+        <p><i class="key cont"></i><span class="long">Continuous,</span><span class="short">Cont.</span> 100&nbsp;ms <b data-rate="pi0.5|plate|0.1|continuous|100">66.0%</b></p>
+      </div>
+    </div>
+
+    <div class="demo">
+      <div class="demo-head">
+        <button class="replay" type="button" data-replay="demo-grasping" aria-label="Replay grasping"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M13 8.5A5 5 0 1 1 11.3 4.4"/><path d="M11.8 1.9v2.9H8.9"/></svg></button>
+        <h3>Grasping</h3>
+        <span class="demo-speed" data-web>0.1&nbsp;m/s</span>
+      </div>
+      <p class="demo-task">The robot picks up a bowl carried by a moving cabinet and places it on a stationary plate.</p>
+      <video id="demo-grasping" class="demo-video" src="media/grasping.mp4" poster="media/grasping.jpg" width="1584" height="512" muted loop playsinline controls preload="none" data-play aria-label="Grasping, one episode: success at 0 ms, failure with synchronous execution at 100 ms, success with continuous execution at 100 ms"></video>
+      <div class="demo-labels" data-web>
+        <p><i class="key zero"></i>0&nbsp;ms <b data-rate="pi0.5|cabinet|0.1|synchronous|0">86.5%</b></p>
+        <p><i class="key sync"></i><span class="long">Synchronous,</span><span class="short">Sync.</span> 100&nbsp;ms <b data-rate="pi0.5|cabinet|0.1|synchronous|100">74.0%</b></p>
+        <p><i class="key cont"></i><span class="long">Continuous,</span><span class="short">Cont.</span> 100&nbsp;ms <b data-rate="pi0.5|cabinet|0.1|continuous|100">86.0%</b></p>
+      </div>
+    </div>
+
+    <div class="demo">
+      <div class="demo-head">
+        <button class="replay" type="button" data-replay="demo-articulated" aria-label="Replay articulated manipulation"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M13 8.5A5 5 0 1 1 11.3 4.4"/><path d="M11.8 1.9v2.9H8.9"/></svg></button>
+        <h3>Articulated manipulation</h3>
+        <span class="demo-speed" data-web>0.025&nbsp;m/s</span>
+      </div>
+      <p class="demo-task">The robot grasps the handle of the moving cabinet's middle drawer and pulls it open.</p>
+      <video id="demo-articulated" class="demo-video" src="media/articulated.mp4" poster="media/articulated.jpg" width="1584" height="512" muted loop playsinline controls preload="none" data-play aria-label="Articulated manipulation, one episode: success at 0 ms, failure with synchronous execution at 100 ms, success with continuous execution at 100 ms"></video>
+      <div class="demo-labels" data-web>
+        <p><i class="key zero"></i>0&nbsp;ms <b data-rate="pi0.5|drawer|0.025|synchronous|0">73.0%</b></p>
+        <p><i class="key sync"></i><span class="long">Synchronous,</span><span class="short">Sync.</span> 100&nbsp;ms <b data-rate="pi0.5|drawer|0.025|synchronous|100">61.0%</b></p>
+        <p><i class="key cont"></i><span class="long">Continuous,</span><span class="short">Cont.</span> 100&nbsp;ms <b data-rate="pi0.5|drawer|0.025|continuous|100">74.0%</b></p>
+      </div>
+    </div>
+  </div>
+  <div class="demos wide">
+    <div class="demo" style="--gap: calc(100% * 24 / 1968)">
+      <div class="demo-head">
+        <button class="replay" type="button" data-replay="demo-real" aria-label="Replay the real-robot rollouts"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M13 8.5A5 5 0 1 1 11.3 4.4"/><path d="M11.8 1.9v2.9H8.9"/></svg></button>
+        <h3>Release small</h3>
+        <span class="demo-speed" data-web>MolmoAct2 on an SO-101 arm · 0.05&nbsp;m/s · 267&nbsp;ms</span>
+      </div>
+      <video id="demo-real" class="demo-video real-video" src="media/real.mp4" poster="media/real.jpg" width="1968" height="400" muted loop playsinline controls preload="none" data-play aria-label="Real robot, one rollout per execution mode: synchronous execution falls behind the moving bowl; lazy and continuous execution drop the tote bag into it"></video>
+      <div class="demo-labels" data-web>
+        <p><i class="key sync"></i>Synchronous <b data-real="release-small|synchronous|8|fast">2/5</b></p>
+        <p><i class="key lazy"></i>Lazy <b data-real="release-small|lazy|8|fast">4/5</b></p>
+        <p><i class="key cont"></i>Continuous <b data-real="release-small|continuous|8|fast">5/5</b></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="systems">
+  <h2>Choose a mode for your system</h2>
+  <p><b>Success model intuition.</b> <i>Stale observations and robot pauses caused by inference latency can make a task harder, much like increasing the target's speed. This similarity suggests a way to reuse past success measurements: we first measure how task success varies with target speed under one latency and execution mode. To estimate success under another latency and execution modes, we simply look up the success rate on the measured curve at a target speed adjusted for observation staleness and robot idle time.</i></p>
+  <p>For a given policy and task, we approximate success under configuration <i>X</i> as <span class="nowrap"><i>S</i><sub><i>X</i></sub>(<i>v</i>)&nbsp;≈&nbsp;<i>S</i><sub>0</sub>(<i>λ</i><sub><i>X</i></sub><i>v</i>)</span>, where <i>S</i><sub>0</sub> is the success curve under zero-latency synchronous execution with a fixed reference horizon. Configuration <i>X</i> specifies the inference latency, execution mode, and execution horizon. The factor <i>λ</i><sub><i>X</i></sub> adjusts the target speed: to predict success at speed <i>v</i>, we read the reference curve at speed <i>λ</i><sub><i>X</i></sub><i>v</i>. In practice, we find that this adjustment is well approximated by a simple linear model of observation staleness and robot idle time:</p>
+  <div class="equation" role="math" aria-label="lambda sub X equals 1, plus a times s-bar sub X minus s-bar sub 0, over s-bar sub 0, plus b times I sub X over H sub X.">
+    <math display="block"><mrow><msub><mi>λ</mi><mi>X</mi></msub><mo>=</mo><mn>1</mn><mo>+</mo><mi>a</mi><mfrac><mrow><msub><mover><mi>s</mi><mo>‾</mo></mover><mi>X</mi></msub><mo>−</mo><msub><mover><mi>s</mi><mo>‾</mo></mover><mn>0</mn></msub></mrow><msub><mover><mi>s</mi><mo>‾</mo></mover><mn>0</mn></msub></mfrac><mo>+</mo><mi>b</mi><mfrac><msub><mi>I</mi><mi>X</mi></msub><msub><mi>H</mi><mi>X</mi></msub></mfrac><mo>,</mo></mrow></math>
+  </div>
+  <p class="continued">where <i>s&#772;</i><sub><i>X</i></sub> and <i>s&#772;</i><sub>0</sub> are the mean observation staleness under configuration <i>X</i> and the reference configuration, respectively; <i>H</i><sub><i>X</i></sub> is the execution horizon, and <i>I</i><sub><i>X</i></sub> is the number of idle steps per execution horizon. The coefficients <i>a</i> and <i>b</i> are fitted separately for each policy–task pair and quantify its sensitivity to these two factors.</p>
+  <p>Fitted on 0, 100, and 200&nbsp;ms runs, the model predicts the held-out 50, 150, and 250&nbsp;ms curves with an RMS error of 5.7 points for π<sub>0.5</sub> and 7.8 points for MolmoAct2.</p>
+  <figure class="figure">
+    <a href="figures/prediction-summary.webp"><img src="figures/prediction-summary.webp" width="312" height="192" loading="lazy" alt="Three panels comparing predicted (dashed) and measured success at latencies excluded from calibration: release at synchronous 150 ms, set-down at lazy 150 ms, and set-down at continuous 50 ms."></a>
+    <figcaption>Model predictions track π<sub>0.5</sub>&#39;s measured success at inference latencies excluded from calibration. Dashed black curves show predictions; markers show measurements.</figcaption>
+  </figure>
+  <p class="claim"><b>Different systems favor different execution modes and horizons, even for the same VLA policy and task.</b></p>
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr><th>System</th><th>GPU / network</th><th class="num">Latency <span class="unit">(ms)</span></th><th class="num">Rate limit <span class="unit">(req/s)</span></th><th>Predicted <span class="unit">Mode, <i>H</i></span></th><th class="num">Success (%) <span class="unit">Pred./Meas.</span></th></tr>
+      </thead>
+      <tbody>
+        <tr data-system="A"><td>A</td><td data-label="GPU / network">Jetson AGX Thor</td><td class="num" data-label="Latency (ms)">72.8</td><td class="num" data-label="Rate limit (req/s)">Uncapped</td><td data-label="Predicted Mode, H">Cont., 2</td><td class="num" data-label="Success (%) Pred./Meas.">84.5<sup>*</sup>/84.5</td></tr>
+        <tr data-system="B"><td>B</td><td data-label="GPU / network">RTX 4090, WiFi 7</td><td class="num" data-label="Latency (ms)">37.8</td><td class="num" data-label="Rate limit (req/s)">20.0</td><td data-label="Predicted Mode, H">Cont., 1</td><td class="num" data-label="Success (%) Pred./Meas.">92.3/95.0</td></tr>
+        <tr data-system="C"><td>C</td><td data-label="GPU / network">H100, 5G</td><td class="num" data-label="Latency (ms)">42.9</td><td class="num" data-label="Rate limit (req/s)">5.0</td><td data-label="Predicted Mode, H">Async., 4</td><td class="num" data-label="Success (%) Pred./Meas.">84.5/82.0</td></tr>
+        <tr data-system="D"><td>D</td><td data-label="GPU / network">H100, slow cloud</td><td class="num" data-label="Latency (ms)">217.9</td><td class="num" data-label="Rate limit (req/s)">Uncapped</td><td data-label="Predicted Mode, H">Lazy, 5</td><td class="num" data-label="Success (%) Pred./Meas.">46.1/41.5</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="note">Using measurements from System&nbsp;A, our model predicts the best configurations for Systems&nbsp;B–D. Each system favors a different execution mode and horizon. <sup>*</sup>Calibration configuration.</p>
+</section>
+
+<section id="isaac-sim">
+  <h2>Also checked in Isaac Sim</h2>
+  <p>To validate our findings in a second simulator, we evaluate release and grasping in Isaac Sim using the Dynamic Object Manipulation (DOM) benchmark and the accompanying DynamicVLA policy trained on moving objects. <span data-web><a href="https://arxiv.org/html/2611.03103v1#A5">Appendix E</a></span></p>
+</section>
+
+<section id="citation">
+  <h2>Citation</h2>
+  <div class="bibtex">
+    <button class="copy" type="button" data-copy="bibtex">Copy</button>
+<pre id="bibtex">@misc{wen2026vlalagbenchunderstandingvlainference,
+  title         = {{VLALagBench}: Understanding When and Why {VLA} Inference Latency Matters},
+  author        = {Qi Wen and Borui Xu and Hussein Amro and Hongshi Tan and Hanmin Lin and
+                   Chaoyi Ruan and Shanghao Liu and Gang Yang and Yuejiang Liu and Jiafei Duan and
+                   Bingsheng He and Jason Clemons and Christos Kozyrakis and Wenqi Jiang},
+  year          = {2026},
+  eprint        = {2611.03103},
+  archivePrefix = {arXiv},
+  primaryClass  = {cs.RO},
+  url           = {https://arxiv.org/abs/2611.03103}
+}</pre>
+  </div>
+</section>
+
+</main>
+
+<script src="site.js"></script>
+</body>
+</html>
